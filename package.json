@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@azure/storage-blob": "^12.11.0",
     "@emotion/react": "^11.10.4",
     "@mantine/core": "^5.4.1",
     "@mantine/hooks": "^5.4.1",
