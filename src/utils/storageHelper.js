@@ -10,9 +10,7 @@ const {
 // connect to blob storage
 const connectToStorage = async () => {
   const accountName = "mentora";
-  const accountKey =
-    process.env.AZURE_ACCOUNT_KEY ||
-    "eSIvJLMPwfS837uokn60t3/BAvppJMhrB05z+Ld3sCqkx3kYAUX1bHhEHBfTezUR4sBpO5FU5Rsb+AStBd81UQ==";
+  const accountKey = process.env.AZURE_ACCOUNT_KEY || "";
   if (!accountName) throw Error("Azure Storage accountName not found");
   if (!accountKey) throw Error("Azure Storage accountKey not found");
 
@@ -48,7 +46,7 @@ export const getBlobNames = async () => {
     );
 
     const blobFile = await file.blob();
-    var urlCreator = Window.URL || window.webkitURL;
+    var urlCreator = window.URL || window.webkitURL;
 
     const fileUrl = urlCreator.createObjectURL(blobFile);
     console.log(fileUrl);
