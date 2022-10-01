@@ -2,6 +2,8 @@
 //   .getContainerClient(containerName)
 //   .create();
 
+import { CLIENT_PUBLIC_FILES_PATH } from "next/dist/shared/lib/constants";
+
 const {
   BlobServiceClient,
   StorageSharedKeyCredential,
@@ -10,7 +12,7 @@ const {
 // connect to blob storage
 const connectToStorage = async () => {
   const accountName = "mentora";
-  const accountKey = process.env.AZURE_ACCOUNT_KEY || "";
+  const accountKey = process.env.AZURE_ACCOUNT_KEY;
   if (!accountName) throw Error("Azure Storage accountName not found");
   if (!accountKey) throw Error("Azure Storage accountKey not found");
 
@@ -46,12 +48,13 @@ export const getBlobNames = async () => {
     );
 
     const blobFile = await file.blob();
-    var urlCreator = window.URL || window.webkitURL;
+    // blobFile.name = item.name;
+    // blobFile.lastModified = new Date();
 
-    const fileUrl = urlCreator.createObjectURL(blobFile);
-    console.log(fileUrl);
+    console.log(blobFile);
+
     // URL.createObjectURL(
-    res.push({ name: item.name, fileUrl: fileUrl });
+    res.push(blobFile);
     // console.log(blobFile);
   }
 

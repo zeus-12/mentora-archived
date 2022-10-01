@@ -11,8 +11,6 @@ import Router from "next/router";
 
 const useStyles = createStyles((theme) => ({
   root: {
-    // paddingTop: 80,
-    // paddingBottom: 80,
     minHeight: "92vh",
     display: "flex",
     alignItems: "center",

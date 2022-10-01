@@ -1,8 +1,12 @@
 // to define a general layout
 
+import Navbar from "./Navbar";
 const Layout = ({ children }) => {
   return (
-    <div className=" bg-[#080d13] min-h-[92vh]">{children}</div>
+    <>
+      <Navbar />
+      <div className=" bg-[#080d13] min-h-[92vh]">{children}</div>
+    </>
     // <NotificationContext.Provider
     //   value={{ message, type, setMessage, setType }}
     // >
