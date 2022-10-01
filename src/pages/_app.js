@@ -1,5 +1,5 @@
 import Layout from "../components/Layout";
-import "../styles/globals.css";
+import "../../styles/globals.css";
 import { MantineProvider } from "@mantine/core";
 
 function MyApp({ Component, pageProps }) {
