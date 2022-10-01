@@ -7,31 +7,17 @@ import Fuse from "fuse.js";
 export default function Home() {
   const [courses, setCourses] = useState([
     { course_id: "ab1234", course_name: "test" },
-
     { course_id: "ed2324", course_name: "hello" },
     { course_id: "sj2345", course_name: "intro" },
     { course_id: "hi1341", course_name: "welcome" },
     { course_id: "ml1343", course_name: "therefore" },
   ]);
 
-  const options = {
-    // isCaseSensitive: false,
-
-    // shouldSort: true,
-    // includeMatches: false,
-    // findAllMatches: true,
-    keys: ["course_id", "course_name"],
-  };
-
-  // Change the pattern
-  const fuse = new Fuse(courses, options);
+  const fuse = new Fuse(courses, { keys: ["course_id", "course_name"] });
   const [searchQuery, setSearchQuery] = useState("");
 
   const filterData = (data) => {
-    // if (searchQuery === "") {
-    //   return data;
-    // }
-    if (searchQuery === "") {
+    if (searchQuery.trim() === "") {
       return courses.map((doc, idx) => ({
         item: doc,
         score: 1,

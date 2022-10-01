@@ -49,7 +49,7 @@ export const NavbarDrawer = ({ opened, setOpened }) => (
     className="pt-4 px-2 bg-black"
     onClick={() => setOpened(false)}
     opened={opened}
-    position="top"
+    position="right"
     size="100vh"
     onClose={() => setOpened(false)}
     overlayOpacity={0.55}
