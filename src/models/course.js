@@ -20,6 +20,6 @@ const courseSchema = new Schema(
   { timestamps: true }
 );
 
-const Course = models.course || model("Course", courseSchema);
+const Course = models.Course || model("Course", courseSchema);
 
 export default Course;

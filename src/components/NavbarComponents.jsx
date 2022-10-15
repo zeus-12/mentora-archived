@@ -2,6 +2,12 @@ import { Drawer } from "@mantine/core";
 import Link from "next/link";
 // import { NotificationContext } from "../utils/context";
 
+const MiddleSectionElements = [
+  { name: "Doubts", link: "/doubts" },
+  { name: "Materials", link: "/course" },
+  { name: "Buddy", link: "/buddy" },
+];
+
 export const LinkComponent = ({ link, name }) => (
   <Link href={link} passHref>
     <p className="px-2 py-1 text-gray-300 rounded-md hover:text-white cursor-pointer text-center hover:bg-gray-900">
@@ -10,9 +16,14 @@ export const LinkComponent = ({ link, name }) => (
   </Link>
 );
 
-export const LinkElements = ({ session }) => {
+export const NavbarMiddleSection = () => {
+  return MiddleSectionElements.map((item) => (
+    <LinkComponent key={item.name} link={item.link} name={item.name} />
+  ));
+};
+
+export const LoginUserComponent = ({ session }) => {
   //   const { setMessage, setType } = useContext(NotificationContext);
-  console.log(session);
   return (
     <>
       {/* Logout & SignIn*/}
@@ -38,7 +49,9 @@ export const Logo = ({ setOpened = () => {}, textSize = "text-2xl" }) => (
       onClick={() => setOpened(false)}
       className="flex items-center hover:cursor-pointer"
     >
-      <p className={textSize}>Mentora</p>
+      <p className={textSize}>
+        <span className="text-green-500">Mentor</span>a
+      </p>
     </div>
   </Link>
 );
@@ -57,7 +70,7 @@ export const NavbarDrawer = ({ opened, setOpened, session }) => (
     zIndex={20}
   >
     <div className="text-2xl pt-16 space-y-4">
-      <LinkElements session={session} />
+      <LoginUserComponent session={session} />
     </div>
   </Drawer>
 );
