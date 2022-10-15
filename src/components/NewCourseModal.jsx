@@ -1,11 +1,4 @@
-import {
-  TextInput,
-  ActionIcon,
-  Button,
-  Modal,
-  Textarea,
-  Code,
-} from "@mantine/core";
+import { TextInput, ActionIcon, Button, Modal, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { IconTrash } from "@tabler/icons";
 import { useState } from "react";
@@ -46,6 +39,7 @@ const NewCourseModal = ({ isModalOpen, setIsModalOpen }) => {
     });
 
     const data = await res.json();
+    // todo check if error, show notification based on it
     setLoading(false);
     setIsModalOpen(false);
   };
@@ -151,7 +145,6 @@ const NewCourseModal = ({ isModalOpen, setIsModalOpen }) => {
           Add
         </Button>
       </div>
-      {/* <Code block>{JSON.stringify(form.values, null, 2)}</Code> */}
     </Modal>
   );
 };

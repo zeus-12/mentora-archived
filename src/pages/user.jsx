@@ -1,11 +1,14 @@
 import { Button } from "@mantine/core";
 import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const User = () => {
   const { data: session } = useSession();
+  const router = useRouter();
+
   const signoutHandler = () => {
     signOut();
-    Router.push("/");
+    router.push("/");
   };
 
   return (

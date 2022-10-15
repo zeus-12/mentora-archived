@@ -18,7 +18,7 @@ export default function SignIn() {
 
           <div>
             <p className="text-xl font-semibold">
-              The all-in-one complaint portal for Insti!
+              The all-in-one place for Acads!
             </p>
           </div>
 

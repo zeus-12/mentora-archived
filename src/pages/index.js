@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Image from "next/image";
 
 const features = [
@@ -22,6 +23,11 @@ const features = [
 export default function Home() {
   return (
     <div className="md:p-4 p-2 lg:p-6 xl:p-8">
+      <Head>
+        <title>Mentora</title>
+        <meta name="description" content="All-In-One App for Acads!" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <p className="text-4xl font-bold md:text-5xl text-gray-100 lg:text-7xl block">
         👋 Hello there,
       </p>

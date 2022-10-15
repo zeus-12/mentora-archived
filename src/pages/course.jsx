@@ -1,5 +1,4 @@
 import { Button, Input, Loader } from "@mantine/core";
-import Head from "next/head";
 import { useEffect, useState } from "react";
 import CourseCard from "../components/CourseCard";
 import Fuse from "fuse.js";
@@ -42,12 +41,6 @@ export default function Home() {
 
   return (
     <div>
-      <Head>
-        <title>Mentora</title>
-        <meta name="description" content="All-In-One App for Acads!" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <div>
         <div className="flex gap-4 items-center justify-center">
           <div className="max-w-[40rem] flex-1 ">
