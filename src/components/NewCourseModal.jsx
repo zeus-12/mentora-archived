@@ -144,7 +144,7 @@ const NewCourseModal = ({ isModalOpen, setIsModalOpen }) => {
           Add
         </Button>
       </div>
-      <Code block>{JSON.stringify(form.values, null, 2)}</Code>
+      {/* <Code block>{JSON.stringify(form.values, null, 2)}</Code> */}
     </Modal>
   );
 };

@@ -54,7 +54,6 @@ export default function Home() {
             <Input
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              // width={"40rem"}
               variant="filled"
               placeholder="Enter course name/id"
               size="md"
@@ -62,7 +61,6 @@ export default function Home() {
           </div>
           <Button
             variant="outline"
-            // compact
             className="text-green-500 border-green-500 hover:bg-green-500 hover:text-white"
             onClick={() => setIsModalOpen(true)}
           >
