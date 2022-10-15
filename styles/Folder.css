@@ -2,9 +2,10 @@
 
     width: 150px;
     height: 110px;
+
   
     border-radius: 5px 25px 25px 25px;
-    filter: drop-shadow(0 0 0.75rem grey);
+    filter: drop-shadow(0 0 0.4rem grey);
   
     background: white;
     position: relative;
