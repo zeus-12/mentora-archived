@@ -1,6 +1,8 @@
 import Layout from "../components/Layout";
 import "../../styles/globals.css";
 import { MantineProvider } from "@mantine/core";
+import '../../styles/Folder.css'
+
 import { SessionProvider } from "next-auth/react";
 
 function MyApp({ Component, pageProps, session }) {
