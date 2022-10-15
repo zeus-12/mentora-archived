@@ -68,7 +68,7 @@ export default function Home() {
           </Button>
         </div>
         {/* course cards */}
-        <div className="grid lg:grid-cols-3 xl:grid-cols-5 sm:grid-cols-2">
+        <div className="grid lg:grid-cols-3 xl:grid-cols-4 sm:grid-cols-2">
           {courses.length > 0 &&
             filterData(courses).map((course) => (
               <CourseCard

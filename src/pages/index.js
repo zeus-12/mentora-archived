@@ -3,11 +3,11 @@ import Image from "next/image";
 const features = [
   {
     title: "Resources",
-    body: "Mentora is a platform that let you share resources with others.Hence providing you with the best resources to ace the exams. It contains previous year QP's, Textbooks, etc.",
+    body: "Mentora is a platform that let you share resources with others. Hence providing you with the best resources to ace the exams. It contains previous year QP's, Textbooks, etc.",
   },
   {
     title: "Q&A",
-    body: "Mentora is a platform that let you ask questions to others and get answers to your doubts.",
+    body: "It let you ask get answers to your doubts, and help others with theirs.",
   },
   {
     title: "Buddy",
@@ -25,12 +25,12 @@ export default function Home() {
       <p className="text-4xl font-bold md:text-5xl text-gray-100 lg:text-7xl block">
         👋 Hello there,
       </p>
-      <p className="md:text-4xl md:max-w-[55rem] text-2xl font-semibold text-gray-400 mt-4">
+      <p className="ml-24 md:text-4xl md:max-w-[55rem] text-2xl font-semibold text-gray-400 mt-4">
         Here&apos;s the Perfect solution to achieve your dream{" "}
         <span className="text-green-400">CG</span>
+        <br />
+        <span className="text-green-300">It provides you with</span>
       </p>
-
-      <p className="mt-8 text-3xl">Mentora provides you with</p>
 
       {features.map((item, index) => (
         <div
@@ -45,12 +45,14 @@ export default function Home() {
               height="100%"
               layout="responsive"
               objectFit="contain"
-              src={`/${item.title}.jpg`}
+              src={`/${item.title}.png`}
               alt={item.title}
             />
           </div>
           <div className="w-full sm:w-3/4 md:w-1/2">
-            <p className="sm:text-4xl text-3xl font-semibold">{item.title}</p>
+            <p className="sm:text-4xl text-3xl font-semibold text-green-400">
+              {item.title}
+            </p>
             <p className="font-medium text-gray-400 mt-2 text-xl">
               {item.body}
             </p>

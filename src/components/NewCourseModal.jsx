@@ -16,7 +16,7 @@ const NewCourseModal = ({ isModalOpen, setIsModalOpen }) => {
       course_name: "",
       course_id: "",
       description: "",
-      professors: [],
+      professors: [""],
       credits: "",
     },
     validate: {
@@ -52,12 +52,15 @@ const NewCourseModal = ({ isModalOpen, setIsModalOpen }) => {
 
   return (
     <Modal
+      transition="fade"
+      transitionDuration={600}
+      transitionTimingFunction="ease"
       opened={isModalOpen}
       onClose={() => setIsModalOpen(false)}
       title="Add Course"
       centered={true}
       classNames={{
-        title: "text-2xl font-bold",
+        title: "text-2xl text-green-200 font-bold",
       }}
       size="lg"
       radius="md"
@@ -95,7 +98,7 @@ const NewCourseModal = ({ isModalOpen, setIsModalOpen }) => {
           {...form.getInputProps("description")}
         />
 
-        <div className="flex flex-1 items-center justify-between max-w-[25rem] w-screen">
+        <div className="flex flex-1 mt-4 items-center justify-between max-w-[25rem] w-screen">
           <p className="sm:text-2xl text-2xl font-semibold">Professors</p>
           <Button
             variant="outline"

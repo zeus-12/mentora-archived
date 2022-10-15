@@ -1,14 +1,15 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import LoaderComponent from "../../components/LoaderComponent";
+import { prettifyId } from "../../utils/helper";
+
 const CourseDetails = () => {
   const router = useRouter();
   const { courseId } = router.query;
-  const [loading, setLoading] = useState(false);
+
   const [comments, setComments] = useState([]);
-  const [courseData, setCourseData] = useState([]);
+  const [courseData, setCourseData] = useState({});
   useEffect(() => {
-    setLoading(true);
     const fetchCourseData = async () => {
       const res = await fetch("/api/course/" + courseId);
       const data = await res.json();
@@ -16,19 +17,19 @@ const CourseDetails = () => {
       console.log(data.data);
     };
     fetchCourseData();
-    setLoading(false);
   }, [courseId]);
+  console.log(courseData);
+  console.log(Object.keys(courseData));
 
-  if (loading) {
-    return <LoaderComponent />;
-  }
+  // if (Object.keys(courseData).length === 0) {
+  //   return <LoaderComponent />;
+  // }
 
   return (
     <div>
-      {/* {courseId} */}
-      {/* course contents */}
-
-      {/* comments */}
+      <p className="text-3xl">{courseData?.course_name}</p>
+      {/* <p className="text-3xl">{prettifyId(courseData?.course_id)}</p> */}
+      {/* {professors.length > 0 &<p>Course Name: {course_name}</p>} */}
     </div>
   );
 };

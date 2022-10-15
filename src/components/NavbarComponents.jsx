@@ -63,19 +63,21 @@ export const LoginUserComponent = ({ session }) => {
     <>
       {/* Logout & SignIn*/}
       {session && (
-        <UnstyledButton>
-          <Group>
-            <Avatar size={40} color="blue">
-              {generateAvatarText(session.user.name)}
-            </Avatar>
-            <div>
-              <Text>{session.user.name}</Text>
-              <Text size="xs" color="dimmed">
-                {session.user.email}
-              </Text>
-            </div>
-          </Group>
-        </UnstyledButton>
+        <Link href="/user" passHref>
+          <UnstyledButton>
+            <Group>
+              <Avatar size={40} color="blue">
+                {generateAvatarText(session.user.name)}
+              </Avatar>
+              <div>
+                <Text>{session.user.name}</Text>
+                <Text size="xs" color="dimmed">
+                  {session.user.email}
+                </Text>
+              </div>
+            </Group>
+          </UnstyledButton>
+        </Link>
 
         // <div className="flex justify-center items-center">
         //   <img
