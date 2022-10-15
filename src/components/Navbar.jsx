@@ -1,4 +1,5 @@
 import { Burger } from "@mantine/core";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { Logo, LinkElements, NavbarDrawer } from "./NavbarComponents";
 
@@ -6,6 +7,7 @@ export default function Navbar() {
   //for the burger & drawer
   const [opened, setOpened] = useState(false);
   const title = opened ? "Close navigation" : "Open navigation";
+  const { data: session } = useSession();
 
   return (
     <div>
@@ -34,13 +36,13 @@ export default function Navbar() {
         )}
         {!opened && (
           <div className="text-gray-300 text-lg font-medium hidden xl:gap-8 sm:flex gap-8">
-            <LinkElements />
+            <LinkElements session={session} />
           </div>
         )}
       </div>
 
       <div className="absolute top-10">
-        <NavbarDrawer setOpened={setOpened} opened={opened} />
+        <NavbarDrawer session={session} setOpened={setOpened} opened={opened} />
       </div>
     </div>
   );

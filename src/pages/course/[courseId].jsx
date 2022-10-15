@@ -10,6 +10,7 @@ const CourseDetails = () => {
   useEffect(() => {
     // fetch course details and comments for the course
   }, []);
+
   return (
     <div>
       {courseId}

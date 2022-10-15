@@ -37,7 +37,7 @@ export default function Home() {
       </Head>
 
       <div>
-        <div className="max-w-[40rem] mx-auto ">
+        <div className="max-w-[40rem] mx-auto mb-4 ">
           <Input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
