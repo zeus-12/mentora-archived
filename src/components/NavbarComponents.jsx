@@ -10,16 +10,20 @@ const MiddleSectionElements = [
 
 export const LinkComponent = ({ link, name }) => (
   <Link href={link} passHref>
-    <p className="px-2 py-1 text-gray-300 rounded-md hover:text-white cursor-pointer text-center hover:bg-gray-900">
+    <p className="px-2 py-1 text-gray-300 text-xl font-semibold rounded-md hover:text-white cursor-pointer text-center hover:bg-gray-900">
       {name}
     </p>
   </Link>
 );
 
-export const NavbarMiddleSection = () => {
-  return MiddleSectionElements.map((item) => (
-    <LinkComponent key={item.name} link={item.link} name={item.name} />
-  ));
+export const NavbarMiddleSection = ({ className }) => {
+  return (
+    <div className={`flex gap-2 ${className}`}>
+      {MiddleSectionElements.map((item) => (
+        <LinkComponent key={item.name} link={item.link} name={item.name} />
+      ))}
+    </div>
+  );
 };
 
 export const LoginUserComponent = ({ session }) => {
@@ -70,6 +74,7 @@ export const NavbarDrawer = ({ opened, setOpened, session }) => (
     zIndex={20}
   >
     <div className="text-2xl pt-16 space-y-4">
+      <NavbarMiddleSection className="flex-col" />
       <LoginUserComponent session={session} />
     </div>
   </Drawer>
