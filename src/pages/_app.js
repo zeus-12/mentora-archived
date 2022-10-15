@@ -2,19 +2,24 @@ import Layout from "../components/Layout";
 import "../../styles/globals.css";
 import { MantineProvider } from "@mantine/core";
 import '../../styles/Folder.css'
-function MyApp({ Component, pageProps }) {
+
+import { SessionProvider } from "next-auth/react";
+
+function MyApp({ Component, pageProps, session }) {
   return (
-    <MantineProvider
-      withGlobalStyles
-      withNormalizeCSS
-      theme={{
-        colorScheme: "dark",
-      }}
-    >
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </MantineProvider>
+    <SessionProvider refetchInterval={0} session={session}>
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        theme={{
+          colorScheme: "dark",
+        }}
+      >
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </MantineProvider>
+    </SessionProvider>
   );
 }
 

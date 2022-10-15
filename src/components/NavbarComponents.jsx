@@ -1,7 +1,12 @@
 import { Drawer } from "@mantine/core";
 import Link from "next/link";
-import { useContext } from "react";
 // import { NotificationContext } from "../utils/context";
+
+const MiddleSectionElements = [
+  { name: "Doubts", link: "/doubts" },
+  { name: "Materials", link: "/course" },
+  { name: "Buddy", link: "/buddy" },
+];
 
 export const LinkComponent = ({ link, name }) => (
   <Link href={link} passHref>
@@ -11,24 +16,29 @@ export const LinkComponent = ({ link, name }) => (
   </Link>
 );
 
-export const LinkElements = () => {
-  //   const { setMessage, setType } = useContext(NotificationContext);
+export const NavbarMiddleSection = () => {
+  return MiddleSectionElements.map((item) => (
+    <LinkComponent key={item.name} link={item.link} name={item.name} />
+  ));
+};
 
+export const LoginUserComponent = ({ session }) => {
+  //   const { setMessage, setType } = useContext(NotificationContext);
   return (
     <>
       {/* Logout & SignIn*/}
-      {/* {session && (
+      {session && (
         <div className="flex justify-center items-center">
           <img
             alt="user"
             src={session.user.image}
             className="w-9 h-9 rounded-full"
           />
-          <LinkComponent link="/user" name={session.user.name} />
+          <LinkComponent link="/" name={session.user.name} />
         </div>
       )}
 
-      {!session && <LinkComponent link="/api/auth/signin" name="Login" />} */}
+      {!session && <LinkComponent link="/api/auth/signin" name="Login" />}
     </>
   );
 };
@@ -39,12 +49,14 @@ export const Logo = ({ setOpened = () => {}, textSize = "text-2xl" }) => (
       onClick={() => setOpened(false)}
       className="flex items-center hover:cursor-pointer"
     >
-      <p className={textSize}>Mentora</p>
+      <p className={textSize}>
+        <span className="text-green-500">Mentor</span>a
+      </p>
     </div>
   </Link>
 );
 
-export const NavbarDrawer = ({ opened, setOpened }) => (
+export const NavbarDrawer = ({ opened, setOpened, session }) => (
   <Drawer
     className="pt-4 px-2 bg-black"
     onClick={() => setOpened(false)}
@@ -58,7 +70,7 @@ export const NavbarDrawer = ({ opened, setOpened }) => (
     zIndex={20}
   >
     <div className="text-2xl pt-16 space-y-4">
-      <LinkElements />
+      <LoginUserComponent session={session} />
     </div>
   </Drawer>
 );

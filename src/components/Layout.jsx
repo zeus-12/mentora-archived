@@ -5,7 +5,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Navbar />
-      <div className=" bg-[#080d13] min-h-[92vh]">{children}</div>
+      <div className="px-16 pt-4 bg-[#080d13] min-h-[92vh]">{children}</div>
     </>
     // <NotificationContext.Provider
     //   value={{ message, type, setMessage, setType }}
