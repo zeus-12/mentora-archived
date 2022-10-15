@@ -1,7 +1,15 @@
-import { Burger, Drawer } from "@mantine/core";
+import {
+  Avatar,
+  Burger,
+  Drawer,
+  Group,
+  Text,
+  UnstyledButton,
+} from "@mantine/core";
 import Link from "next/link";
 // import { NotificationContext } from "../utils/context";
 import { useRouter } from "next/router";
+import { generateAvatarText } from "../utils/helper";
 
 const MiddleSectionElements = [
   { name: "Doubts", link: "/doubts" },
@@ -13,7 +21,7 @@ export const BurgerComponent = ({ opened, setOpened }) => {
   const title = opened ? "Close navigation" : "Open navigation";
   return (
     <Burger
-      color="#"
+      color="#22c55e"
       opened={opened}
       onClick={() => setOpened((o) => !o)}
       title={title}
@@ -41,7 +49,7 @@ export const LinkComponent = ({ link, name }) => {
 
 export const NavbarMiddleSection = ({ className }) => {
   return (
-    <div className={`flex gap-6 ${className}`}>
+    <div className={`flex lg:gap-4 xl:gap-8 ${className}`}>
       {MiddleSectionElements.map((item) => (
         <LinkComponent key={item.name} link={item.link} name={item.name} />
       ))}
@@ -55,14 +63,28 @@ export const LoginUserComponent = ({ session }) => {
     <>
       {/* Logout & SignIn*/}
       {session && (
-        <div className="flex justify-center items-center">
-          <img
-            alt="user"
-            src={session.user.image}
-            className="w-9 h-9 rounded-full"
-          />
-          <LinkComponent link="/user" name={session.user.name} />
-        </div>
+        <UnstyledButton>
+          <Group>
+            <Avatar size={40} color="blue">
+              {generateAvatarText(session.user.name)}
+            </Avatar>
+            <div>
+              <Text>{session.user.name}</Text>
+              <Text size="xs" color="dimmed">
+                {session.user.email}
+              </Text>
+            </div>
+          </Group>
+        </UnstyledButton>
+
+        // <div className="flex justify-center items-center">
+        //   <img
+        //     alt="user"
+        //     src={session.user.image}
+        //     className="w-9 h-9 rounded-full"
+        //   />
+        //   <LinkComponent link="/user" name={session.user.name} />
+        // </div>
       )}
 
       {!session && <LinkComponent link="/api/auth/signin" name="Login" />}
