@@ -1,19 +1,15 @@
-import { Card } from "@mantine/core";
 import Link from "next/link";
+import React from "react";
 
-import Folder from "../UI components/Folder";
-const CourseCard = ({ name, id }) => {
+const FolderUI = ({ name, id }) => {
   return (
     <Link href={`/course/${id}`} passHref>
-      {/* // <div className="border-neutral-600 border-[0.3px]"> */}
-      {/* //     <div className="border-neutral-600 rounded-md px-4 truncate hover:cursor-pointer border-[0.3px]"> */}
-
-      <Folder>
+      <div className="folder m-10 text-black hover:scale-105 transition transform duration-100 ease-out hover:cursor-pointer ">
         <p>{name}</p>
         <p>{id}</p>
-      </Folder>
-      {/* // </div> */}
+      </div>
     </Link>
   );
 };
-export default CourseCard;
+
+export default FolderUI;

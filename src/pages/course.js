@@ -1,4 +1,4 @@
-import { Input } from "@mantine/core";
+import { Button, Input } from "@mantine/core";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import CourseCard from "../components/CourseCard";
@@ -46,15 +46,18 @@ export default function Home() {
       </Head>
 
       <div>
-        <div className="max-w-[40rem] mx-auto mb-4 ">
-          <Input
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            width={200}
-            variant="filled"
-            placeholder="Enter course name/id"
-            size="md"
-          />
+        <div className="flex gap-4 items-center justify-center">
+          <div className="max-w-[40rem] flex-1  mb-4 ">
+            <Input
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              // width={"40rem"}
+              variant="filled"
+              placeholder="Enter course name/id"
+              size="md"
+            />
+          </div>
+          <Button>Add course</Button>
         </div>
         {/* course cards */}
         <div className="grid grid-cols-3 gap-3">
