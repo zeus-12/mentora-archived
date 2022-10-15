@@ -48,7 +48,7 @@ export default function Home() {
           />
         </div>
         {/* course cards */}
-        <div className="grid grid-cols-3 gap-3">
+        <div className="flex m-10">
           {courses.length > 0 &&
             filterData(courses).map((course) => (
               <CourseCard
