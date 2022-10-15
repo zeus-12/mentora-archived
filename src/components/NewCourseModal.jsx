@@ -24,6 +24,7 @@ const NewCourseModal = ({ isModalOpen, setIsModalOpen }) => {
       course_name: (value) => (value.length > 5 ? null : "Too short"),
       credits: (value) =>
         Number(value) > 0 && Number(value) < 15 ? null : "Invalid credits",
+      course_id: (value) => (value.length === 6 ? null : "Invalid Course ID"),
     },
   });
 
@@ -36,8 +37,11 @@ const NewCourseModal = ({ isModalOpen, setIsModalOpen }) => {
       return;
     }
     setLoading(true);
-    const res = await fetch(`/api/course/${course_id}`, {
+    const res = await fetch(`/api/course/${form.values.course_id}`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(form.values),
     });
 

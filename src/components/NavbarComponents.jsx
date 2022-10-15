@@ -10,6 +10,7 @@ import Link from "next/link";
 // import { NotificationContext } from "../utils/context";
 import { useRouter } from "next/router";
 import { generateAvatarText } from "../utils/helper";
+import { green_400 } from "../utils/constants";
 
 const MiddleSectionElements = [
   { name: "Q&A", link: "/doubts" },
@@ -22,7 +23,7 @@ export const BurgerComponent = ({ opened, setOpened }) => {
   const title = opened ? "Close navigation" : "Open navigation";
   return (
     <Burger
-      color="#22c55e"
+      color={green_400}
       opened={opened}
       onClick={() => setOpened((o) => !o)}
       title={title}
@@ -38,8 +39,10 @@ export const LinkComponent = ({ link, name }) => {
     <Link href={link} passHref>
       <p
         className={`${
-          cur === link ? "text-green-500" : "text-gray-400"
-        } px-2 py-1 text-xl font-semibold rounded-md hover:text-white cursor-pointer text-center hover:bg-gray-900`}
+          cur === link
+            ? "text-green-500"
+            : "text-gray-400 opacity-60 hover:opacity-90"
+        } px-2 py-1 text-xl font-semibold rounded-md cursor-pointer text-center hover:bg-gray-900`}
       >
         {name}
       </p>
@@ -60,7 +63,7 @@ export const NavbarMiddleSection = ({ className }) => {
 export const LoginUserComponent = ({ session }) => {
   //   const { setMessage, setType } = useContext(NotificationContext);
   return (
-    <>
+    <div className="flex justify-center">
       {/* Logout & SignIn*/}
       {session && (
         <Link href="/user" passHref>
@@ -78,19 +81,10 @@ export const LoginUserComponent = ({ session }) => {
             </Group>
           </UnstyledButton>
         </Link>
-
-        // <div className="flex justify-center items-center">
-        //   <img
-        //     alt="user"
-        //     src={session.user.image}
-        //     className="w-9 h-9 rounded-full"
-        //   />
-        //   <LinkComponent link="/user" name={session.user.name} />
-        // </div>
       )}
 
       {!session && <LinkComponent link="/api/auth/signin" name="Login" />}
-    </>
+    </div>
   );
 };
 

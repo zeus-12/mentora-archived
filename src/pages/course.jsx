@@ -1,4 +1,4 @@
-import { Button, Input } from "@mantine/core";
+import { Button, Input, Loader } from "@mantine/core";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import CourseCard from "../components/CourseCard";
@@ -44,7 +44,7 @@ export default function Home() {
     <div>
       <Head>
         <title>Mentora</title>
-        <meta name="description" content="Acads app" />
+        <meta name="description" content="All-In-One App for Acads!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -67,8 +67,7 @@ export default function Home() {
             Add course
           </Button>
         </div>
-
-        {courses.legth < 0 && <LoaderComponent />}
+        {courses.length === 0 && <LoaderComponent />}
         {/* course cards */}
         {courses.length > 0 && (
           <div className="grid lg:grid-cols-3 xl:grid-cols-4 sm:grid-cols-2">

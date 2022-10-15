@@ -3,8 +3,6 @@ import dbConnect from "../../../utils/dbConnect";
 import Course from "../../../models/course";
 
 export default async function handler(req, res) {
-  console.log("hello there");
-  console.log(req.body);
   const { courseId } = req.query;
   if (!courseId) {
     return res.status(400).json({ message: "Missing course ID" });

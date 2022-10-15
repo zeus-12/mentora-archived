@@ -1,9 +1,10 @@
 import { Loader } from "@mantine/core";
+import { green_400 } from "../utils/constants";
 
 const LoaderComponent = () => {
   return (
-    <div className="h-[92vh] flex items-center justify-center">
-      <Loader size="xl" variant="dots" />
+    <div className="flex-grow h-[80vh] flex items-center justify-center">
+      <Loader color={green_400} size="xl" variant="dots" />
     </div>
   );
 };

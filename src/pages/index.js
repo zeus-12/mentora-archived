@@ -3,19 +3,19 @@ import Image from "next/image";
 const features = [
   {
     title: "Resources",
-    body: "Mentora is a platform that let you share resources with others. Hence providing you with the best resources to ace the exams. It contains previous year QP's, Textbooks, etc.",
+    body: "Mentora is a platform that let you share resources with others. Providing you and your friends with the best resources to ace the exams. It contains previous year QP's, Textbooks, etc.",
   },
   {
     title: "Q&A",
-    body: "It let you ask get answers to your doubts, and help others with theirs.",
+    body: "The Q&A section is the one-step solution to get all yours and your friends doubts cleared. After all we learning by helping others.",
   },
   {
     title: "Buddy",
-    body: "It let you find a buddy to study with. Or you could ask a senior to tutor you (for a price ofcourse XD). You can find a buddy to study with and discuss doubts with.",
+    body: "The student-buddy feature let you find a buddy to study with. Or if you need more help, you could get a senior to tutor you (for a price ofcourse XD).",
   },
   {
     title: "Quiz",
-    body: "It provides you with a platform to create and take quizzes. You can create quizzes and share it with your friends and take quizzes created by others.",
+    body: "It provides you with a platform to create and take quizzes. You can create quizzes and share it with your friends. This is the perfect method for your final revision.",
   },
 ];
 
@@ -28,7 +28,7 @@ export default function Home() {
 
       <p className="xl:ml-24 md:text-4xl md:max-w-[55rem] text-2xl font-semibold text-gray-400 mt-4">
         Here&apos;s the Perfect solution to achieve your dream{" "}
-        <span className="text-green-400">CG</span>, and{" "}
+        <span className="text-green-400">CG</span>, &{" "}
         <span className="text-green-600">Here&apos;s Why</span>
       </p>
 
