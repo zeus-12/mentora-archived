@@ -1,4 +1,3 @@
-import { Burger } from "@mantine/core";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import {
@@ -6,12 +5,12 @@ import {
   NavbarDrawer,
   LoginUserComponent,
   NavbarMiddleSection,
+  BurgerComponent,
 } from "./NavbarComponents";
 
 export default function Navbar() {
   //for the burger & drawer
   const [opened, setOpened] = useState(false);
-  const title = opened ? "Close navigation" : "Open navigation";
   const { data: session } = useSession();
 
   return (
@@ -19,12 +18,7 @@ export default function Navbar() {
       <div className="px-6 min-h-[60px] border-b-[1px] border-gray-800 w-screen h-[8vh] bg-[#000000] relative top-0 flex justify-between items-center z-40 ">
         <Logo setOpened={setOpened} />
         <div className="sm:hidden">
-          <Burger
-            color="#60a5fa"
-            opened={opened}
-            onClick={() => setOpened((o) => !o)}
-            title={title}
-          />
+          <BurgerComponent opened={opened} setOpened={setOpened} />
         </div>
         <div className="hidden sm:flex">
           <NavbarMiddleSection />
@@ -34,12 +28,7 @@ export default function Navbar() {
         {/* NOT REALLY REQUIRED */}
         {opened && (
           <div className="hidden sm:flex">
-            <Burger
-              color="#26c6da"
-              opened={opened}
-              onClick={() => setOpened((o) => !o)}
-              title={title}
-            />
+            <BurgerComponent opened={opened} setOpened={setOpened} />
           </div>
         )}
         {!opened && (

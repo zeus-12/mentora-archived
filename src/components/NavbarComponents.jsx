@@ -1,6 +1,7 @@
-import { Drawer } from "@mantine/core";
+import { Burger, Drawer } from "@mantine/core";
 import Link from "next/link";
 // import { NotificationContext } from "../utils/context";
+import { useRouter } from "next/router";
 
 const MiddleSectionElements = [
   { name: "Doubts", link: "/doubts" },
@@ -8,17 +9,39 @@ const MiddleSectionElements = [
   { name: "Buddy", link: "/buddy" },
 ];
 
-export const LinkComponent = ({ link, name }) => (
-  <Link href={link} passHref>
-    <p className="px-2 py-1 text-gray-300 text-xl font-semibold rounded-md hover:text-white cursor-pointer text-center hover:bg-gray-900">
-      {name}
-    </p>
-  </Link>
-);
+export const BurgerComponent = ({ opened, setOpened }) => {
+  const title = opened ? "Close navigation" : "Open navigation";
+  return (
+    <Burger
+      color="#"
+      opened={opened}
+      onClick={() => setOpened((o) => !o)}
+      title={title}
+    />
+  );
+};
+
+export const LinkComponent = ({ link, name }) => {
+  const router = useRouter();
+  const cur = router.pathname;
+
+  console.log(cur);
+  return (
+    <Link href={link} passHref>
+      <p
+        className={`${
+          cur === link ? "text-green-500" : "text-gray-400"
+        } px-2 py-1 text-xl font-semibold rounded-md hover:text-white cursor-pointer text-center hover:bg-gray-900`}
+      >
+        {name}
+      </p>
+    </Link>
+  );
+};
 
 export const NavbarMiddleSection = ({ className }) => {
   return (
-    <div className={`flex gap-2 ${className}`}>
+    <div className={`flex gap-6 ${className}`}>
       {MiddleSectionElements.map((item) => (
         <LinkComponent key={item.name} link={item.link} name={item.name} />
       ))}
@@ -38,7 +61,7 @@ export const LoginUserComponent = ({ session }) => {
             src={session.user.image}
             className="w-9 h-9 rounded-full"
           />
-          <LinkComponent link="/" name={session.user.name} />
+          <LinkComponent link="/user" name={session.user.name} />
         </div>
       )}
 

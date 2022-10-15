@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import CourseCard from "../components/CourseCard";
 import Fuse from "fuse.js";
+import NewCourseModal from "../components/NewCourseModal";
 
 export default function Home() {
   const [courses, setCourses] = useState([
@@ -21,6 +22,8 @@ export default function Home() {
     };
     fetchCourseNames();
   }, []);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fuse = new Fuse(courses, { keys: ["course_id", "course_name"] });
   const [searchQuery, setSearchQuery] = useState("");
@@ -47,7 +50,7 @@ export default function Home() {
 
       <div>
         <div className="flex gap-4 items-center justify-center">
-          <div className="max-w-[40rem] flex-1  mb-4 ">
+          <div className="max-w-[40rem] flex-1 ">
             <Input
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -57,7 +60,14 @@ export default function Home() {
               size="md"
             />
           </div>
-          <Button>Add course</Button>
+          <Button
+            variant="outline"
+            // compact
+            className="text-green-500 border-green-500 hover:bg-green-500 hover:text-white"
+            onClick={() => setIsModalOpen(true)}
+          >
+            Add course
+          </Button>
         </div>
         {/* course cards */}
         <div className="grid grid-cols-3 gap-3">
@@ -71,6 +81,11 @@ export default function Home() {
             ))}
         </div>
       </div>
+
+      <NewCourseModal
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+      />
     </div>
   );
 }
