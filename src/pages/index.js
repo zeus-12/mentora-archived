@@ -11,7 +11,7 @@ const features = [
   },
   {
     title: "Buddy",
-    body: "It let you find a buddy to study with. You can find a buddy to study with and discuss doubts with.",
+    body: "It let you find a buddy to study with. Or you could ask a senior to tutor you (for a price ofcourse XD). You can find a buddy to study with and discuss doubts with.",
   },
   {
     title: "Quiz",

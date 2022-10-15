@@ -34,7 +34,6 @@ export const LinkComponent = ({ link, name }) => {
   const router = useRouter();
   const cur = router.pathname;
 
-  console.log(cur);
   return (
     <Link href={link} passHref>
       <p

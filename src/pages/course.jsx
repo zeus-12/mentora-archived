@@ -7,18 +7,18 @@ import NewCourseModal from "../components/NewCourseModal";
 
 export default function Home() {
   const [courses, setCourses] = useState([
-    { course_id: "ab1234", course_name: "test" },
-    { course_id: "ed2324", course_name: "hello" },
-    { course_id: "sj2345", course_name: "intro" },
-    { course_id: "hi1341", course_name: "welcome" },
-    { course_id: "ml1343", course_name: "therefore" },
+    // { course_id: "ab1234", course_name: "test" },
+    // { course_id: "ed2324", course_name: "hello" },
+    // { course_id: "sj2345", course_name: "intro" },
+    // { course_id: "hi1341", course_name: "welcome" },
+    // { course_id: "ml1343", course_name: "therefore" },
   ]);
 
   useEffect(() => {
     const fetchCourseNames = async () => {
       const res = await fetch("/api/course");
       const courseNames = await res.json();
-      // setCourses(courseNames.data);
+      setCourses(courseNames.data);
     };
     fetchCourseNames();
   }, []);
@@ -68,7 +68,7 @@ export default function Home() {
           </Button>
         </div>
         {/* course cards */}
-        <div className="grid lg:grid-cols-5 sm:grid-cols-2   gap-3">
+        <div className="grid lg:grid-cols-3 xl:grid-cols-5 sm:grid-cols-2">
           {courses.length > 0 &&
             filterData(courses).map((course) => (
               <CourseCard

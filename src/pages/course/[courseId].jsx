@@ -1,19 +1,31 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-
+import LoaderComponent from "../../components/LoaderComponent";
 const CourseDetails = () => {
   const router = useRouter();
   const { courseId } = router.query;
-
+  const [loading, setLoading] = useState(false);
   const [comments, setComments] = useState([]);
   const [courseData, setCourseData] = useState([]);
   useEffect(() => {
-    // fetch course details and comments for the course
-  }, []);
+    setLoading(true);
+    const fetchCourseData = async () => {
+      const res = await fetch("/api/course/" + courseId);
+      const data = await res.json();
+      setCourseData(data.data);
+      console.log(data.data);
+    };
+    fetchCourseData();
+    setLoading(false);
+  }, [courseId]);
+
+  if (loading) {
+    return <LoaderComponent />;
+  }
 
   return (
     <div>
-      {courseId}
+      {/* {courseId} */}
       {/* course contents */}
 
       {/* comments */}
