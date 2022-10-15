@@ -35,7 +35,7 @@ export default function Home() {
       {features.map((item, index) => (
         <div
           key={index}
-          className={`flex-col gap-2 sm:gap-6 sm:flex-row flex justify-evenly items-center ${
+          className={`flex-col-reverse gap-2 sm:gap-6 sm:flex-row flex justify-evenly items-center ${
             index % 2 == 0 ? "sm:flex-row-reverse" : ""
           } mt-8`}
         >
