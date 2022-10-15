@@ -21,21 +21,21 @@ const features = [
 
 export default function Home() {
   return (
-    <div className="p-8">
+    <div className="md:p-4 p-2 lg:p-6 xl:p-8">
       <p className="text-4xl font-bold md:text-5xl text-gray-100 lg:text-7xl block">
         👋 Hello there,
       </p>
-      <p className="ml-24 md:text-4xl md:max-w-[55rem] text-2xl font-semibold text-gray-400 mt-4">
+
+      <p className="xl:ml-24 md:text-4xl md:max-w-[55rem] text-2xl font-semibold text-gray-400 mt-4">
         Here&apos;s the Perfect solution to achieve your dream{" "}
-        <span className="text-green-400">CG</span>
-        <br />
-        <span className="text-green-300">It provides you with</span>
+        <span className="text-green-400">CG</span>, and{" "}
+        <span className="text-green-600">Here&apos;s Why</span>
       </p>
 
       {features.map((item, index) => (
         <div
           key={index}
-          className={`flex-col gap-6 sm:flex-row flex justify-evenly items-center ${
+          className={`flex-col gap-2 sm:gap-6 sm:flex-row flex justify-evenly items-center ${
             index % 2 == 0 ? "sm:flex-row-reverse" : ""
           } mt-8`}
         >

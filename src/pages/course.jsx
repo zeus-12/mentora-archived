@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import CourseCard from "../components/CourseCard";
 import Fuse from "fuse.js";
 import NewCourseModal from "../components/NewCourseModal";
-
+import LoaderComponent from "../components/LoaderComponent";
 export default function Home() {
   const [courses, setCourses] = useState([
     // { course_id: "ab1234", course_name: "test" },
@@ -67,17 +67,21 @@ export default function Home() {
             Add course
           </Button>
         </div>
+
+        {courses.legth < 0 && <LoaderComponent />}
         {/* course cards */}
-        <div className="grid lg:grid-cols-3 xl:grid-cols-4 sm:grid-cols-2">
-          {courses.length > 0 &&
-            filterData(courses).map((course) => (
-              <CourseCard
-                key={course.item.course_id}
-                name={course.item.course_name}
-                id={course.item.course_id}
-              />
-            ))}
-        </div>
+        {courses.length > 0 && (
+          <div className="grid lg:grid-cols-3 xl:grid-cols-4 sm:grid-cols-2">
+            {courses.length > 0 &&
+              filterData(courses).map((course) => (
+                <CourseCard
+                  key={course.item.course_id}
+                  name={course.item.course_name}
+                  id={course.item.course_id}
+                />
+              ))}
+          </div>
+        )}
       </div>
 
       <NewCourseModal

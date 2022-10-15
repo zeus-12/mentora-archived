@@ -9,7 +9,7 @@ const User = () => {
   };
 
   return (
-    <div className="flex justify-between mx-8">
+    <div className="flex justify-between md:mx-4 mx-2 lg:mx-6 xl:mx-8">
       <p className="text-4xl">
         Hello, <span className="text-green-600">{session?.user?.name}</span>
       </p>
