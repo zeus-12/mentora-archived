@@ -12,9 +12,10 @@ import { useRouter } from "next/router";
 import { generateAvatarText } from "../utils/helper";
 
 const MiddleSectionElements = [
-  { name: "Doubts", link: "/doubts" },
-  { name: "Materials", link: "/course" },
+  { name: "Q&A", link: "/doubts" },
+  { name: "Resources", link: "/course" },
   { name: "Buddy", link: "/buddy" },
+  { name: "Quiz", link: "/quiz" },
 ];
 
 export const BurgerComponent = ({ opened, setOpened }) => {
