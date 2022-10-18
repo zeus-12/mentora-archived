@@ -59,6 +59,7 @@ const NewCourseModal = ({ isModalOpen, setIsModalOpen }) => {
       centered={true}
       classNames={{
         title: "text-2xl text-green-200 font-bold",
+        modal: "bg-black",
       }}
       size="lg"
       radius="md"

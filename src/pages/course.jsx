@@ -4,6 +4,7 @@ import CourseCard from "../components/CourseCard";
 import Fuse from "fuse.js";
 import NewCourseModal from "../components/NewCourseModal";
 import LoaderComponent from "../components/LoaderComponent";
+import { buttonOutlineClasses } from "../utils/tailwindClasses";
 export default function Home() {
   const [courses, setCourses] = useState([
     // { course_id: "ab1234", course_name: "test" },
@@ -54,7 +55,7 @@ export default function Home() {
           </div>
           <Button
             variant="outline"
-            className="text-green-500 border-green-500 hover:bg-green-500 hover:text-white"
+            className={buttonOutlineClasses}
             onClick={() => setIsModalOpen(true)}
           >
             Add course

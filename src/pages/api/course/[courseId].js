@@ -1,8 +1,18 @@
 // for the COURSE SECTION
 import dbConnect from "../../../utils/dbConnect";
 import Course from "../../../models/course";
+import getServerSession from "../../../utils/getServerSession";
 
 export default async function handler(req, res) {
+  const session = await getServerSession(req, res);
+
+  if (!session) {
+    res.status(401).json({ message: "Please Sign in to add a course" });
+    return;
+  }
+
+  const creatorEmail = session?.user?.email;
+  // make sure creator email is of email format
   const { courseId } = req.query;
   if (!courseId) {
     return res.status(400).json({ message: "Missing course ID" });
@@ -29,6 +39,7 @@ export default async function handler(req, res) {
     await dbConnect();
     try {
       const newCourseDetails = await Course.create({
+        creatorEmail,
         course_name,
         course_id: courseId,
         description,
