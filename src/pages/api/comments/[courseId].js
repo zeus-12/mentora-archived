@@ -1,5 +1,4 @@
-// comment section
-// for the COURSE SECTION
+// fetch all comments for a particular course
 
 import Comments from "../../../models/comments";
 

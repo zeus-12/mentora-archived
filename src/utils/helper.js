@@ -1,4 +1,7 @@
 export const prettifyId = (id) => {
+  if (!id) {
+    return;
+  }
   return id.slice(0, 2).toUpperCase() + " " + id.slice(2);
 };
 
