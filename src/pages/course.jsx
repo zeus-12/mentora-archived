@@ -34,6 +34,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchCourseNames = async () => {
+      return;
       const res = await fetch("/api/course");
       const courseNames = await res.json();
       setCourses(courseNames.data);
@@ -59,44 +60,43 @@ export default function Home() {
   };
 
   return (
-    <div>
-      <div>
-        <div className="flex gap-4 items-center justify-center">
-          <div className="max-w-[40rem] flex-1 ">
-            <Input
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              variant="filled"
-              placeholder="Enter course name/id"
-              size="md"
-            />
-          </div>
-          <Button
-            variant="outline"
-            className={buttonOutlineClasses}
-            onClick={() => setIsModalOpen(true)}
-          >
-            Add course
-          </Button>
+    <div className="flex min-h-[90vh] flex-col">
+      <div className="flex gap-4 items-center justify-center">
+        <div className="max-w-[40rem] flex-1 ">
+          <Input
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            variant="filled"
+            placeholder="Enter course name/id"
+            size="md"
+          />
         </div>
-        {courses.length === 0 && <LoaderComponent />}
-        {/* course cards */}
-        <div className="flex justify-center">
-          {courses.length > 0 && (
-            // <div className="grid lg:grid-cols-3 xl:grid-cols-4 sm:grid-cols-2">
-            <div className="flex flex-wrap gap-2">
-              {courses.length > 0 &&
-                filterData(courses).map((course) => (
-                  <CourseCard
-                    key={course.item.course_id}
-                    name={course.item.course_name}
-                    id={course.item.course_id}
-                  />
-                ))}
-            </div>
-          )}
-        </div>
+        <Button
+          variant="outline"
+          className={buttonOutlineClasses}
+          onClick={() => setIsModalOpen(true)}
+        >
+          Add course
+        </Button>
       </div>
+      {courses.length === 0 && <LoaderComponent />}
+      {/* course cards */}
+      <div className="flex justify-center">
+        {courses.length > 0 && (
+          // <div className="grid lg:grid-cols-3 xl:grid-cols-4 sm:grid-cols-2">
+          <div className="flex flex-wrap gap-2">
+            {courses.length > 0 &&
+              filterData(courses).map((course) => (
+                <CourseCard
+                  key={course.item.course_id}
+                  name={course.item.course_name}
+                  id={course.item.course_id}
+                />
+              ))}
+          </div>
+        )}
+      </div>
+      {/* </div> */}
 
       <NewCourseModal
         isModalOpen={isModalOpen}

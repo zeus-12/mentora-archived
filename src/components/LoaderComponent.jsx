@@ -5,7 +5,7 @@ const LoaderComponent = () => {
   return (
     <div className="flex-grow flex-1 flex items-center justify-center">
       {/* // <div className="flex-grow flex-1 flex items-center justify-center"> */}
-      <Loader color={green_400} size="xl" variant="dots" />
+      <Loader color={green_400} size="md" variant="bars" />
     </div>
   );
 };
