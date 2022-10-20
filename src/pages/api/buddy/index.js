@@ -32,5 +32,15 @@ export default async function handler(req, res) {
       console.log(err);
       return res.status(400).json({ error: "error" });
     }
+  } else if (req.method === "GET") {
+    try {
+      await dbConnect();
+      const buddyDetails = await Buddy.find();
+
+      return res.status(200).json({ message: "success", data: buddyDetails });
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json({ error: "error" });
+    }
   }
 }

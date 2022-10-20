@@ -19,14 +19,15 @@ const NewBuddyModal = ({ isModalOpen, setIsModalOpen }) => {
       buddyType: (value) =>
         ["batchmate", "tutor"].includes(value) ? null : "Choose a Buddy Type",
       course_id: (value) => (value.length === 6 ? null : "Invalid Course ID"),
-      money: (value) => (/^\d+$/.test(value) || "" ? null : "Invalid Money"),
+      money: (value) =>
+        /^\d+$/.test(value) || value === "" ? null : "Invalid Money",
       // todo money should be integer
     },
   });
 
   const registerHandler = async () => {
     const validationResult = form.validate();
-
+    console.log(validationResult);
     if (Object.keys(validationResult.errors).length > 0) {
       return;
     }

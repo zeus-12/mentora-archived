@@ -1,6 +1,6 @@
 import { Button, Modal, Radio, Textarea, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BuddyCard from "../components/BuddyCard";
 import { buttonOutlineClasses } from "../utils/tailwindClasses";
 import { IconX } from "@tabler/icons";
@@ -12,6 +12,23 @@ const Buddy = () => {
 
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    const fetchBuddies = async () => {
+      setLoading(true);
+      const res = await fetch("/api/buddy");
+      const data = await res.json();
+      console.log(data.data);
+      if (data.error) {
+        // todo show notification
+
+        setLoading(false);
+        return;
+      }
+      setBuddies(data.data);
+      setLoading(false);
+    };
+    fetchBuddies();
+  }, []);
   return (
     <div>
       <div className="flex items-center justify-center">
