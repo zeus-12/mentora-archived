@@ -94,7 +94,7 @@ export const Logo = ({ setOpened = () => {}, textSize = "text-2xl" }) => (
       onClick={() => setOpened(false)}
       className="flex items-center hover:cursor-pointer"
     >
-      <p className={textSize + " font-bold"}>
+      <p className={textSize + " tracking-tighter font-bold"}>
         <span className="text-green-500">Mentor</span>a
       </p>
     </div>

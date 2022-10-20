@@ -1,6 +1,6 @@
 import { Schema, model, models } from "mongoose";
 
-const commentsSchema = new Schema(
+const commentSchema = new Schema(
   {
     course_id: { type: String, required: true }, //format --> ab1234 all lowercase, no space
     comments: [
@@ -15,6 +15,6 @@ const commentsSchema = new Schema(
   { timestamps: true }
 );
 
-const Comments = models.comments || model("Comments", commentsSchema);
+const Comment = models.Comment || model("Comment", commentSchema);
 
-export default Comments;
+export default Comment;

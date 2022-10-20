@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  const creatorEmail = session?.user?.email;
+  const user = session?.user?.email;
   // make sure creator email is of email format
   const { courseId } = req.query;
   if (!courseId) {
@@ -39,7 +39,7 @@ export default async function handler(req, res) {
     await dbConnect();
     try {
       const newCourseDetails = await Course.create({
-        creatorEmail,
+        user,
         course_name,
         course_id: courseId,
         description,

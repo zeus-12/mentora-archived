@@ -22,7 +22,6 @@ export default async function handler(req, res) {
     }
   } else if (req.method === "POST") {
     await dbConnect();
-
     // FOR ADDING NEW COMMENT
     // user from session, comment from req.body
   }

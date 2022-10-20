@@ -2,8 +2,6 @@ import { Button, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import LoaderComponent from "../../components/LoaderComponent";
-import RichTextEditor from "../../components/RichTextEditor";
 import { prettifyId } from "../../utils/helper";
 import { buttonOutlineClasses } from "../../utils/tailwindClasses";
 
@@ -17,7 +15,7 @@ const CourseDetails = () => {
   useEffect(() => {
     const fetchCourseData = async () => {
       if (!courseId) return;
-      const res = await fetch("/api/course/" + courseId);
+      const res = await fetch(`/api/course/${courseId}`);
       const data = await res.json();
       setCourseData(data.data);
       console.log("Fetched");
@@ -34,7 +32,6 @@ const CourseDetails = () => {
     },
   });
 
-  console.log(courseData);
   // console.log(Object.keys(courseData).length);
   // if (Object.keys(courseData).length === 0) {
   //   return <LoaderComponent />;
@@ -42,11 +39,15 @@ const CourseDetails = () => {
 
   return (
     <div className="">
-      <div className="">
-        <p className="text-3xl font-bold">{courseData?.course_name}</p>
-        <p className="text-2xl font-semibold">
-          {courseData?.course_id && prettifyId(courseData?.course_id)}
-        </p>
+      <div className="flex justify-between">
+        <div>
+          <p className="text-3xl font-bold">{courseData?.course_name}</p>
+          <p className="text-2xl font-semibold">
+            {courseData?.course_id && prettifyId(courseData?.course_id)}
+          </p>
+        </div>
+
+        <Button className={buttonOutlineClasses}>Add Resources</Button>
         {/* {professors.length > 0 &<p>Course Name: {course_name}</p>} */}
       </div>
 

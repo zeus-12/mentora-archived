@@ -12,6 +12,24 @@ export default function Home() {
     // { course_id: "sj2345", course_name: "intro" },
     // { course_id: "hi1341", course_name: "welcome" },
     // { course_id: "ml1343", course_name: "therefore" },
+    // { course_id: "sj2345", course_name: "intro" },
+    // { course_id: "hi1341", course_name: "welcome" },
+    // { course_id: "ml1343", course_name: "therefore" },
+    // { course_id: "sj2345", course_name: "intro" },
+    // { course_id: "hi1341", course_name: "welcome" },
+    // { course_id: "ml1343", course_name: "therefore" },
+    // { course_id: "sj2345", course_name: "intro" },
+    // { course_id: "hi1341", course_name: "welcome" },
+    // { course_id: "ml1343", course_name: "therefore" },
+    // { course_id: "sj2345", course_name: "intro" },
+    // { course_id: "hi1341", course_name: "welcome" },
+    // { course_id: "ml1343", course_name: "therefore" },
+    // { course_id: "sj2345", course_name: "intro" },
+    // { course_id: "hi1341", course_name: "welcome" },
+    // { course_id: "ml1343", course_name: "therefore" },
+    // { course_id: "sj2345", course_name: "intro" },
+    // { course_id: "hi1341", course_name: "welcome" },
+    // { course_id: "ml1343", course_name: "therefore" },
   ]);
 
   useEffect(() => {
@@ -63,18 +81,21 @@ export default function Home() {
         </div>
         {courses.length === 0 && <LoaderComponent />}
         {/* course cards */}
-        {courses.length > 0 && (
-          <div className="grid lg:grid-cols-3 xl:grid-cols-4 sm:grid-cols-2">
-            {courses.length > 0 &&
-              filterData(courses).map((course) => (
-                <CourseCard
-                  key={course.item.course_id}
-                  name={course.item.course_name}
-                  id={course.item.course_id}
-                />
-              ))}
-          </div>
-        )}
+        <div className="flex justify-center">
+          {courses.length > 0 && (
+            // <div className="grid lg:grid-cols-3 xl:grid-cols-4 sm:grid-cols-2">
+            <div className="flex flex-wrap gap-2">
+              {courses.length > 0 &&
+                filterData(courses).map((course) => (
+                  <CourseCard
+                    key={course.item.course_id}
+                    name={course.item.course_name}
+                    id={course.item.course_id}
+                  />
+                ))}
+            </div>
+          )}
+        </div>
       </div>
 
       <NewCourseModal

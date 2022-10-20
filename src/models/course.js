@@ -16,7 +16,7 @@ const courseSchema = new Schema(
         uploader: { type: String, required: true },
       },
     ],
-    creatorEmail: { type: String, required: true },
+    user: { type: String, required: true },
   },
   { timestamps: true }
 );
