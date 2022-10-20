@@ -31,7 +31,7 @@ const Buddy = () => {
     fetchBuddies();
   }, []);
   return (
-    <div className="">
+    <div className="flex min-h-[90vh] flex-col">
       <div className="flex items-center justify-center">
         <div>
           <p className="text-3xl font-semibold">
@@ -49,10 +49,13 @@ const Buddy = () => {
         {/* image to right */}
       </div>
       <p className="mt-16 tracking-tight font-semibold text-3xl text-center">
-        Interested in helping others out?
+        Interested in {""}
+        <span className="text-green-500">helping</span> others out?
       </p>
       {/* DISPLAY ALL THE DATA HERE */}
+      {/* <div className={`flex-1 flex items-center`}`> */}
       {buddies.length === 0 && <LoaderComponent />}
+      {/* </div> */}
 
       {buddies.length > 0 &&
         buddies.map((buddy) => <BuddyCard key={buddy._id} />)}
