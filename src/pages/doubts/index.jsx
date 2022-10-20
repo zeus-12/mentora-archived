@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { buttonOutlineClasses } from "../../utils/tailwindClasses";
 import DoubtCard from "../../components/DoubtCard";
+import LoaderComponent from "../../components/LoaderComponent";
 
 const Doubts = () => {
   const { data: session } = useSession();
@@ -31,6 +32,8 @@ const Doubts = () => {
         {/* FILTER, SORT, AND OTHER STUFF */}
       </div>
       {/* doubts */}
+      {doubts.length === 0 && <LoaderComponent />}
+
       {doubts.length > 0 && doubts.map((item) => <DoubtCard key={item._id} />)}
     </div>
   );

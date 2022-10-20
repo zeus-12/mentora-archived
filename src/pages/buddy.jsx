@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import BuddyCard from "../components/BuddyCard";
 import { buttonOutlineClasses } from "../utils/tailwindClasses";
 import { IconX } from "@tabler/icons";
+import LoaderComponent from "../components/LoaderComponent";
 import NewBuddyModal from "../components/NewBuddyModal";
 
 const Buddy = () => {
@@ -30,7 +31,7 @@ const Buddy = () => {
     fetchBuddies();
   }, []);
   return (
-    <div>
+    <div className="">
       <div className="flex items-center justify-center">
         <div>
           <p className="text-3xl font-semibold">
@@ -47,10 +48,12 @@ const Buddy = () => {
         </div>
         {/* image to right */}
       </div>
-      <p className="mt-16 text-3xl text-center">
+      <p className="mt-16 tracking-tight font-semibold text-3xl text-center">
         Interested in helping others out?
       </p>
       {/* DISPLAY ALL THE DATA HERE */}
+      {buddies.length === 0 && <LoaderComponent />}
+
       {buddies.length > 0 &&
         buddies.map((buddy) => <BuddyCard key={buddy._id} />)}
       <NewBuddyModal
