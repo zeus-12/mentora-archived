@@ -1,6 +1,6 @@
 // fetch all comments for a particular course
 
-import Comments from "../../../models/comments";
+import Comments from "../../../models/comment";
 
 export default async function handler(req, res) {
   const { courseId } = req.query;

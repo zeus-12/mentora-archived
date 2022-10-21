@@ -32,9 +32,9 @@ const Doubts = () => {
         {/* FILTER, SORT, AND OTHER STUFF */}
       </div>
       {/* doubts */}
-      {doubts.length === 0 && <LoaderComponent />}
+      {doubts?.length === 0 && <LoaderComponent />}
 
-      {doubts.length > 0 && doubts.map((item) => <DoubtCard key={item._id} />)}
+      {doubts?.length > 0 && doubts.map((item) => <DoubtCard key={item._id} />)}
     </div>
   );
 };
