@@ -15,7 +15,7 @@ export default function Navbar() {
 
   return (
     <div>
-      <div className="lg:px-8 xl:px-10 px-4 min-h-[60px] border-b-[1px] border-gray-800 w-screen h-[8vh] bg-[#000000] relative top-0 flex justify-between items-center z-40 ">
+      <div className="lg:px-8 xl:px-10 px-4 min-h-[60px] border-b-[1px] border-gray-800 h-[8vh] bg-[#000000] relative top-0 flex justify-between items-center z-40 ">
         <Logo setOpened={setOpened} />
         <div className="sm:hidden">
           <BurgerComponent opened={opened} setOpened={setOpened} />

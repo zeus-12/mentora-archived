@@ -1,4 +1,4 @@
-import { Button, TextInput } from "@mantine/core";
+import { Button, Textarea, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -31,18 +31,18 @@ const NewDoubt = () => {
 
   const form = useForm({
     initialValues: {
-      course_name: "",
       course_id: "",
       doubt: "",
       title: "",
     },
     validate: {
       doubt: (value) => (value.length > 10 ? null : "Too short"),
-      course_name: (value) => (value.length > 5 ? null : "Too short"),
+      // course_name: (value) => (value.length > 5 ? null : "Too short"),
       title: (value) => (value.length > 4 ? null : "Too short"),
       course_id: (value) => (value?.length === 6 ? null : "Invalid Course ID"),
     },
   });
+  console.log(form.values.doubt);
 
   return (
     <div>
@@ -56,13 +56,13 @@ const NewDoubt = () => {
         {...form.getInputProps("course_id")}
       />
 
-      <TextInput
+      {/* <TextInput
         required={true}
         className="w-[90vw] max-w-[30rem]"
         label="Course Name"
         placeholder="Course Name"
         {...form.getInputProps("course_name")}
-      />
+      /> */}
       <TextInput
         required={true}
         className="w-[90vw] max-w-[30rem]"
@@ -70,9 +70,15 @@ const NewDoubt = () => {
         placeholder="Doubt Title"
         {...form.getInputProps("title")}
       />
-
-      <div className="p-2" />
-      <RichTextEditor className="" {...form.getInputProps("doubt")} />
+      <Textarea
+        required={true}
+        className="w-[90vw] max-w-[30rem]"
+        label="Doubt Title"
+        placeholder="Doubt Title"
+        {...form.getInputProps("doubt")}
+      />
+      {/* <div className="p-2" /> */}
+      {/* <RichTextEditor className="" {...form.getInputProps("doubt")} /> */}
       <Button
         loading={loading}
         onClick={registerHandler}

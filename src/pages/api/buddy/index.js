@@ -4,12 +4,12 @@ import getServerSession from "../../../utils/getServerSession";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
-    let { course_name, course_id, message, buddyType, money } = req.body;
+    let { course_id, message, buddyType, money } = req.body;
 
     if (!money) {
       money = 0;
     }
-    if (!course_name || !course_id || !message || !buddyType) {
+    if (!course_id || !message || !buddyType) {
       return res.status(400).json({ error: "Missing fields" });
     }
 
@@ -19,7 +19,6 @@ export default async function handler(req, res) {
     try {
       await dbConnect();
       const newBuddy = await Buddy.create({
-        course_name,
         course_id,
         message,
         user,

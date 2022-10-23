@@ -6,7 +6,7 @@ import { useState } from "react";
 const NewCourseModal = ({ isModalOpen, setIsModalOpen }) => {
   const form = useForm({
     initialValues: {
-      course_name: "",
+      // course_name: "",
       course_id: "",
       description: "",
       professors: [""],
@@ -14,7 +14,7 @@ const NewCourseModal = ({ isModalOpen, setIsModalOpen }) => {
     },
     validate: {
       description: (value) => (value.length > 10 ? null : "Too short"),
-      course_name: (value) => (value.length > 5 ? null : "Too short"),
+      // course_name: (value) => (value.length > 5 ? null : "Too short"),
       credits: (value) =>
         Number(value) > 0 && Number(value) < 15 ? null : "Invalid credits",
       course_id: (value) => (value.length === 6 ? null : "Invalid Course ID"),
@@ -65,13 +65,13 @@ const NewCourseModal = ({ isModalOpen, setIsModalOpen }) => {
       radius="md"
     >
       <div className="flex flex-col mx-2 sm:mx-4 items-center">
-        <TextInput
+        {/* <TextInput
           required={true}
           className="w-[90vw] max-w-[30rem]"
           label="Course Name"
           placeholder="Course Name"
           {...form.getInputProps("course_name")}
-        />
+        /> */}
 
         <TextInput
           required={true}

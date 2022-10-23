@@ -4,7 +4,6 @@ import { buttonOutlineClasses } from "../utils/tailwindClasses";
 import { Avatar } from "./UI";
 
 const BuddyCard = ({ buddy }) => {
-  console.log(buddy);
   // {
   //   "_id": "6350d1eb159d8d17636207c3",
   //   "course_id": "ed1012",

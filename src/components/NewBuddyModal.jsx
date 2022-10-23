@@ -7,7 +7,6 @@ const NewBuddyModal = ({ isModalOpen, setIsModalOpen }) => {
   const [loading, setLoading] = useState(false);
   const form = useForm({
     initialValues: {
-      course_name: "",
       course_id: "",
       message: "",
       buddyType: "",
@@ -15,7 +14,6 @@ const NewBuddyModal = ({ isModalOpen, setIsModalOpen }) => {
     },
     validate: {
       message: (value) => (value.length > 10 ? null : "Too short"),
-      course_name: (value) => (value.length > 5 ? null : "Too short"),
       buddyType: (value) =>
         ["batchmate", "tutor"].includes(value) ? null : "Choose a Buddy Type",
       course_id: (value) => (value.length === 6 ? null : "Invalid Course ID"),
@@ -84,13 +82,13 @@ const NewBuddyModal = ({ isModalOpen, setIsModalOpen }) => {
           <Radio value="tutor" label="Tutor" />
           <Radio value="batchmate" label="Batchmate" />
         </Radio.Group>
-        <TextInput
+        {/* <TextInput
           required={true}
           className="w-[90vw] max-w-[30rem]"
           label="Course Name"
           placeholder="Course Name"
           {...form.getInputProps("course_name")}
-        />
+        /> */}
         <TextInput
           required={true}
           className="w-[90vw] max-w-[30rem]"

@@ -5,35 +5,33 @@ import Fuse from "fuse.js";
 import NewCourseModal from "../../components/NewCourseModal";
 import LoaderComponent from "../../components/LoaderComponent";
 import { buttonOutlineClasses } from "../../utils/tailwindClasses";
+import { getCourseNameFromId } from "../../utils/helper";
 
 export default function Home() {
-  const [courses, setCourses] = useState([
-    // { course_id: "ab1234", course_name: "test" },
-    // { course_id: "ed2324", course_name: "hello" },
-    // { course_id: "sj2345", course_name: "intro" },
-    // { course_id: "hi1341", course_name: "welcome" },
-    // { course_id: "ml1343", course_name: "therefore" },
-    // { course_id: "sj2345", course_name: "intro" },
-    // { course_id: "hi1341", course_name: "welcome" },
-    // { course_id: "ml1343", course_name: "therefore" },
-    // { course_id: "sj2345", course_name: "intro" },
-    // { course_id: "hi1341", course_name: "welcome" },
-    // { course_id: "ml1343", course_name: "therefore" },
-    // { course_id: "sj2345", course_name: "intro" },
-    // { course_id: "hi1341", course_name: "welcome" },
-  ]);
+  const [courses, setCourses] = useState([]);
 
   useEffect(() => {
     const fetchCourseNames = async () => {
       const res = await fetch("/api/course");
       const courseNames = await res.json();
-      setCourses(courseNames.data);
+      console.log(courseNames.data);
+      const courseNameData = courseNames.data.map((item) => {
+        return {
+          _id: item._id,
+          course_id: item.course_id,
+          course_name: getCourseNameFromId(item.course_id),
+        };
+      });
+
+      setCourses(courseNameData);
+      console.log(courseNameData);
     };
     fetchCourseNames();
   }, []);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // todo fix fuse search
   const fuse = new Fuse(courses, { keys: ["course_id", "course_name"] });
   const [searchQuery, setSearchQuery] = useState("");
 

@@ -12,9 +12,9 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "error" });
     }
   } else if (req.method === "POST") {
-    const { course_name, course_id, doubt } = req.body;
+    const { course_id, doubt, title } = req.body;
 
-    if (!course_name || !course_id || !doubt) {
+    if (!course_id || !doubt || !title) {
       return res.status(400).json({ error: "Missing fields" });
     }
 
@@ -28,10 +28,10 @@ export default async function handler(req, res) {
       await dbConnect();
 
       const newDoubt = await Doubt.create({
-        course_name,
         course_id,
         doubt,
         user,
+        title,
       });
 
       return res.status(200).json({ message: "success", data: newDoubt });

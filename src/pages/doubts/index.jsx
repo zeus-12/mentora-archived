@@ -20,9 +20,9 @@ const Doubts = () => {
   }, []);
 
   return (
-    <div className="flex min-h-[90vh] flex-col">
-      <div className="flex justify-between px-16">
-        <p className="text-3xl">Doubts</p>
+    <div className="flex min-h-[90vh] flex-col px-32">
+      <div className="flex justify-between px-16 mb-4">
+        <p className="text-3xl font-bold tracking-tight">Doubts</p>
         <Link passHref href={session ? "/doubts/new" : ""}>
           <Button variant="outline" className={buttonOutlineClasses}>
             Ask Question
@@ -34,7 +34,10 @@ const Doubts = () => {
       {/* doubts */}
       {doubts?.length === 0 && <LoaderComponent />}
 
-      {doubts?.length > 0 && doubts.map((item) => <DoubtCard key={item._id} />)}
+      <div className="space-y-4">
+        {doubts?.length > 0 &&
+          doubts.map((item) => <DoubtCard doubt={item} key={item._id} />)}
+      </div>
     </div>
   );
 };
