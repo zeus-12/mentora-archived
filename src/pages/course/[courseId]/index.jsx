@@ -39,12 +39,6 @@ const CourseDetails = () => {
       }
     });
 
-    // const newComments = [...comments];
-    // newComments.forEach((comment) => {
-    //   comment.subComments = comments.filter(
-    //     (subComment) => subComment.parent_id === comment._id
-    //   );
-    // });
     setComments(comments);
     console.log(comments);
   };
@@ -82,6 +76,15 @@ const CourseDetails = () => {
       },
       body: JSON.stringify(form.values),
     });
+
+    const data = await res.json();
+    if (data.error) {
+      // throw error notifcation
+    } else {
+      //todo refetch the comments
+      // show success notification
+      form.reset();
+    }
   };
 
   // console.log(Object.keys(courseData).length);
@@ -122,12 +125,19 @@ const CourseDetails = () => {
         </Button>
 
         {/* comments */}
-        {comments.map((comment, index) => (
-          <div key={index}>
-            <CommentCard comment={comment} />
-            {comment.subComments?.length > 0 && <SubCommentCard />}
-          </div>
-        ))}
+        {/* loading banner? */}
+        <div className="space-y-8 mt-4">
+          {comments?.length > 0 &&
+            comments.map((comment, index) => (
+              <div key={index}>
+                <CommentCard comment={comment} />
+                {comment.subComments?.length > 0 &&
+                  comment.subComments.map((subComment, index) => (
+                    <SubCommentCard key={index} comment={subComment} />
+                  ))}
+              </div>
+            ))}
+        </div>
       </div>
     </div>
   );

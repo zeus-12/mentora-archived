@@ -1,9 +1,14 @@
-import { Code } from "@mantine/core";
+import { Avatar } from "@mantine/core";
+import { generateAvatarText } from "../utils/helper";
 
-const SubCommentCard = (props) => {
+const SubCommentCard = ({ comment }) => {
   return (
-    <div className="pl-2">
-      <Code>{JSON.stringify(props)}</Code>
+    <div className="pl-8 flex items-center">
+      <Avatar size={40} color="blue">
+        {generateAvatarText(comment.user)}
+      </Avatar>
+      <p>{comment.comment}</p>
+      {/* <p>{comment.user}</p> */}
     </div>
   );
 };
