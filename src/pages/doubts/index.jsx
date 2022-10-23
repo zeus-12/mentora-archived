@@ -20,7 +20,7 @@ const Doubts = () => {
   }, []);
 
   return (
-    <div className="flex min-h-[90vh] flex-col px-32">
+    <div className="flex min-h-[90vh] flex-col px-1 sm:px-2 md:px-4 lg:px-6 xl:px-32">
       <div className="flex justify-between px-16 mb-4">
         <p className="text-3xl font-bold tracking-tight">Doubts</p>
         <Link passHref href={session ? "/doubts/new" : ""}>

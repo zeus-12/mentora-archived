@@ -2,7 +2,6 @@ import { Button, Textarea, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import RichTextEditor from "../../components/RichTextEditor";
 import { buttonOutlineClasses } from "../../utils/tailwindClasses";
 
 const NewDoubt = () => {
@@ -77,8 +76,7 @@ const NewDoubt = () => {
         placeholder="Doubt Title"
         {...form.getInputProps("doubt")}
       />
-      {/* <div className="p-2" /> */}
-      {/* <RichTextEditor className="" {...form.getInputProps("doubt")} /> */}
+
       <Button
         loading={loading}
         onClick={registerHandler}
