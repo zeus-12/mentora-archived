@@ -16,3 +16,18 @@ export const generateAvatarText = (name) => {
     ?.toUpperCase()
     ?.slice(0, 2);
 };
+
+const name_id_map = require("../../name-id-map.json");
+
+export const getCourseNameFromId = (id) => {
+  if (!id) {
+    return;
+  }
+  id = id.toUpperCase();
+
+  if (id in name_id_map) {
+    return name_id_map[id];
+  } else {
+    return;
+  }
+};

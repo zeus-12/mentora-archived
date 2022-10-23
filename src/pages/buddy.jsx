@@ -30,6 +30,7 @@ const Buddy = () => {
     };
     fetchBuddies();
   }, []);
+
   return (
     <div className="flex min-h-[90vh] flex-col">
       <div className="flex items-center justify-center">
@@ -48,7 +49,7 @@ const Buddy = () => {
         </div>
         {/* image to right */}
       </div>
-      <p className="mt-16 tracking-tight font-semibold text-3xl text-center">
+      <p className="mt-16 mb-4 tracking-tight font-semibold text-3xl text-center">
         Interested in {""}
         <span className="text-green-500">helping</span> others out?
       </p>
@@ -57,8 +58,10 @@ const Buddy = () => {
       {buddies.length === 0 && <LoaderComponent />}
       {/* </div> */}
 
-      {buddies.length > 0 &&
-        buddies.map((buddy) => <BuddyCard key={buddy._id} />)}
+      <div className="flex gap-2 flex-wrap">
+        {buddies.length > 0 &&
+          buddies.map((buddy) => <BuddyCard key={buddy._id} buddy={buddy} />)}
+      </div>
       <NewBuddyModal
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
