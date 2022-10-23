@@ -39,7 +39,7 @@ export const LinkComponent = ({ link, name }) => {
     <Link href={link} passHref>
       <p
         className={`${
-          cur === link
+          cur.startsWith(link)
             ? "text-green-500"
             : "text-gray-400 opacity-60 hover:opacity-90"
         } px-2 py-1 text-xl font-semibold rounded-md cursor-pointer text-center hover:bg-gray-900`}

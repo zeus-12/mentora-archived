@@ -8,9 +8,9 @@ import { buttonOutlineClasses } from "../../utils/tailwindClasses";
 const NewDoubt = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
   const registerHandler = async () => {
     const validationResult = form.validate();
-    console.log(form.values);
     if (Object.keys(validationResult.errors).length > 0) {
       return;
     }
@@ -34,14 +34,16 @@ const NewDoubt = () => {
       course_name: "",
       course_id: "",
       doubt: "",
+      title: "",
     },
     validate: {
       doubt: (value) => (value.length > 10 ? null : "Too short"),
       course_name: (value) => (value.length > 5 ? null : "Too short"),
+      title: (value) => (value.length > 4 ? null : "Too short"),
       course_id: (value) => (value?.length === 6 ? null : "Invalid Course ID"),
     },
   });
-  console.log(form.values.doubt);
+
   return (
     <div>
       <p className="text-3xl font-bold tracking-tighter mb-4">Ask a Doubt!</p>
@@ -60,6 +62,13 @@ const NewDoubt = () => {
         label="Course Name"
         placeholder="Course Name"
         {...form.getInputProps("course_name")}
+      />
+      <TextInput
+        required={true}
+        className="w-[90vw] max-w-[30rem]"
+        label="Doubt Title"
+        placeholder="Doubt Title"
+        {...form.getInputProps("title")}
       />
 
       <div className="p-2" />

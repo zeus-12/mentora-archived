@@ -27,7 +27,6 @@ const NewBuddyModal = ({ isModalOpen, setIsModalOpen }) => {
 
   const registerHandler = async () => {
     const validationResult = form.validate();
-    console.log(validationResult);
     if (Object.keys(validationResult.errors).length > 0) {
       return;
     }

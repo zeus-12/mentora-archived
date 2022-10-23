@@ -1,83 +1,65 @@
-const {
-  BlobServiceClient,
-  StorageSharedKeyCredential,
-} = require("@azure/storage-blob");
-
-// // connect to blob storage
-// const connectToStorage = async () => {
-//   const accountName = "mentora";
-//   const accountKey = process.env.AZURE_ACCOUNT_KEY;
-//   if (!accountName) throw Error("Azure Storage accountName not found");
-//   if (!accountKey) throw Error("Azure Storage accountKey not found");
-
-//   const sharedKeyCredential = new StorageSharedKeyCredential(
-//     accountName,
-//     accountKey
-//   );
-
-//   const blobServiceClient = new BlobServiceClient(
-//     `https://${accountName}.blob.core.windows.net`,
-//     sharedKeyCredential
-//   );
-
-//   const containerClient = blobServiceClient.getContainerClient("course");
-//   return { blobServiceClient, containerClient };
-// };
-
-// export const getBlobClient = async (blobName) => {
-//   const { containerClient } = await connectToStorage();
-//   return containerClient.getBlockBlobClient(blobName);
-// };
-
-// get names of all blob files
-const getBlobNames = async () => {
-  // const { containerClient } = await connectToStorage();
-
-  // const accountKey = process.env.AZURE_ACCOUNT_KEY ;
-  const accountKey = "";
-
-  const sharedKeyCredential = new StorageSharedKeyCredential(
-    "mentora",
-    accountKey
+const writeStreamToAzureStorage = async (
+  fileName,
+  imageBuffer,
+  azureContainerName
+) => {
+  const blobFile = new BlockBlobClient(
+    azureStorageConnectionUrl,
+    azureContainerName,
+    fileName
   );
 
-  const blobServiceClient = new BlobServiceClient(
-    `https://mentora.blob.core.windows.net`,
-    sharedKeyCredential
-  );
+  const stream = getStream(imageBuffer);
+  const streamLength = imageBuffer.length;
 
-  // const blobServiceClient = BlobServiceClient.fromConnectionString(accountKey);
-  const containerClient = blobServiceClient.getContainerClient("course");
+  await blobFile.uploadStream(stream, streamLength).catch((error) => {
+    throw new Error("Error uploading image to Azure Storage");
+  });
 
-  // const blobs = containerClient.listBlobsFlat();
-
-  const res = [];
-  // for await (const blob of blobs) {
-  //   // const itemName = await item.name;
-  //   const tempBlockBlobClient = containerClient.getBlockBlobClient(blob.name);
-
-  //   // console.log(`Blob: ${blob.name}`);
-  //   // res.push(`https://mentora.blob.core.windows.net/course/${itemName}`);
-  // }
-
-  // List the blob(s) in the container.
-  for await (const blob of containerClient.listBlobsFlat()) {
-    const tempBlockBlobClient = containerClient.getBlockBlobClient(blob.name);
-    res.push(tempBlockBlobClient.url);
-  }
-
-  return res;
+  return blobFile;
 };
 
-console.log(getBlobNames());
+export const uploadBlob = async (image, productId) => {
+  if (!image) {
+    throw new Error("No image found");
+  }
 
-// download file
-// export const downloadBlobFile = async (blobName) => {
-//   const blobClient = await getBlobClient(blobName);
+  const { ext } = path.parse(image.originalname);
 
-//   // download file
-//   await blobClient.downloadToFile(blobName);
-// };
+  if (![".jpg", ".jpeg", ".png"].includes(ext)) {
+    throw new Error("Invalid image format");
+  }
 
-// upload new file
-// delete file
+  const fileName = `${uuidv4()}${ext}`;
+  const azureContainerName = "products";
+  var thumbnailBlobFile = null;
+  var originalBlobFile = null;
+
+  try {
+    const thumbnail = await generateThumbnailImage(image);
+    const original = await generateOriginalImage(image);
+
+    thumbnailBlobFile = await writeStreamToAzureStorage(
+      `${productId}/thumbnails/${fileName}`,
+      thumbnail,
+      azureContainerName
+    );
+
+    originalBlobFile = await writeStreamToAzureStorage(
+      `${productId}/originals/${fileName}`,
+      original,
+      azureContainerName
+    );
+  } catch (error) {
+    throw new Error("Error uploading image to Azure Storage");
+  }
+
+  if (!thumbnailBlobFile || !originalBlobFile) {
+    throw new Error("No image returned");
+  }
+
+  return {
+    originalImageUrl: originalBlobFile.url,
+    thumbnailImageUrl: thumbnailBlobFile.url,
+  };
+};
