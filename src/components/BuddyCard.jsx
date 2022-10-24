@@ -13,10 +13,9 @@ const BuddyCard = ({ buddy }) => {
   //   "buddyType": "tutor",
   //   "money": "12",
   //   "date": "2022-10-20T04:43:23.737Z",
-  //   "__v": 0
   // }
 
-  const { course_id, course_name, user, message, buddyType, money } = buddy;
+  const { course_id, user, message, buddyType, money } = buddy;
   console.log(getCourseNameFromId(course_id));
   return (
     <div className="bg-gray-900 p-8 space-y-1 rounded-xl">

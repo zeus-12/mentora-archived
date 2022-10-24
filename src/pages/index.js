@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
 
@@ -21,6 +22,8 @@ const features = [
 ];
 
 export default function Home() {
+  const { data: session } = useSession();
+  console.log(session);
   return (
     <div className="md:p-4 p-2 lg:p-6 xl:p-8">
       <Head>

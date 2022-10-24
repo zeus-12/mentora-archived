@@ -24,6 +24,18 @@ const User = () => {
       >
         Sign Out
       </Button>
+
+      <div className="flex flex-col">
+        <div>
+          <p>Buddies Applied</p>
+        </div>
+        <div>
+          <p>Doubts Asked</p>
+        </div>
+        <div>
+          <p>Buddies Applied</p>
+        </div>
+      </div>
     </div>
   );
 };

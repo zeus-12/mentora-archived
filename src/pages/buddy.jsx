@@ -6,11 +6,13 @@ import { buttonOutlineClasses } from "../utils/tailwindClasses";
 import { IconX } from "@tabler/icons";
 import LoaderComponent from "../components/LoaderComponent";
 import NewBuddyModal from "../components/NewBuddyModal";
+import { notSignedInNotification } from "../utils/notification";
+import { useSession } from "next-auth/react";
 
 const Buddy = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [buddies, setBuddies] = useState([]);
-
+  const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -31,6 +33,14 @@ const Buddy = () => {
     fetchBuddies();
   }, []);
 
+  const applyBuddyBtnHandler = () => {
+    if (!session) {
+      notSignedInNotification("Please sign in to apply for buddy");
+      return;
+    }
+    setIsModalOpen(true);
+  };
+
   return (
     <div className="flex min-h-[90vh] flex-col">
       <div className="flex items-center justify-center">
@@ -42,7 +52,7 @@ const Buddy = () => {
           <Button
             variant="outline"
             className={`mt-2 ${buttonOutlineClasses}`}
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => applyBuddyBtnHandler()}
           >
             Apply Now!
           </Button>
@@ -53,10 +63,8 @@ const Buddy = () => {
         Interested in {""}
         <span className="text-green-500">helping</span> others out?
       </p>
-      {/* DISPLAY ALL THE DATA HERE */}
-      {/* <div className={`flex-1 flex items-center`}`> */}
+
       {buddies.length === 0 && <LoaderComponent />}
-      {/* </div> */}
 
       <div className="flex gap-2 flex-wrap">
         {buddies.length > 0 &&

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { buttonOutlineClasses } from "../../utils/tailwindClasses";
 import DoubtCard from "../../components/DoubtCard";
 import LoaderComponent from "../../components/LoaderComponent";
+import { notSignedInNotification } from "../../utils/notification";
 
 const Doubts = () => {
   const { data: session } = useSession();
@@ -21,10 +22,18 @@ const Doubts = () => {
 
   return (
     <div className="flex min-h-[90vh] flex-col px-1 sm:px-2 md:px-4 lg:px-6 xl:px-32">
-      <div className="flex justify-between px-16 mb-4">
+      <div className="flex justify-between mb-4">
         <p className="text-3xl font-bold tracking-tight">Doubts</p>
         <Link passHref href={session ? "/doubts/new" : ""}>
-          <Button variant="outline" className={buttonOutlineClasses}>
+          <Button
+            variant="outline"
+            onClick={() =>
+              !session
+                ? notSignedInNotification("Please sign in to ask a doubt!")
+                : () => {}
+            }
+            className={buttonOutlineClasses}
+          >
             Ask Question
           </Button>
         </Link>

@@ -7,11 +7,13 @@ import { prettifyId } from "../../../utils/helper";
 import { buttonOutlineClasses } from "../../../utils/tailwindClasses";
 import CommentCard from "../../../components/CommentCard";
 import SubCommentCard from "../../../components/SubCommentCard";
+import { notSignedInNotification } from "../../../utils/notification";
+import { useSession } from "next-auth/react";
 
 const CourseDetails = () => {
   const router = useRouter();
   const { courseId } = router.query;
-
+  const { data: session } = useSession();
   const [comments, setComments] = useState([]);
   const [courseData, setCourseData] = useState({});
 
@@ -64,6 +66,10 @@ const CourseDetails = () => {
   });
 
   const addComment = async () => {
+    if (!session) {
+      notSignedInNotification("Please sign in to comment");
+      return;
+    }
     const validationResult = form.validate();
     if (Object.keys(validationResult.errors).length > 0) {
       return;
@@ -102,8 +108,30 @@ const CourseDetails = () => {
           </p>
         </div>
 
-        <Link href={`/course/${courseId}/new-submission`} passHref>
-          <Button className={buttonOutlineClasses}>Add Resources</Button>
+        <Link
+          // todo fix this
+          href={`/course/${courseId}/new-submission`}
+          // href={!session ? `/course/${courseId}/new-submission` : ""}
+          // href={
+          //   session
+          //     ? {
+          //         pathname: "/course/[slug]/new-submission",
+          //         query: { slug: courseId },
+          //       }
+          //     : ""
+          // }
+          passHref
+        >
+          <Button
+            onClick={
+              !session
+                ? () => notSignedInNotification("Please sign in to comment")
+                : () => {}
+            }
+            className={buttonOutlineClasses}
+          >
+            Add Resources
+          </Button>
         </Link>
         {/* {professors.length > 0 &<p>Course Name: {course_name}</p>} */}
       </div>
@@ -117,7 +145,7 @@ const CourseDetails = () => {
           {...form.getInputProps("comment")}
         />
         <Button
-          // disabled={value?.trim().length === 0 ? true : false}
+          // disabled={form.values.comment?.trim().length === 0 ? true : false}
           onClick={addComment}
           className={buttonOutlineClasses}
         >

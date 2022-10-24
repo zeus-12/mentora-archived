@@ -6,9 +6,12 @@ import NewCourseModal from "../../components/NewCourseModal";
 import LoaderComponent from "../../components/LoaderComponent";
 import { buttonOutlineClasses } from "../../utils/tailwindClasses";
 import { getCourseNameFromId } from "../../utils/helper";
+import { useSession } from "next-auth/react";
+import { notSignedInNotification } from "../../utils/notification";
 
 export default function Home() {
   const [courses, setCourses] = useState([]);
+  const { data: session } = useSession();
 
   useEffect(() => {
     const fetchCourseNames = async () => {
@@ -30,6 +33,14 @@ export default function Home() {
   }, []);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const addCourseHandler = () => {
+    if (!session) {
+      notSignedInNotification("Please sign in to add a course!");
+      return;
+    }
+    setIsModalOpen(true);
+  };
 
   // todo fix fuse search
   const fuse = new Fuse(courses, { keys: ["course_id", "course_name"] });
@@ -62,7 +73,7 @@ export default function Home() {
         <Button
           variant="outline"
           className={buttonOutlineClasses}
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => addCourseHandler()}
         >
           Add course
         </Button>

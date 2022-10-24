@@ -1,5 +1,6 @@
-import { Button, Textarea, TextInput } from "@mantine/core";
+import { Button, FileInput, Textarea, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import RichTextEditor from "../../components/RichTextEditor";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { buttonOutlineClasses } from "../../utils/tailwindClasses";
@@ -69,14 +70,18 @@ const NewDoubt = () => {
         placeholder="Doubt Title"
         {...form.getInputProps("title")}
       />
-      <Textarea
+      {/* <Textarea
         required={true}
         className="w-[90vw] max-w-[30rem]"
-        label="Doubt Title"
-        placeholder="Doubt Title"
+        label="Doubt"
+        placeholder="Enter your doubt"
         {...form.getInputProps("doubt")}
-      />
-
+      /> */}
+      <div className="p-2" />
+      <RichTextEditor className="" {...form.getInputProps("question")} />
+      <div className="flex justify-start">
+        <FileInput placeholder="Pick file" label="Your Doubt" withAsterisk />
+      </div>
       <Button
         loading={loading}
         onClick={registerHandler}
