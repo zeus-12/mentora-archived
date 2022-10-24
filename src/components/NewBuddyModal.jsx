@@ -79,8 +79,8 @@ const NewBuddyModal = ({ isModalOpen, setIsModalOpen }) => {
           withAsterisk
           {...form.getInputProps("buddyType")}
         >
-          <Radio value="tutor" label="Tutor" />
-          <Radio value="batchmate" label="Batchmate" />
+          <Radio value="Tutor" label="Tutor" />
+          <Radio value="Batchmate" label="Batchmate" />
         </Radio.Group>
         {/* <TextInput
           required={true}

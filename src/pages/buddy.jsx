@@ -58,7 +58,7 @@ const Buddy = () => {
       {buddies.length === 0 && <LoaderComponent />}
       {/* </div> */}
 
-      <div className="grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-4 flex-wrap">
+      <div className="grid grid-cols-1   md:grid-cols-4 sm:grid-cols-2 gap-4 flex-wrap">
         {buddies.length > 0 &&
           buddies.map((buddy) => <BuddyCard key={buddy._id} buddy={buddy} />)}
       </div>

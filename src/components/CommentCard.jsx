@@ -18,7 +18,7 @@ const CommentCard = ({ comment }) => {
         </div>
         <div className="flex flex-col">
           <button className="flex m-1">
-            <h4>reply</h4>
+            <h4 className="hover:border-b-[1px] pb-1">reply</h4>
             <IconCornerUpLeft />
           </button>
           <div onClick={() => setColor(!color)}>
