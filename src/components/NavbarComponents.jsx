@@ -68,7 +68,7 @@ export const LoginUserComponent = ({ session }) => {
       {session && (
         <Link href="/user" passHref>
           <UnstyledButton>
-            <Group>
+            <div className="flex sm:gap-3 lg:gap-4 items-center">
               <Avatar size={40} color="blue">
                 {generateAvatarText(session.user.name)}
               </Avatar>
@@ -78,7 +78,7 @@ export const LoginUserComponent = ({ session }) => {
                   {session.user.email}
                 </Text>
               </div>
-            </Group>
+            </div>
           </UnstyledButton>
         </Link>
       )}

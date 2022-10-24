@@ -45,7 +45,7 @@ const NewDoubt = () => {
   console.log(form.values.doubt);
 
   return (
-    <div>
+    <div className="">
       <p className="text-3xl font-bold tracking-tighter mb-4">Ask a Doubt!</p>
 
       <TextInput
@@ -80,7 +80,7 @@ const NewDoubt = () => {
       <div className="p-2" />
       <RichTextEditor className="" {...form.getInputProps("question")} />
       <div className="flex justify-start">
-        <FileInput placeholder="Pick file" label="Your Doubt" withAsterisk />
+        <FileInput placeholder="Pick file" label="Attach Files" withAsterisk />
       </div>
       <Button
         loading={loading}

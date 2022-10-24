@@ -16,7 +16,6 @@ const BuddyCard = ({ buddy }) => {
   // }
 
   const { course_id, user, message, buddyType, money } = buddy;
-  console.log(getCourseNameFromId(course_id));
   return (
     <div className="bg-gray-900 p-8 space-y-1 rounded-xl">
       {/* <Avatar userName={name} /> */}

@@ -20,6 +20,9 @@ export default function SignIn() {
             <p className="text-xl font-semibold">
               The all-in-one place for Acads!
             </p>
+            <p className="mt-6 text-gray-400">
+              Use your smail account to sign in.
+            </p>
           </div>
 
           <div>

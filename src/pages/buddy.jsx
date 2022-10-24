@@ -42,7 +42,7 @@ const Buddy = () => {
   };
 
   return (
-    <div className="flex min-h-[90vh] flex-col">
+    <div className="flex min-h-[90vh] mx-16 flex-col">
       <div className="flex items-center justify-center">
         <div>
           <p className="text-3xl font-semibold">

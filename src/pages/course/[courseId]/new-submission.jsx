@@ -1,7 +1,7 @@
 import { BlobServiceClient } from "@azure/storage-blob";
-import { Button, Group, Text } from "@mantine/core";
+import { Button, Group, Image, SimpleGrid, Text } from "@mantine/core";
 import { Dropzone, IMAGE_MIME_TYPE, PDF_MIME_TYPE } from "@mantine/dropzone";
-import { IconPhoto, IconUpload, IconX } from "@tabler/icons";
+import { IconPhoto, IconTemperature, IconUpload, IconX } from "@tabler/icons";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
 import { buttonOutlineClasses } from "../../../utils/tailwindClasses";
@@ -21,8 +21,7 @@ const NewSubmission = () => {
     //   // uploadedFiles.push(URL.createObjectURL(item));
     //   uploadedFiles.push(item);
     // });
-    // setFiles((state) => [...state, ...file]);
-    setFiles(file);
+    setFiles((state) => [...state, ...file]);
   };
 
   const uploadFileToBlob = useCallback(async (file, newFileName) => {
@@ -53,7 +52,6 @@ const NewSubmission = () => {
     setLoading(false);
   }, []);
 
-  console.log(files);
   const submitHandler = async () => {
     files.map((file) => {
       const newFileName = `${courseId}/${file.name}`;
@@ -61,25 +59,38 @@ const NewSubmission = () => {
     });
   };
 
+  const previews = files.map((file, index) => {
+    if (IMAGE_MIME_TYPE.includes(file.type)) {
+      const imageUrl = URL.createObjectURL(file);
+      return (
+        <Image
+          alt={file.name}
+          key={index}
+          src={imageUrl}
+          imageProps={{ onLoad: () => URL.revokeObjectURL(imageUrl) }}
+        />
+      );
+    } else if (PDF_MIME_TYPE.includes(file.type)) {
+      return (
+        <div key={file} className="flex flex-col items-center justify-center">
+          <IconPhoto size={40} />
+          <p>{file.name}</p>
+        </div>
+      );
+    }
+  });
+
   return (
-    <div>
-      {/* {files.length > 0 &&
-        files.map((url, index) => {
-          console.log(url);
-
-          // check filetype and if image use img tag, for pdf figure out some way to get its coverpage thumbnail
-          // also add onclick for both which would open up a modal for preview.
-
-          // return <img className="w-64 h-64" src={url} key={index} alt="text" />;
-          return <embed src={url} key={index} width="250" height="200" />;
-        })} */}
-
-      {/* {files[0] && <img className="w-64 h-64" src={files[0]} alt="text" />} */}
-      {/* course name  */}
+    <div className="px-1 sm:px-2 md:px-4 lg:px-6 xl:px-32">
       <p>{prettifyId(courseId)}</p>
-      <p className="text-3xl font-semibold tracking-tighter mb-2">
-        Add Materials!
-      </p>
+      <div className="flex justify-between">
+        <p className="text-3xl font-semibold tracking-tighter mb-2">
+          Add Materials!
+        </p>
+        <Button className={buttonOutlineClasses} onClick={submitHandler}>
+          Submit
+        </Button>
+      </div>
 
       <Dropzone
         onDrop={(file) => handleUpload(file)}
@@ -87,7 +98,7 @@ const NewSubmission = () => {
         // todo for reject show notification
         // onReject={(files) => console.log("rejected files", files)}
         maxSize={15 * 1024 ** 2}
-        accept={(IMAGE_MIME_TYPE, PDF_MIME_TYPE)}
+        accept={[...PDF_MIME_TYPE, ...IMAGE_MIME_TYPE]}
       >
         <Group
           position="center"
@@ -114,9 +125,15 @@ const NewSubmission = () => {
           </div>
         </Group>
       </Dropzone>
-      <Button className={buttonOutlineClasses} onClick={submitHandler}>
-        Submit
-      </Button>
+
+      <SimpleGrid
+        className="gap-8"
+        cols={4}
+        breakpoints={[{ maxWidth: "sm", cols: 1 }]}
+        mt={previews.length > 0 ? "xl" : 0}
+      >
+        {previews}
+      </SimpleGrid>
     </div>
   );
 };

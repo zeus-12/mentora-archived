@@ -1,36 +1,36 @@
 import { Button, Input, Loader } from "@mantine/core";
 import { useEffect, useState } from "react";
 import CourseCard from "../../components/CourseCard";
-import Fuse from "fuse.js";
 import NewCourseModal from "../../components/NewCourseModal";
 import LoaderComponent from "../../components/LoaderComponent";
 import { buttonOutlineClasses } from "../../utils/tailwindClasses";
 import { getCourseNameFromId } from "../../utils/helper";
 import { useSession } from "next-auth/react";
 import { notSignedInNotification } from "../../utils/notification";
+const name_id_map = require("../../../name-id-map.json");
 
 export default function Home() {
-  const [courses, setCourses] = useState([]);
+  // const [courses, setCourses] = useState([]);
   const { data: session } = useSession();
 
-  useEffect(() => {
-    const fetchCourseNames = async () => {
-      const res = await fetch("/api/course");
-      const courseNames = await res.json();
-      console.log(courseNames.data);
-      const courseNameData = courseNames.data.map((item) => {
-        return {
-          _id: item._id,
-          course_id: item.course_id,
-          course_name: getCourseNameFromId(item.course_id),
-        };
-      });
+  // useEffect(() => {
+  //   const fetchCourseNames = async () => {
+  //     const res = await fetch("/api/course");
+  //     const courseNames = await res.json();
+  //     console.log(courseNames.data);
+  //     const courseNameData = courseNames.data.map((item) => {
+  //       return {
+  //         _id: item._id,
+  //         course_id: item.course_id,
+  //         course_name: getCourseNameFromId(item.course_id),
+  //       };
+  //     });
 
-      setCourses(courseNameData);
-      console.log(courseNameData);
-    };
-    fetchCourseNames();
-  }, []);
+  //     setCourses(courseNameData);
+  //     console.log(courseNameData);
+  //   };
+  //   fetchCourseNames();
+  // }, []);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -42,19 +42,37 @@ export default function Home() {
     setIsModalOpen(true);
   };
 
-  // todo fix fuse search
-  const fuse = new Fuse(courses, { keys: ["course_id", "course_name"] });
   const [searchQuery, setSearchQuery] = useState("");
 
+  const generateCoursesData = (name_id_map) => {
+    const coursesData = [];
+    Object.keys(name_id_map).map((item) => {
+      coursesData.push({
+        course_name: name_id_map[item],
+        course_id: item,
+      });
+    });
+    return coursesData;
+  };
+
+  const courses = generateCoursesData(name_id_map);
+
   const filterData = (data) => {
-    if (searchQuery.trim() === "") {
-      return courses.map((doc, idx) => ({
-        item: doc,
-        score: 1,
-        refIndex: idx,
-      }));
-    } else if (data.length > 0) {
-      return fuse.search(searchQuery);
+    if (searchQuery.trim().length === 0) {
+      return [];
+    } else {
+      data = data.filter(
+        (item) =>
+          item.course_name
+            .replaceAll(" ", "")
+            .toLowerCase()
+            .includes(searchQuery.replaceAll(" ", "").toLowerCase()) ||
+          item.course_id
+            .replaceAll(" ", "")
+            .toLowerCase()
+            .includes(searchQuery.replaceAll(" ", "").toLowerCase())
+      );
+      return data;
     }
   };
 
@@ -81,17 +99,20 @@ export default function Home() {
       {courses.length === 0 && <LoaderComponent />}
 
       <div className="flex justify-center">
-        {courses.length > 0 && (
+        {filterData(courses).length > 0 ? (
           <div className="flex flex-wrap gap-2">
-            {courses.length > 0 &&
-              filterData(courses).map((course) => (
-                <CourseCard
-                  key={course.item.course_id}
-                  name={course.item.course_name}
-                  id={course.item.course_id}
-                />
-              ))}
+            {filterData(courses)?.map((course) => (
+              <CourseCard
+                key={course.course_id}
+                name={course.course_name}
+                id={course.course_id}
+              />
+            ))}
           </div>
+        ) : (
+          <p className="text-gray-400 font-medium text-xl mt-16">
+            Start typing the Course Id/Name...
+          </p>
         )}
       </div>
 
