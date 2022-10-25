@@ -7,7 +7,7 @@ const commentSchema = new Schema(
     // link it with users model?
     comment: { type: String, required: true },
     date: { type: Date, default: Date.now },
-    parent_id: { type: Schema.ObjectId },
+    parent_id: { type: String },
   }
   // { timestamps: true }
 );

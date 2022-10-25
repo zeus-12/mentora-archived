@@ -150,7 +150,7 @@ const CourseDetails = () => {
 
         {/* comments */}
         {/* loading banner? */}
-        <div className="space-y-8 mt-4">
+        <div className="space-y-4 mt-4">
           {comments?.length > 0 &&
             comments.map((comment, index) => (
               <div key={index}>

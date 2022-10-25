@@ -23,15 +23,14 @@ const BuddyCard = ({ buddy }) => {
       <p className="text-gray-300">{getCourseNameFromId(course_id)}</p>
       <p className="text-gray-400 truncate">{message}</p>
 
-
-      <p className="bg-pink-600 text-white inline-flex px-2 py-[0.5px] rounded-2xl">
-        {buddyType}
-      </p>
-//       <p>{money > 0 && "Rs." + money}</p>
-       <div className="flex gap-2 text-lg">
-        <IconCurrencyRupee />
-        {money}
-        <p className="bg-pink-600 text-white inline-flex px-2 py-[0.5px] rounded-2xl">
+      <div className="flex gap-2 text-lg">
+        {buddyType === "tutor" && (
+          <div className="flex">
+            <IconCurrencyRupee />
+            {money}
+          </div>
+        )}
+        <p className="bg-pink-600 text-gray-200 text-md inline-flex px-2 py-[0.5px] rounded-2xl">
           {buddyType}
         </p>
       </div>
@@ -41,7 +40,6 @@ const BuddyCard = ({ buddy }) => {
       </Button> 
       </div>
       */}
-
     </div>
   );
 };

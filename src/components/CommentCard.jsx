@@ -1,39 +1,90 @@
-import { Avatar } from "@mantine/core";
+import { Avatar, TextInput } from "@mantine/core";
 import { useState } from "react";
 import { generateAvatarText } from "../utils/helper";
-import { IconCornerUpLeft, IconHeart } from "@tabler/icons";
+import { IconCornerUpLeft, IconHeart, IconSend } from "@tabler/icons";
+import { useForm } from "@mantine/form";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 const CommentCard = ({ comment }) => {
-  const [color, setColor] = useState(false);
+  const [liked, setLiked] = useState(false);
+  const [showNewComment, setShowNewComment] = useState(false);
+  const form = useForm({
+    initialValues: {
+      comment: "",
+    },
+    validate: {
+      comment: (value) => (value.length > 10 ? null : "Too short"),
+    },
+  });
+  const router = useRouter();
+  const { data: session } = useSession();
+  const { courseId } = router.query;
 
-  console.log(comment);
-  console.log(comment);
+  const postSubComment = async () => {
+    if (!session) {
+      notSignedInNotification("Please sign in to comment");
+      return;
+    }
+    const validationResult = form.validate();
+    if (Object.keys(validationResult.errors).length > 0) {
+      return;
+    }
+    // setLoading(true);
+    const res = await fetch(`/api/comment/${courseId}/${comment._id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form.values),
+    });
+
+    const data = await res.json();
+    if (data.error) {
+      // throw error notifcation
+    } else {
+      console.log("hey");
+      //todo refetch the comments
+      // show success notification
+      form.reset();
+    }
+  };
   return (
     <div>
-      <div className="flex justify-between text-md bg-[#3441457c] rounded-md">
-        <div className=" flex items-center gap-4 p-2 ">
+      <div className="flex justify-between items-center text-md border-[1px] px-1 py-2 border-[#3441457c] rounded-md">
+        <div className="flex items-center gap-4">
           <Avatar size={40} color="blue">
             {generateAvatarText(comment.user)}
           </Avatar>
-          <p className="text-white">{comment.comment}</p>
+          <p>{comment.comment}</p>
         </div>
-        <div className="flex flex-col">
-          <button className="flex m-1">
-            <h4 className="hover:border-b-[1px] pb-1">reply</h4>
-            <IconCornerUpLeft />
-          </button>
-          <div onClick={() => setColor(!color)}>
-            {/* <button onClick={()=>setColor(!color)}> */}
-            {/* <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-heart" width={24} height={24} viewBox="0 0 24 24" strokeWidth="2" stroke={color?"red":"white"} fill={color?"red":"none"} strokeLinecap="round" strokeLinejoin="round">
-   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-   <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
-</svg> */}
-
-            <IconHeart className={color ? "fill-red-400 text-red-400" : ""} />
-            {/* </button> */}
-          </div>
+        <div className="gap-1 flex">
+          <IconHeart
+            onClick={() => setLiked((prev) => !prev)}
+            className={
+              liked
+                ? "fill-red-400 text-red-400"
+                : "" + " hover:cursor-pointer w-6 h-6"
+            }
+          />
+          <IconCornerUpLeft
+            className="hover:text-gray-100 hover:cursor-pointer w-6 h-6"
+            onClick={() => setShowNewComment((prev) => !prev)}
+          />
         </div>
-        {/* <p>{comment.user}</p> */}
       </div>
+      {showNewComment && (
+        <div className="flex items-center gap-2 px-2">
+          <TextInput
+            placeholder="Add a comment..."
+            className="my-2 flex-1 ml-12"
+            {...form.getInputProps("comment")}
+          />
+          <IconSend
+            onClick={postSubComment}
+            className="hover:text-gray-100 hover:cursor-pointer w-6 h-6"
+          />
+        </div>
+      )}
     </div>
   );
 };

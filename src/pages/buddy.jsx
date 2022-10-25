@@ -133,29 +133,24 @@ const Buddy = () => {
   );
 
   return (
-
     <div className="flex min-h-[90vh] md:px-4 px-2 lg:px-6 xl:px-8 flex-col">
-      <div className="flex items-center justify-center">
-        <div>
-          <p className="text-3xl font-semibold">
-            Having trouble with your studies? <br />
-            <span>Get yourself a Study/Tutor Buddy</span>
-          </p>
-          <Button
-            variant="outline"
-            className={`mt-2 ${buttonOutlineClasses}`}
-            onClick={() => applyBuddyBtnHandler()}
-          >
-            Apply Now!
-          </Button>
-        </div>
-        {/* image to right */}
+      <div className="flex">
+        <p className="tracking-tight font-semibold text-3xl text-center">
+          Need help with Studies?
+        </p>
+        <Button
+          variant="outline"
+          className={`mt-2 ${buttonOutlineClasses}`}
+          onClick={() => applyBuddyBtnHandler()}
+        >
+          Apply Now!
+        </Button>
       </div>
-      <p className="mt-16 tracking-tight font-semibold text-3xl text-center">
+
+      <p className="tracking-tight font-semibold text-3xl text-center">
         Interested in {""}
         <span className="text-green-500">helping</span> others out?
       </p>
-
 
       <div className="flex gap-4 items-center mt-2 mb-4 justify-center">
         <div className="max-w-[40rem] flex-1">
@@ -230,7 +225,6 @@ const Buddy = () => {
         ) : (
           <p>No results found!</p>
         )}
-
       </div>
       <NewBuddyModal
         isModalOpen={isModalOpen}
