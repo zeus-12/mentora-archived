@@ -38,7 +38,7 @@ const Buddy = () => {
       setLoading(true);
       const res = await fetch("/api/buddy");
       const data = await res.json();
-      console.log(data.data);
+
       if (data.error) {
         // todo show notification
 
@@ -56,7 +56,7 @@ const Buddy = () => {
       notSignedInNotification("Please sign in to apply for buddy");
       return;
     }
-    setIsModalOpen(true);
+    setNewBuddyModal(true);
   };
 
   const availableFilters = ["all", "tutor", "batchmate"];
@@ -177,7 +177,7 @@ const Buddy = () => {
             <div
               className="hover:cursor-pointer"
               onClick={() => setCur(buddy)}
-              key={buddy}
+              key={buddy._id}
             >
               <BuddyCard buddy={buddy} />
             </div>
