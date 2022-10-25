@@ -1,55 +1,90 @@
-import { Button, Group, Text } from "@mantine/core";
+import { BlobServiceClient } from "@azure/storage-blob";
+import { Button, Group, Image, SimpleGrid, Text } from "@mantine/core";
 import { Dropzone, IMAGE_MIME_TYPE, PDF_MIME_TYPE } from "@mantine/dropzone";
-import { IconPhoto, IconUpload, IconX } from "@tabler/icons";
+import { IconPhoto, IconTemperature, IconUpload, IconX } from "@tabler/icons";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import { buttonOutlineClasses } from "../../../utils/tailwindClasses";
+import { prettifyId } from "../../../utils/helper";
 
 const NewSubmission = () => {
   const router = useRouter();
   const { courseId } = router.query;
-
+  const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
 
   const handleUpload = (file) => {
-    let uploadedFiles = [];
-    file.map((item) => {
-      console.log(file);
-      uploadedFiles.push(URL.createObjectURL(item));
-      // uploadedFiles.push(item);
-    });
-    setFiles((state) => [...state, ...uploadedFiles]);
+    setFiles((prevState) => [...prevState, ...file]);
   };
+
+  const uploadFileToBlob = useCallback(async (file, newFileName) => {
+    const containerName = "course";
+    const sasToken =
+      "?sv=2021-06-08&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2022-10-24T15:22:58Z&st=2022-10-24T07:22:58Z&spr=https,http&sig=dzR4kiPuO2UGNE3Wpjx4nptx%2B2kghqJt5Xg5Yt6Nvnk%3D";
+    setLoading(true);
+    if (!file) {
+      console.log("No FILE");
+    } else {
+      const blobService = new BlobServiceClient(
+        `https://mentora.blob.core.windows.net/?${sasToken}`
+      );
+
+      const containerClient = blobService.getContainerClient(containerName);
+      const blobClient = containerClient.getBlockBlobClient(newFileName);
+      const options = { blobHTTPHeaders: { blobContentType: file.type } };
+
+      const data = await blobClient.uploadData(file, options);
+      console.log(data);
+
+      await getBlobsInContainer(containerClient);
+      const blobs = await getBlobsInContainer(containerClient);
+      console.log(blobs);
+      // setBlobs(blobs);
+      console.log("uploaded");
+    }
+    setLoading(false);
+  }, []);
 
   const submitHandler = async () => {
-    const res = fetch(`/api/resource/${courseId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ files }),
+    files.map((file) => {
+      const newFileName = `${courseId}/${file.name}`;
+      uploadFileToBlob(file, newFileName);
     });
   };
 
+  const previews = files.map((file, index) => {
+    if (IMAGE_MIME_TYPE.includes(file.type)) {
+      const imageUrl = URL.createObjectURL(file);
+      return (
+        <Image
+          alt={file.name}
+          key={index}
+          src={imageUrl}
+          imageProps={{ onLoad: () => URL.revokeObjectURL(imageUrl) }}
+        />
+      );
+    } else if (PDF_MIME_TYPE.includes(file.type)) {
+      return (
+        <div key={file} className="flex flex-col items-center justify-center">
+          <IconPhoto size={40} />
+          <p>{file.name}</p>
+          <embed src={file} />
+        </div>
+      );
+    }
+  });
+
   return (
-    <div>
-      {files.length > 0 &&
-        files.map((url, index) => {
-          console.log(url);
-
-          // check filetype and if image use img tag, for pdf figure out some way to get its coverpage thumbnail
-          // also add onclick for both which would open up a modal for preview.
-
-          // return <img className="w-64 h-64" src={url} key={index} alt="text" />;
-          return <embed src={url} key={index} width="250" height="200" />;
-          // console.log(getImageUrl(fileObject));
-        })}
-
-      {/* {files[0] && <img className="w-64 h-64" src={files[0]} alt="text" />} */}
-      {/* course name  */}
-      {/* course id  */}
-      <p className="text-3xl font-semibold tracking-tighter mb-2">
-        Add Materials!
-      </p>
+    <div className="px-1 sm:px-2 md:px-4 lg:px-6 xl:px-32">
+      <p>{prettifyId(courseId)}</p>
+      <div className="flex justify-between">
+        <p className="text-3xl font-semibold tracking-tighter mb-2">
+          Add Materials!
+        </p>
+        <Button className={buttonOutlineClasses} onClick={submitHandler}>
+          Submit
+        </Button>
+      </div>
 
       <Dropzone
         onDrop={(file) => handleUpload(file)}
@@ -57,8 +92,7 @@ const NewSubmission = () => {
         // todo for reject show notification
         // onReject={(files) => console.log("rejected files", files)}
         maxSize={15 * 1024 ** 2}
-        accept={PDF_MIME_TYPE}
-        // onChange={handleUpload}
+        accept={[...PDF_MIME_TYPE, ...IMAGE_MIME_TYPE]}
       >
         <Group
           position="center"
@@ -85,7 +119,15 @@ const NewSubmission = () => {
           </div>
         </Group>
       </Dropzone>
-      <Button onClick={submitHandler}>Submit</Button>
+
+      <SimpleGrid
+        className="gap-8"
+        cols={4}
+        breakpoints={[{ maxWidth: "sm", cols: 1 }]}
+        mt={previews.length > 0 ? "xl" : 0}
+      >
+        {previews}
+      </SimpleGrid>
     </div>
   );
 };

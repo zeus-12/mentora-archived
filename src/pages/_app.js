@@ -1,7 +1,7 @@
 import Layout from "../components/Layout";
 import "../../styles/globals.css";
 import { MantineProvider } from "@mantine/core";
-
+import { NotificationsProvider } from "@mantine/notifications";
 import { SessionProvider } from "next-auth/react";
 
 function MyApp({ Component, pageProps, session }) {
@@ -14,9 +14,11 @@ function MyApp({ Component, pageProps, session }) {
           colorScheme: "dark",
         }}
       >
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <NotificationsProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </NotificationsProvider>
       </MantineProvider>
     </SessionProvider>
   );

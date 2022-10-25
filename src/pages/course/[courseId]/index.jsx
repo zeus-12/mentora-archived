@@ -7,23 +7,26 @@ import { prettifyId } from "../../../utils/helper";
 import { buttonOutlineClasses } from "../../../utils/tailwindClasses";
 import CommentCard from "../../../components/CommentCard";
 import SubCommentCard from "../../../components/SubCommentCard";
+import { notSignedInNotification } from "../../../utils/notification";
+import { useSession } from "next-auth/react";
+const name_id_map = require("../../../../name-id-map.json");
 
 const CourseDetails = () => {
   const router = useRouter();
   const { courseId } = router.query;
-
+  const { data: session } = useSession();
   const [comments, setComments] = useState([]);
-  const [courseData, setCourseData] = useState({});
+  // const [courseData, setCourseData] = useState({});
 
-  useEffect(() => {
-    const fetchCourseData = async () => {
-      if (!courseId) return;
-      const res = await fetch(`/api/course/${courseId}`);
-      const data = await res.json();
-      setCourseData(data.data);
-    };
-    fetchCourseData();
-  }, [courseId]);
+  // useEffect(() => {
+  //   const fetchCourseData = async () => {
+  //     if (!courseId) return;
+  //     const res = await fetch(`/api/course/${courseId}`);
+  //     const data = await res.json();
+  //     setCourseData(data.data);
+  //   };
+  //   fetchCourseData();
+  // }, [courseId]);
 
   const pushSubCommentsToParent = (comments) => {
     if (!comments) return;
@@ -44,14 +47,14 @@ const CourseDetails = () => {
   };
 
   useEffect(() => {
-    const fetchCourseData = async () => {
+    const fetchCourseComments = async () => {
       if (!courseId) return;
       const res = await fetch(`/api/comment/${courseId}`);
       const data = await res.json();
       pushSubCommentsToParent(data.data);
     };
 
-    fetchCourseData();
+    fetchCourseComments();
   }, [courseId]);
 
   const form = useForm({
@@ -64,6 +67,10 @@ const CourseDetails = () => {
   });
 
   const addComment = async () => {
+    if (!session) {
+      notSignedInNotification("Please sign in to comment");
+      return;
+    }
     const validationResult = form.validate();
     if (Object.keys(validationResult.errors).length > 0) {
       return;
@@ -87,24 +94,41 @@ const CourseDetails = () => {
     }
   };
 
-  // console.log(Object.keys(courseData).length);
-  // if (Object.keys(courseData).length === 0) {
-  //   return <LoaderComponent />;
-  // }
+  // add stylings here todo
+  if (!(courseId in name_id_map)) {
+    return <div>course doesnt exist</div>;
+  }
 
   return (
     <div className="flex flex-col min-h-[90vh]">
       <div className="flex justify-between flex-1">
         <div>
-          <p className="text-3xl font-bold">{courseData?.course_name}</p>
-          <p className="text-2xl font-semibold">
-            {courseData?.course_id && prettifyId(courseData?.course_id)}
+          <p className="text-3xl font-bold">{name_id_map[courseId]}</p>
+          <p className="text-2xl text-gray-400 font-semibold">
+            {courseId && prettifyId(courseId)}
           </p>
         </div>
+        {/* courseContent": "[\"Figures of Speech and Communicative Act-Language of persuasion: Promise-Intimidation, Testimonial, Statistics, Half-truths & Lies-Speech Act: Theories of Bhartihari, Searle and Austin-Language as a Social Act-Communicative Competence-Systemic Functional Approach to Speech-Communication in Context-Communication and the Mass Media, Art of Public Speaking-Natural language and theory of communication\", \"The course will acquaint students with the theory and practice of using natural languages for persuasion and communication. Figures of Speech and Communicative Act \u2013 Language of persuasion: Promise \u2013 Intimidation Testimonial, Statistic, Half \u2013 truth& Lies \u2013 Speech Act: Theories of Bhartihari, Searle and Austin \u2013 Language as a Social Act \u2013 Communicative Competence \u2013 Systemic Functional Approach to speech \u2013 Communication in Context \u2013 Communication and the Mass Media, Art of Public Speaking \u2013 Natural language and theory of Communication\", null]",
+    "courseType": "Theory",
+    "credits": "9",
+    "deptCode": "HS",    ??????????
+    "description": "",  
+    "prerequisites": "[]", ?????????
+    "referenceBooks": "[]",
+    "textBooks": "[]" */}
 
-        <Link href={`/course/${courseId}/new-submission`} passHref>
-          <Button className={buttonOutlineClasses}>Add Resources</Button>
-        </Link>
+        <a href={session ? `/course/${courseId}/new-submission` : null}>
+          <Button
+            onClick={
+              !session
+                ? () => notSignedInNotification("Please sign in to comment")
+                : () => {}
+            }
+            className={buttonOutlineClasses}
+          >
+            Add Resources
+          </Button>
+        </a>
         {/* {professors.length > 0 &<p>Course Name: {course_name}</p>} */}
       </div>
 
@@ -117,7 +141,7 @@ const CourseDetails = () => {
           {...form.getInputProps("comment")}
         />
         <Button
-          // disabled={value?.trim().length === 0 ? true : false}
+          // disabled={form.values.comment?.trim().length === 0 ? true : false}
           onClick={addComment}
           className={buttonOutlineClasses}
         >

@@ -13,11 +13,9 @@ const BuddyCard = ({ buddy }) => {
   //   "buddyType": "tutor",
   //   "money": "12",
   //   "date": "2022-10-20T04:43:23.737Z",
-  //   "__v": 0
   // }
 
-  const { course_id, course_name, user, message, buddyType, money } = buddy;
-  console.log(getCourseNameFromId(course_id));
+  const { course_id, user, message, buddyType, money } = buddy;
   return (
     <div className="bg-gray-900 p-4 hover: flex flex-col gap-1 justify-between space-y-1 rounded-lg">
       {/* <Avatar userName={name} /> */}
@@ -25,19 +23,25 @@ const BuddyCard = ({ buddy }) => {
       <p className="text-gray-300">{getCourseNameFromId(course_id)}</p>
       <p className="text-gray-400 truncate">{message}</p>
 
-      {/* <p>{money > 0 && "Rs." + money}</p> */}
-      <div className="flex gap-2 text-lg">
+
+      <p className="bg-pink-600 text-white inline-flex px-2 py-[0.5px] rounded-2xl">
+        {buddyType}
+      </p>
+//       <p>{money > 0 && "Rs." + money}</p>
+       <div className="flex gap-2 text-lg">
         <IconCurrencyRupee />
         {money}
         <p className="bg-pink-600 text-white inline-flex px-2 py-[0.5px] rounded-2xl">
           {buddyType}
         </p>
       </div>
-      <div className="relative bottom-0">
-        <Button className={buttonOutlineClasses + " block text-white m-2"}>
-          Apply
-        </Button>
+      {/* <div className="relative bottom-0">
+      <Button className={buttonOutlineClasses + " block text-white"}>
+        Apply
+      </Button> 
       </div>
+      */}
+
     </div>
   );
 };

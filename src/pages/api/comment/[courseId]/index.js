@@ -4,7 +4,6 @@ import Comments from "../../../../models/comment";
 import dbConnect from "../../../../utils/dbConnect";
 
 export default async function handler(req, res) {
-  console.log("here");
   const { courseId } = req.query;
   console.log(courseId);
   if (!courseId) {
