@@ -133,6 +133,7 @@ const Buddy = () => {
   );
 
   return (
+
     <div className="flex min-h-[90vh] md:px-4 px-2 lg:px-6 xl:px-8 flex-col">
       <div className="flex items-center justify-center">
         <div>
@@ -154,6 +155,7 @@ const Buddy = () => {
         Interested in {""}
         <span className="text-green-500">helping</span> others out?
       </p>
+
 
       <div className="flex gap-4 items-center mt-2 mb-4 justify-center">
         <div className="max-w-[40rem] flex-1">
@@ -228,6 +230,7 @@ const Buddy = () => {
         ) : (
           <p>No results found!</p>
         )}
+
       </div>
       <NewBuddyModal
         isModalOpen={isModalOpen}
