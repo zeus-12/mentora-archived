@@ -13,7 +13,7 @@ const name_id_map = require("../../../../name-id-map.json");
 
 const CourseDetails = () => {
   const router = useRouter();
-  const { courseId } = router.query;
+  const courseId = router.query.courseId?.toUpperCase();
   const { data: session } = useSession();
   const [comments, setComments] = useState([]);
   // const [courseData, setCourseData] = useState({});
@@ -94,7 +94,7 @@ const CourseDetails = () => {
   };
 
   // add stylings here todo
-  if (!(courseId.toUpperCase() in name_id_map)) {
+  if (!courseId in name_id_map) {
     return <div>course doesnt exist</div>;
   }
 
