@@ -3,7 +3,7 @@ import { useForm } from "@mantine/form";
 import { IconX } from "@tabler/icons";
 import { useState } from "react";
 
-const NewBuddyModal = ({ isModalOpen, setIsModalOpen }) => {
+const NewBuddyModal = ({ newBuddyModal, closeNewBuddyModal }) => {
   const [loading, setLoading] = useState(false);
   const form = useForm({
     initialValues: {
@@ -48,7 +48,7 @@ const NewBuddyModal = ({ isModalOpen, setIsModalOpen }) => {
     setLoading(false);
     form.reset();
 
-    setIsModalOpen(false);
+    closeNewBuddyModal();
   };
 
   return (
@@ -57,8 +57,8 @@ const NewBuddyModal = ({ isModalOpen, setIsModalOpen }) => {
       transition="fade"
       transitionDuration={600}
       transitionTimingFunction="ease"
-      opened={isModalOpen}
-      onClose={() => setIsModalOpen(false)}
+      opened={newBuddyModal}
+      onClose={closeNewBuddyModal}
       centered={true}
       classNames={{
         modal: "bg-black flex flex-col justify-center items-center",
@@ -70,7 +70,7 @@ const NewBuddyModal = ({ isModalOpen, setIsModalOpen }) => {
         <div className="flex justify-between items-center">
           <p className="text-2xl text-green-200 font-bold">Request a Buddy</p>
           <IconX
-            onClick={() => setIsModalOpen(false)}
+            onClick={closeNewBuddyModal}
             className="hover:cursor-pointer"
           />
         </div>

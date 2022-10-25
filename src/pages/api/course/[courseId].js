@@ -4,6 +4,7 @@ import Course from "../../../models/course";
 import getServerSession from "../../../utils/getServerSession";
 
 export default async function handler(req, res) {
+  return;
   // const session = await getServerSession(req, res);
 
   // if (!session) {

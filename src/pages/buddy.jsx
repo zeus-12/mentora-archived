@@ -11,15 +11,27 @@ import LoaderComponent from "../components/LoaderComponent";
 import NewBuddyModal from "../components/NewBuddyModal";
 import { notSignedInNotification } from "../utils/notification";
 import { useSession } from "next-auth/react";
+import { availableBranches } from "../utils/courseData";
+import BuddyDetailsModal from "../components/BuddyDetailsModal";
 
 const Buddy = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newBuddyModal, setNewBuddyModal] = useState(false);
   const [buddies, setBuddies] = useState([]);
   const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState("all");
   const [branchFilter, setBranchFilter] = useState("all");
+
+  const [cur, setCur] = useState(null);
+
+  const closeDetailsModal = () => {
+    setCur(null);
+  };
+
+  const closeNewBuddyModal = () => {
+    setNewBuddyModal(false);
+  };
 
   useEffect(() => {
     const fetchBuddies = async () => {
@@ -48,53 +60,11 @@ const Buddy = () => {
   };
 
   const availableFilters = ["all", "tutor", "batchmate"];
-  const availableBranches = [
-    "all",
-    // "AS",
-    "MA",
-    "AE",
-    // "ID",
-    // "IL",
-    "AM",
-    "GN",
-    "BT",
-    // "NU",
-    "CE",
-    // "CA",
-    // "CD",
-    "CE",
-    "CH",
-    // "NE",
-    "CS",
-    // "IN",
-    "CY",
-    "ED",
-    "EE",
-    // "IG",
-    "EP",
-    // "EC",
-    "HS",
-    // "BS",
-    // "MP",
-    // "MS",
-    // "HM",
-    "ME",
-    // "WS",
-    "MM",
-    // "MT",
-    // "IT",
-    // "PE",
-    "OE",
-    // "NC",
-    // "NS",
-    "NA",
-    "PH",
-  ];
 
   const filterCourseBranches = (data) => {
     if (branchFilter === "all") return data;
-    return data.filter(
-      (buddy) => buddy.course_id.slice(0, 2).toUpperCase() === branchFilter
+    return data.filter((buddy) =>
+      buddy.course_id.toUpperCase().startsWith(branchFilter)
     );
   };
 
@@ -134,25 +104,7 @@ const Buddy = () => {
 
   return (
     <div className="flex min-h-[90vh] md:px-4 px-2 lg:px-6 xl:px-8 flex-col">
-      <div className="flex">
-        <p className="tracking-tight font-semibold text-3xl text-center">
-          Need help with Studies?
-        </p>
-        <Button
-          variant="outline"
-          className={`mt-2 ${buttonOutlineClasses}`}
-          onClick={() => applyBuddyBtnHandler()}
-        >
-          Apply Now!
-        </Button>
-      </div>
-
-      <p className="tracking-tight font-semibold text-3xl text-center">
-        Interested in {""}
-        <span className="text-green-500">helping</span> others out?
-      </p>
-
-      <div className="flex gap-4 items-center mt-2 mb-4 justify-center">
+      <div className="flex sm:gap-4 gap-2 items-center mt-2 mb-4 justify-center">
         <div className="max-w-[40rem] flex-1">
           <Input
             value={searchQuery}
@@ -162,14 +114,8 @@ const Buddy = () => {
             size="md"
           />
         </div>
-        {console.log(buddies)}
-        <Menu
-          shadow="md"
-          className="overflow-scroll"
-          height={20}
-          // position="bottom"
-          width={200}
-        >
+
+        <Menu shadow="md" className="overflow-scroll" height={20} width={200}>
           <Menu.Target>
             <Button className="text-gray-400 p-0 hover:text-white bg-inherit hover:bg-inherit">
               <IconAdjustmentsHorizontal className="w-7 h-7" />
@@ -214,21 +160,38 @@ const Buddy = () => {
             ))}
           </Menu.Dropdown>
         </Menu>
+        <Button
+          variant="outline"
+          className={buttonOutlineClasses}
+          onClick={() => applyBuddyBtnHandler()}
+        >
+          Apply Now!
+        </Button>
       </div>
 
       {buddies.length === 0 && <LoaderComponent />}
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 gap-2">
-        {filteredBuddies.length > 0 ? (
+        {filteredBuddies.length > 0 &&
           filteredBuddies.map((buddy) => (
-            <BuddyCard key={buddy._id} buddy={buddy} />
-          ))
-        ) : (
-          <p>No results found!</p>
-        )}
+            <div
+              className="hover:cursor-pointer"
+              onClick={() => setCur(buddy)}
+              key={buddy}
+            >
+              <BuddyCard buddy={buddy} />
+            </div>
+          ))}
       </div>
+      {filteredBuddies.length === 0 && <p>No results found!</p>}
+
       <NewBuddyModal
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
+        newBuddyModal={newBuddyModal}
+        closeNewBuddyModal={closeNewBuddyModal}
+      />
+      <BuddyDetailsModal
+        buddyData={cur}
+        closeDetailsModal={closeDetailsModal}
       />
     </div>
   );

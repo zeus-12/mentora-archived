@@ -43,7 +43,6 @@ const CourseDetails = () => {
     });
 
     setComments(comments);
-    console.log(comments);
   };
 
   useEffect(() => {
@@ -95,7 +94,7 @@ const CourseDetails = () => {
   };
 
   // add stylings here todo
-  if (!(courseId in name_id_map)) {
+  if (!(courseId.toUpperCase() in name_id_map)) {
     return <div>course doesnt exist</div>;
   }
 

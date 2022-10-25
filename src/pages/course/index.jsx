@@ -1,12 +1,13 @@
-import { Button, Input, Loader } from "@mantine/core";
+import { Button, Input, Loader, Menu } from "@mantine/core";
 import { useEffect, useState } from "react";
 import CourseCard from "../../components/CourseCard";
-import NewCourseModal from "../../components/NewCourseModal";
 import LoaderComponent from "../../components/LoaderComponent";
 import { buttonOutlineClasses } from "../../utils/tailwindClasses";
 import { getCourseNameFromId } from "../../utils/helper";
 import { useSession } from "next-auth/react";
 import { notSignedInNotification } from "../../utils/notification";
+import { IconCheck, IconNotebook } from "@tabler/icons";
+import { availableBranches } from "../../utils/courseData";
 const name_id_map = require("../../../name-id-map.json");
 
 export default function Home() {
@@ -33,15 +34,7 @@ export default function Home() {
   // }, []);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const addCourseHandler = () => {
-    if (!session) {
-      notSignedInNotification("Please sign in to add a course!");
-      return;
-    }
-    setIsModalOpen(true);
-  };
-
+  const [branchFilter, setBranchFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
 
   const generateCoursesData = (name_id_map) => {
@@ -56,12 +49,21 @@ export default function Home() {
   };
 
   const courses = generateCoursesData(name_id_map);
+  const branchFilteredCourses = () => {
+    if (branchFilter === "all") {
+      return courses;
+    }
 
-  const filterData = (data) => {
+    return courses.filter((course) => {
+      return course.course_id.startsWith(branchFilter);
+    });
+  };
+
+  const filterCoursesOnSearch = (data) => {
     if (searchQuery.trim().length === 0) {
       return [];
     } else {
-      data = data.filter(
+      return data.filter(
         (item) =>
           item.course_name
             .replaceAll(" ", "")
@@ -72,9 +74,10 @@ export default function Home() {
             .toLowerCase()
             .includes(searchQuery.replaceAll(" ", "").toLowerCase())
       );
-      return data;
     }
   };
+
+  const filteredCourses = filterCoursesOnSearch(branchFilteredCourses());
 
   return (
     <div className="flex min-h-[90vh] flex-col">
@@ -88,27 +91,43 @@ export default function Home() {
             size="md"
           />
         </div>
-        <Button
-          variant="outline"
-          className={buttonOutlineClasses}
-          onClick={() => addCourseHandler()}
-        >
-          Add course
-        </Button>
+        <Menu shadow="md" height={20} width={200}>
+          <Menu.Target>
+            <Button className="text-gray-400 p-0 hover:text-white bg-inherit hover:bg-inherit">
+              <IconNotebook className="w-7 h-7" />
+            </Button>
+          </Menu.Target>
+          <Menu.Dropdown className="overflow-scroll h-60">
+            <Menu.Label>Course Branch</Menu.Label>
+            {availableBranches.map((item) => (
+              <Menu.Item
+                onClick={() => setBranchFilter(item)}
+                key={item}
+                className="capitalize"
+              >
+                <div className="flex justify-between items-center">
+                  {item}
+                  {item === branchFilter && <IconCheck className="w-5 h-5" />}
+                </div>
+              </Menu.Item>
+            ))}
+          </Menu.Dropdown>
+        </Menu>
       </div>
       {courses.length === 0 && <LoaderComponent />}
 
       <div className="flex justify-center">
-        {searchQuery.trim().length !== 0 &&
-          filterData(courses)?.length === 0 && <p>No course found!</p>}
-
-        {searchQuery.trim().length === 0 && (
-          <p>Start typing the Course name/id ... </p>
+        {searchQuery.trim().length !== 0 && filteredCourses?.length === 0 && (
+          <p>No course found!</p>
         )}
 
-        {filterData(courses).length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {filterData(courses)?.map((course) => (
+        {searchQuery.trim().length === 0 && (
+          <p className="text-gray-400">Start typing the Course name/id ... </p>
+        )}
+
+        {filteredCourses.length > 0 && (
+          <div className="grid justify-items-stretch grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+            {filteredCourses?.map((course) => (
               <CourseCard
                 key={course.course_id}
                 name={course.course_name}
@@ -119,10 +138,10 @@ export default function Home() {
         )}
       </div>
 
-      <NewCourseModal
+      {/* <NewCourseModal
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
-      />
+      /> */}
     </div>
   );
 }
