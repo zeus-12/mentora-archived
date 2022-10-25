@@ -13,7 +13,7 @@ const Doubts = () => {
 
   useEffect(() => {
     const fetchDoubts = async () => {
-      const res = await fetch(`/api/doubts`);
+      const res = await fetch(`/api/doubt`);
       const data = await res.json();
       setDoubts(data.data);
     };
@@ -24,7 +24,7 @@ const Doubts = () => {
     <div className="flex min-h-[90vh] flex-col px-1 sm:px-2 md:px-4 lg:px-6 xl:px-32">
       <div className="flex justify-between mb-4">
         <p className="text-3xl font-bold tracking-tight">Doubts</p>
-        <Link passHref href={session ? "/doubts/new" : ""}>
+        <Link passHref href={session ? "/doubt/new" : ""}>
           <Button
             variant="outline"
             onClick={() =>

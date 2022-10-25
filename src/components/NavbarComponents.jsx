@@ -13,7 +13,7 @@ import { generateAvatarText } from "../utils/helper";
 import { green_400 } from "../utils/constants";
 
 const MiddleSectionElements = [
-  { name: "Q&A", link: "/doubts" },
+  { name: "Q&A", link: "/doubt" },
   { name: "Resources", link: "/course" },
   { name: "Buddy", link: "/buddy" },
   { name: "Quiz", link: "/quiz" },

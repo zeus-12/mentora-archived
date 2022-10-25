@@ -15,7 +15,7 @@ const NewDoubt = () => {
       return;
     }
     setLoading(true);
-    const res = await fetch(`/api/doubts`, {
+    const res = await fetch(`/api/doubt`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -26,7 +26,7 @@ const NewDoubt = () => {
     const data = await res.json();
     // todo check if error, show notification based on it
     setLoading(false);
-    router.push("/doubts");
+    router.push("/doubt");
   };
 
   const form = useForm({

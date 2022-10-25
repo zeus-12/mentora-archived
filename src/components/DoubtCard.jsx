@@ -4,7 +4,7 @@ import { getCourseNameFromId, prettifyId } from "../utils/helper";
 const DoubtCard = ({ doubt }) => {
   const { course_id, title, doubt: doubtDescription } = doubt;
   return (
-    <Link passHref href={`/doubts/${doubt._id}`}>
+    <Link passHref href={`/doubt/${doubt._id}`}>
       <div className="hover:cursor-pointer bg-gray-900 px-8 py-3 space-y-1 rounded-xl">
         <p className="font-bold text-xl">
           {prettifyId(course_id)}:{" "}
