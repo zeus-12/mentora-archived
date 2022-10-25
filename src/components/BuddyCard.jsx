@@ -26,9 +26,9 @@ const BuddyCard = ({ buddy }) => {
         {buddyType}
       </p>
       <p>{money > 0 && "Rs." + money}</p>
-      <Button className={buttonOutlineClasses + " block text-white"}>
+      {/* <Button className={buttonOutlineClasses + " block text-white"}>
         Apply
-      </Button>
+      </Button> */}
     </div>
   );
 };

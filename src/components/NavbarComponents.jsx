@@ -61,7 +61,6 @@ export const NavbarMiddleSection = ({ className }) => {
 };
 
 export const LoginUserComponent = ({ session }) => {
-  //   const { setMessage, setType } = useContext(NotificationContext);
   return (
     <div className="flex justify-center">
       {/* Logout & SignIn*/}

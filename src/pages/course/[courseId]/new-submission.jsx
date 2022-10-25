@@ -14,14 +14,7 @@ const NewSubmission = () => {
   const [files, setFiles] = useState([]);
 
   const handleUpload = (file) => {
-    // console.log(file);
-    // let uploadedFiles = [];
-    // file.map((item) => {
-    //   console.log(file);
-    //   // uploadedFiles.push(URL.createObjectURL(item));
-    //   uploadedFiles.push(item);
-    // });
-    setFiles((state) => [...state, ...file]);
+    setFiles((prevState) => [...prevState, ...file]);
   };
 
   const uploadFileToBlob = useCallback(async (file, newFileName) => {
@@ -75,6 +68,7 @@ const NewSubmission = () => {
         <div key={file} className="flex flex-col items-center justify-center">
           <IconPhoto size={40} />
           <p>{file.name}</p>
+          <embed src={file} />
         </div>
       );
     }

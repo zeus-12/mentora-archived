@@ -99,7 +99,14 @@ export default function Home() {
       {courses.length === 0 && <LoaderComponent />}
 
       <div className="flex justify-center">
-        {filterData(courses).length > 0 ? (
+        {searchQuery.trim().length !== 0 &&
+          filterData(courses)?.length === 0 && <p>No course found!</p>}
+
+        {searchQuery.trim().length === 0 && (
+          <p>Start typing the Course name/id ... </p>
+        )}
+
+        {filterData(courses).length > 0 && (
           <div className="flex flex-wrap gap-2">
             {filterData(courses)?.map((course) => (
               <CourseCard
@@ -109,10 +116,6 @@ export default function Home() {
               />
             ))}
           </div>
-        ) : (
-          <p className="text-gray-400 font-medium text-xl mt-16">
-            Start typing the Course Id/Name...
-          </p>
         )}
       </div>
 
