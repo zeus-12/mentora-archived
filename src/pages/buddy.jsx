@@ -122,21 +122,19 @@ const Buddy = () => {
 
       {buddies.length === 0 && <LoaderComponent />}
 
-      <div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 gap-2"
-        // style={{ gridTemplateRows: "max-content" }}
-      >
-        {filteredBuddies.length > 0 &&
-          filteredBuddies.map((buddy) => (
-            <div
-              className="hover:cursor-pointer"
+      {filteredBuddies.length > 0 && (
+        <div className="grid auto-rows-max justify-items-stretch grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 gap-3">
+          {filteredBuddies.map((buddy) => (
+            // <div  >
+            <BuddyCard
               onClick={() => setCur(buddy)}
+              buddy={buddy}
               key={buddy._id}
-            >
-              <BuddyCard buddy={buddy} />
-            </div>
+            />
+            // </div>
           ))}
-      </div>
+        </div>
+      )}
       {buddies.length > 0 && filteredBuddies.length === 0 && (
         <p>No results found!</p>
       )}

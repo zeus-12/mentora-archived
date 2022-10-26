@@ -16,7 +16,7 @@ const MiddleSectionElements = [
   { name: "Q&A", link: "/doubt" },
   { name: "Resources", link: "/course" },
   { name: "Buddy", link: "/buddy" },
-  { name: "Quiz", link: "/quiz" },
+  // { name: "Quiz", link: "/quiz" },
 ];
 
 export const BurgerComponent = ({ opened, setOpened }) => {

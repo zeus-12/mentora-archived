@@ -7,7 +7,9 @@ import CommentCard from "../../components/CommentCard";
 import LoaderComponent from "../../components/LoaderComponent";
 import SubCommentCard from "../../components/SubCommentCard";
 import { buttonOutlineClasses } from "../../utils/constants";
+import { prettifyId } from "../../utils/helper";
 import { notSignedInNotification } from "../../utils/notification";
+const idNameMapping = require("../../../name-id-map.json");
 
 const DoubtDetailsPage = () => {
   const router = useRouter();
@@ -128,7 +130,13 @@ const DoubtDetailsPage = () => {
     <div className="min-h-[90vh] flex flex-col">
       <div className="flex flex-1 justify-between">
         <div className="">
-          <p className="text-3xl font-semibold">{doubt.title}</p>
+          <p className="text-3xl mb-2 font-bold">
+            {prettifyId(doubt.course_id)}:{" "}
+            <span className="text-gray-500">
+              {idNameMapping[doubt.course_id?.toUpperCase()]}
+            </span>
+          </p>
+          <p className="text-2xl font-semibold">{doubt.title}</p>
           <p className="text-xl text-gray-400">{doubt.doubt}</p>
         </div>
         {console.log(user, doubt.user, doubt.status)}

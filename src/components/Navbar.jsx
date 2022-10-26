@@ -32,7 +32,7 @@ export default function Navbar() {
           </div>
         )}
         {!opened && (
-          <div className="text-gray-300 text-lg font-medium hidden xl:gap-8 sm:flex gap-8">
+          <div className="text-gray-300 text-lg font-medium hidden gap-8 sm:flex">
             <LoginUserComponent session={session} />
           </div>
         )}
