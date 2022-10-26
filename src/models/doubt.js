@@ -5,6 +5,7 @@ const doubtSchema = new Schema({
   doubt: { type: String, required: true },
   title: { type: String, required: true },
   user: { type: String, required: true },
+  status: { type: String, required: true, default: "PENDING" },
 });
 
 const Doubt = models.Doubt || model("Doubt", doubtSchema);

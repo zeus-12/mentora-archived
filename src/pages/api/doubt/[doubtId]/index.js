@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
-import Doubt from "../../../models/doubt";
-import dbConnect from "../../../utils/dbConnect";
+import Doubt from "../../../../models/doubt";
+import dbConnect from "../../../../utils/dbConnect";
 
 export default async function handler(req, res) {
   const { doubtId } = req.query;
@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     await dbConnect();
     try {
       const doubt = await Doubt.findOne({ _id: Types.ObjectId(doubtId) })
-        .select("title course_id doubt")
+        .select("title course_id doubt user status")
         .lean();
       return res.status(200).json({ message: "success", data: doubt });
     } catch {

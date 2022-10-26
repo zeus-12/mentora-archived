@@ -1,5 +1,5 @@
 import { Button, Menu } from "@mantine/core";
-import { IconAdjustmentsHorizontal, IconCheck } from "@tabler/icons";
+import { IconCheck } from "@tabler/icons";
 
 const MenuComponent = ({ title, availableFilters, setState, state, Icon }) => {
   return (
