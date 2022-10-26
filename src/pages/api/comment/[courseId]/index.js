@@ -38,7 +38,7 @@ export default async function handler(req, res) {
         user,
         course_id: courseId,
         comment,
-      }).lean();
+      });
       res.status(200).json({ success: true, data: newComment });
     } catch (error) {
       console.log(error);

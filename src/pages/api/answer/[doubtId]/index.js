@@ -20,7 +20,7 @@ export default async function handler(req, res) {
         doubt_id: doubtId,
         answer,
         user,
-      }).lean();
+      });
 
       res.status(200).json({ success: "success", data: newAnswer });
     } catch (error) {

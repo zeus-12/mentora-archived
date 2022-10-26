@@ -30,14 +30,12 @@ export default function Home() {
         <meta name="description" content="All-In-One App for Acads!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <p className="text-4xl font-bold md:text-5xl text-gray-100 tracking-tight lg:text-7xl block">
-        👋 Hello there,
-      </p>
 
-      <p className="xl:ml-24 md:text-4xl md:max-w-[55rem] text-2xl font-semibold text-gray-400 mt-4">
-        Here&apos;s the Perfect solution to achieve your dream{" "}
-        <span className="text-green-400">CG</span>, &{" "}
-        <span className="text-green-600">Here&apos;s Why</span>
+      <p className="text-4xl font-bold md:text-5xl text-gray-100 tracking-tight lg:text-7xl block">
+        👋 Hey Junta,
+      </p>
+      <p className="xl:ml-10 md:text-3xl tracking-tighter md:max-w-[40rem] text-2xl font-semibold text-gray-400 mt-4 font-mono">
+        This is Mentora, a platform to help you ace your exams.
       </p>
 
       {features.map((item, index) => (

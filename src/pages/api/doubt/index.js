@@ -33,7 +33,7 @@ export default async function handler(req, res) {
         doubt,
         user,
         title,
-      }).lean();
+      });
 
       return res.status(200).json({ message: "success", data: newDoubt });
     } catch (err) {

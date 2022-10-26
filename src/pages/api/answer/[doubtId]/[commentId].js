@@ -21,7 +21,7 @@ export default async function handler(req, res) {
         answer,
         user,
         parent_id: commentId,
-      }).lean();
+      });
 
       res.status(200).json({ success: "success", data: newAnswer });
     } catch (error) {

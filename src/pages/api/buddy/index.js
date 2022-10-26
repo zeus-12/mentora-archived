@@ -24,7 +24,7 @@ export default async function handler(req, res) {
         user,
         buddyType,
         money,
-      }).lean();
+      });
 
       return res.status(200).json({ success: "success", data: newBuddy });
     } catch (error) {

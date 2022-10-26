@@ -6,4 +6,3 @@
 - replace name of the course from course_data with that of name-id-map before adding it to db
 - make sure to use either lowercase or uppercase everywhere for courseId (prefered lowercase)
 - add suggestions page with gdocs backend or smthn
-- add lean and return only requried data for every api
