@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { prettifyId } from "../../../utils/helper";
-import { buttonOutlineClasses } from "../../../utils/tailwindClasses";
+import { buttonOutlineClasses } from "../../../utils/constants";
 import CommentCard from "../../../components/CommentCard";
 import SubCommentCard from "../../../components/SubCommentCard";
 import { notSignedInNotification } from "../../../utils/notification";

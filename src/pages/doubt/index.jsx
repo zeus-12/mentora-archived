@@ -2,11 +2,11 @@ import { Button, Input } from "@mantine/core";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { buttonOutlineClasses } from "../../utils/tailwindClasses";
+import { availableBranches, buttonOutlineClasses } from "../../utils/constants";
 import DoubtCard from "../../components/DoubtCard";
 import LoaderComponent from "../../components/LoaderComponent";
 import { notSignedInNotification } from "../../utils/notification";
-import { availableBranches, filterOnSearch } from "../../utils/courseData";
+import { filterOnSearch } from "../../utils/helper";
 import MenuComponent from "../../components/MenuComponent";
 import { IconNotebook } from "@tabler/icons";
 

@@ -3,8 +3,9 @@ import { useState } from "react";
 import CourseCard from "../../components/CourseCard";
 import LoaderComponent from "../../components/LoaderComponent";
 import { IconNotebook } from "@tabler/icons";
-import { availableBranches, filterOnSearch } from "../../utils/courseData";
+import { filterOnSearch } from "../../utils/helper";
 import MenuComponent from "../../components/MenuComponent";
+import { availableBranches } from "../../utils/constants";
 const name_id_map = require("../../../name-id-map.json");
 
 export default function Home() {

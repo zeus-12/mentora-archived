@@ -4,7 +4,7 @@ import { Dropzone, IMAGE_MIME_TYPE, PDF_MIME_TYPE } from "@mantine/dropzone";
 import { IconPhoto, IconTemperature, IconUpload, IconX } from "@tabler/icons";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
-import { buttonOutlineClasses } from "../../../utils/tailwindClasses";
+import { buttonOutlineClasses } from "../../../utils/constants";
 import { prettifyId } from "../../../utils/helper";
 
 const NewSubmission = () => {

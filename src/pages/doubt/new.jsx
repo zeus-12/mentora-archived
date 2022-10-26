@@ -3,7 +3,7 @@ import { useForm } from "@mantine/form";
 import RichTextEditor from "../../components/RichTextEditor";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { buttonOutlineClasses } from "../../utils/tailwindClasses";
+import { buttonOutlineClasses } from "../../utils/constants";
 
 const NewDoubt = () => {
   const [loading, setLoading] = useState(false);

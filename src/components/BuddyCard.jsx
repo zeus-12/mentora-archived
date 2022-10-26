@@ -1,6 +1,6 @@
 import { Button } from "@mantine/core";
 import { getCourseNameFromId, prettifyId } from "../utils/helper";
-import { buttonOutlineClasses } from "../utils/tailwindClasses";
+import { buttonOutlineClasses } from "../utils/constants";
 import { Avatar } from "./UI";
 import { IconCurrencyRupee } from "@tabler/icons";
 const BuddyCard = ({ buddy }) => {

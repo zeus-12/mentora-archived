@@ -2,13 +2,13 @@ import { Button, Input } from "@mantine/core";
 import MenuComponent from "../components/MenuComponent";
 import { useEffect, useState } from "react";
 import BuddyCard from "../components/BuddyCard";
-import { buttonOutlineClasses } from "../utils/tailwindClasses";
+import { availableBranches, buttonOutlineClasses } from "../utils/constants";
 import { IconAdjustmentsHorizontal, IconNotebook } from "@tabler/icons";
 import LoaderComponent from "../components/LoaderComponent";
 import NewBuddyModal from "../components/NewBuddyModal";
 import { notSignedInNotification } from "../utils/notification";
 import { useSession } from "next-auth/react";
-import { availableBranches, filterOnSearch } from "../utils/courseData";
+import { filterOnSearch } from "../utils/helper";
 import BuddyDetailsModal from "../components/BuddyDetailsModal";
 
 const Buddy = () => {

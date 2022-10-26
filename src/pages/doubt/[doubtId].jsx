@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import CommentCard from "../../components/CommentCard";
 import LoaderComponent from "../../components/LoaderComponent";
 import SubCommentCard from "../../components/SubCommentCard";
-import { buttonOutlineClasses } from "../../utils/tailwindClasses";
+import { buttonOutlineClasses } from "../../utils/constants";
 
 const DoubtDetailsPage = () => {
   const router = useRouter();
