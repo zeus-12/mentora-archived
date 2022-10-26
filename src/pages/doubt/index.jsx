@@ -25,7 +25,7 @@ const Doubts = () => {
     fetchDoubts();
   }, []);
 
-  const branchFilteredDoubts = (doubts) => {
+  const filterOnBranch = (doubts) => {
     if (branchFilter === "all") {
       return doubts;
     }
@@ -35,10 +35,7 @@ const Doubts = () => {
     });
   };
 
-  const filteredDoubts = filterOnSearch(
-    searchQuery,
-    branchFilteredDoubts(doubts)
-  );
+  const filteredDoubts = filterOnSearch(searchQuery, filterOnBranch(doubts));
 
   return (
     <div className="flex min-h-[90vh] flex-col">

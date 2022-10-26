@@ -153,10 +153,20 @@ const CourseDetails = () => {
           {comments?.length > 0 &&
             comments.map((comment, index) => (
               <div key={index}>
-                <CommentCard comment={comment} />
+                <CommentCard
+                  user={comment.user}
+                  comment={comment.comment}
+                  type="comment"
+                  id={courseId}
+                  parentId={comment._id}
+                />
                 {comment.subComments?.length > 0 &&
                   comment.subComments.map((subComment, index) => (
-                    <SubCommentCard key={index} comment={subComment} />
+                    <SubCommentCard
+                      key={index}
+                      user={subComment.user}
+                      comment={subComment.comment}
+                    />
                   ))}
               </div>
             ))}

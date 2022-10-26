@@ -24,7 +24,7 @@ export default async function handler(req, res) {
   } else if (req.method === "POST") {
     await dbConnect();
     const { comment } = req.body;
-    console.log(comment);
+
     const session = await getServerSession(req, res);
 
     if (!session) {

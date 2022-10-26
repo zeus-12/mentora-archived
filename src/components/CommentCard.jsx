@@ -5,7 +5,8 @@ import { IconCornerUpLeft, IconHeart, IconSend } from "@tabler/icons";
 import { useForm } from "@mantine/form";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-const CommentCard = ({ comment }) => {
+
+const CommentCard = ({ user, comment, type, id, parentId }) => {
   const [liked, setLiked] = useState(false);
   const [showNewComment, setShowNewComment] = useState(false);
   const form = useForm({
@@ -18,7 +19,6 @@ const CommentCard = ({ comment }) => {
   });
   const router = useRouter();
   const { data: session } = useSession();
-  const { courseId } = router.query;
 
   const postSubComment = async () => {
     if (!session) {
@@ -29,20 +29,22 @@ const CommentCard = ({ comment }) => {
     if (Object.keys(validationResult.errors).length > 0) {
       return;
     }
+
+    let requestBody = {};
+    requestBody[type] = form.values.comment;
     // setLoading(true);
-    const res = await fetch(`/api/comment/${courseId}/${comment._id}`, {
+    const res = await fetch(`/api/${type}/${id}/${parentId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(form.values),
+      body: JSON.stringify(requestBody),
     });
 
     const data = await res.json();
     if (data.error) {
       // throw error notifcation
     } else {
-      console.log("hey");
       //todo refetch the comments
       // show success notification
       form.reset();
@@ -53,9 +55,9 @@ const CommentCard = ({ comment }) => {
       <div className="flex justify-between items-center text-md border-[1px] px-1 py-2 border-[#3441457c] rounded-md">
         <div className="flex items-center gap-4">
           <Avatar size={40} color="blue">
-            {generateAvatarText(comment.user)}
+            {generateAvatarText(user)}
           </Avatar>
-          <p>{comment.comment}</p>
+          <p>{comment}</p>
         </div>
         <div className="gap-1 flex">
           <IconHeart
