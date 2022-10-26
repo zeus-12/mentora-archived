@@ -1,6 +1,6 @@
 const Quiz = () => {
   return (
-    <div className="flex justify-center items-center gap-2 flex-col h-[90vh]">
+    <div className="flex justify-center items-center gap-2 flex-col h-[80vh]">
       {/* A place where you could create and take quizzes.
       <br />
       We&apos;re also planning on building a tool which would automatically
@@ -9,7 +9,7 @@ const Quiz = () => {
         Coming <span className="text-green-400">Soon</span>
         ...
       </p>
-      <p className="text-2xl tracking-tight font-bold">
+      <p className="text-2xl tracking-tight font-semibold">
         This let you create/ attempt quizzes made by others!
       </p>
       {/* <p>Attempt someone elses instead?</p> */}

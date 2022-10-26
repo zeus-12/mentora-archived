@@ -45,7 +45,8 @@ const NewDoubt = () => {
   console.log(form.values.doubt);
 
   return (
-    <div className="">
+    // <div className="flex flex-col justify-center items-center sm:h-[90vh]">
+    <div>
       <p className="text-3xl font-bold tracking-tighter mb-4">Ask a Doubt!</p>
 
       <TextInput
@@ -70,15 +71,15 @@ const NewDoubt = () => {
         placeholder="Doubt Title"
         {...form.getInputProps("title")}
       />
-      {/* <Textarea
+      <Textarea
         required={true}
         className="w-[90vw] max-w-[30rem]"
         label="Doubt"
         placeholder="Enter your doubt"
         {...form.getInputProps("doubt")}
-      /> */}
-      <div className="p-2" />
-      <RichTextEditor className="" {...form.getInputProps("question")} />
+      />
+      {/* <div className="p-2" />
+      <RichTextEditor className="" {...form.getInputProps("question")} /> */}
       <div className="flex justify-start">
         <FileInput placeholder="Pick file" label="Attach Files" withAsterisk />
       </div>
