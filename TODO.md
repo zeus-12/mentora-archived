@@ -7,4 +7,3 @@
 - make sure to use either lowercase or uppercase everywhere for courseId (prefered lowercase)
 - add suggestions page with gdocs backend or smthn
 - add lean and return only requried data for every api
-- add comments for doubts page, and create a new "answers" model

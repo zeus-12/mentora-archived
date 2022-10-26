@@ -2,44 +2,52 @@ const courseNameIdMap = require("../../name-id-map.json");
 
 export const availableBranches = [
   "all",
-  // "AS",
-  "MA",
   "AE",
-  // "ID",
-  // "IL",
   "AM",
-  "GN",
   "BT",
-  // "NU",
-  // "CA",
-  // "CD",
   "CE",
   "CH",
-  // "NE",
   "CS",
-  // "IN",
   "CY",
   "ED",
   "EE",
-  // "IG",
   "EP",
-  // "EC",
+  "GN",
   "HS",
+  "MA",
+  "ME",
+  "MM",
+  "NA",
+  "OE",
+  "PH",
+  // "AS",
+
+  // "ID",
+  // "IL",
+
+  // "NU",
+  // "CA",
+  // "CD",
+
+  // "NE",
+
+  // "IN",
+
+  // "IG",
+
+  // "EC",
+
   // "BS",
   // "MP",
   // "MS",
   // "HM",
-  "ME",
+
   // "WS",
-  "MM",
   // "MT",
   // "IT",
   // "PE",
-  "OE",
   // "NC",
   // "NS",
-  "NA",
-  "PH",
 ];
 
 export const filterOnSearch = (searchQuery, data, initial) => {
