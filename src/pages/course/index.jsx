@@ -7,7 +7,8 @@ import { getCourseNameFromId } from "../../utils/helper";
 import { useSession } from "next-auth/react";
 import { notSignedInNotification } from "../../utils/notification";
 import { IconCheck, IconNotebook } from "@tabler/icons";
-import { availableBranches } from "../../utils/courseData";
+import { availableBranches, filterOnSearch } from "../../utils/courseData";
+import MenuComponent from "../../components/MenuComponent";
 const name_id_map = require("../../../name-id-map.json");
 
 export default function Home() {
@@ -59,25 +60,11 @@ export default function Home() {
     });
   };
 
-  const filterCoursesOnSearch = (data) => {
-    if (searchQuery.trim().length === 0) {
-      return [];
-    } else {
-      return data.filter(
-        (item) =>
-          item.course_name
-            .replaceAll(" ", "")
-            .toLowerCase()
-            .includes(searchQuery.replaceAll(" ", "").toLowerCase()) ||
-          item.course_id
-            .replaceAll(" ", "")
-            .toLowerCase()
-            .includes(searchQuery.replaceAll(" ", "").toLowerCase())
-      );
-    }
-  };
-
-  const filteredCourses = filterCoursesOnSearch(branchFilteredCourses());
+  const filteredCourses = filterOnSearch(
+    searchQuery,
+    branchFilteredCourses(),
+    []
+  );
 
   return (
     <div className="flex min-h-[90vh] flex-col">
@@ -91,28 +78,14 @@ export default function Home() {
             size="md"
           />
         </div>
-        <Menu shadow="md" height={20} width={200}>
-          <Menu.Target>
-            <Button className="text-gray-400 p-0 hover:text-white bg-inherit hover:bg-inherit">
-              <IconNotebook className="w-7 h-7" />
-            </Button>
-          </Menu.Target>
-          <Menu.Dropdown className="overflow-scroll h-60">
-            <Menu.Label>Course Branch</Menu.Label>
-            {availableBranches.map((item) => (
-              <Menu.Item
-                onClick={() => setBranchFilter(item)}
-                key={item}
-                className="capitalize"
-              >
-                <div className="flex justify-between items-center">
-                  {item}
-                  {item === branchFilter && <IconCheck className="w-5 h-5" />}
-                </div>
-              </Menu.Item>
-            ))}
-          </Menu.Dropdown>
-        </Menu>
+
+        <MenuComponent
+          state={branchFilter}
+          setState={setBranchFilter}
+          Icon={IconNotebook}
+          availableFilters={availableBranches}
+          title={"Course Branch"}
+        />
       </div>
       {courses.length === 0 && <LoaderComponent />}
 

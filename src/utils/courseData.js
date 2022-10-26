@@ -42,14 +42,14 @@ export const availableBranches = [
   "PH",
 ];
 
-export const searchFilteredDoubts = (searchQuery, data) => {
+export const filterOnSearch = (searchQuery, data, initial) => {
   if (searchQuery.trim().length === 0) {
+    if (initial) return initial;
     return data;
   } else {
     return data?.filter(
       (item) =>
-        courseNameIdMap[item.course_id.toUpperCase()]
-          // item.course_name
+        (item.course_name || courseNameIdMap[item.course_id.toUpperCase()])
           ?.replaceAll(" ", "")
           .toLowerCase()
           .includes(searchQuery.replaceAll(" ", "").toLowerCase()) ||

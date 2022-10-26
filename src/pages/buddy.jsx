@@ -8,7 +8,7 @@ import LoaderComponent from "../components/LoaderComponent";
 import NewBuddyModal from "../components/NewBuddyModal";
 import { notSignedInNotification } from "../utils/notification";
 import { useSession } from "next-auth/react";
-import { availableBranches, searchFilteredDoubts } from "../utils/courseData";
+import { availableBranches, filterOnSearch } from "../utils/courseData";
 import BuddyDetailsModal from "../components/BuddyDetailsModal";
 
 const Buddy = () => {
@@ -77,25 +77,8 @@ const Buddy = () => {
         return data;
     }
   };
-  // const filterData = (data) => {
-  //   if (searchQuery.trim().length === 0) {
-  //     return data;
-  //   } else {
-  //     data = data.filter((item) =>
-  //       // item.course_name
-  //       //   .replaceAll(" ", "")
-  //       //   .toLowerCase()
-  //       //   .includes(searchQuery.replaceAll(" ", "").toLowerCase()) ||
-  //       item.course_id
-  //         .replaceAll(" ", "")
-  //         .toLowerCase()
-  //         .includes(searchQuery.replaceAll(" ", "").toLowerCase())
-  //     );
-  //     return data;
-  //   }
-  // };
 
-  const filteredBuddies = searchFilteredDoubts(
+  const filteredBuddies = filterOnSearch(
     searchQuery,
     filterBuddyRequests(filterCourseBranches(buddies))
   );

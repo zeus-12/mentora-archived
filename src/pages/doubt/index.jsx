@@ -6,7 +6,9 @@ import { buttonOutlineClasses } from "../../utils/tailwindClasses";
 import DoubtCard from "../../components/DoubtCard";
 import LoaderComponent from "../../components/LoaderComponent";
 import { notSignedInNotification } from "../../utils/notification";
-import { searchFilteredDoubts } from "../../utils/courseData";
+import { availableBranches, filterOnSearch } from "../../utils/courseData";
+import MenuComponent from "../../components/MenuComponent";
+import { IconNotebook } from "@tabler/icons";
 
 const Doubts = () => {
   const { data: session } = useSession();
@@ -33,14 +35,14 @@ const Doubts = () => {
     });
   };
 
-  const filteredDoubts = searchFilteredDoubts(
+  const filteredDoubts = filterOnSearch(
     searchQuery,
     branchFilteredDoubts(doubts)
   );
 
   return (
     <div className="flex min-h-[90vh] flex-col">
-      <div className="flex justify-between mb-4">
+      <div className="flex justify-center gap-2 mb-4">
         <div className="max-w-[40rem] flex-1 ">
           <Input
             value={searchQuery}
@@ -50,6 +52,14 @@ const Doubts = () => {
             size="md"
           />
         </div>
+
+        <MenuComponent
+          state={branchFilter}
+          setState={setBranchFilter}
+          Icon={IconNotebook}
+          availableFilters={availableBranches}
+          title={"Course Branch"}
+        />
         <Link passHref href={session ? "/doubt/new" : ""}>
           <Button
             variant="outline"
@@ -75,7 +85,7 @@ const Doubts = () => {
             <DoubtCard doubt={item} key={item._id} />
           ))}
 
-        {filteredDoubts?.length === 0 && (
+        {doubts.length > 0 && filteredDoubts?.length === 0 && (
           <div className="text-center text-gray-500">
             No doubts found for the given search query
           </div>

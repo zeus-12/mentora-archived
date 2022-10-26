@@ -6,7 +6,7 @@ const MenuComponent = ({ title, availableFilters, setState, state, Icon }) => {
     <Menu shadow="md">
       <Menu.Target>
         <Button className="text-gray-400 p-0 hover:text-white bg-inherit hover:bg-inherit">
-          <Icon />
+          <Icon className="w-7 h-7" />
           {/* <icon className="w-7 h-7" /> */}
         </Button>
       </Menu.Target>
