@@ -1,16 +1,5 @@
 [
-  { "courseCode": "MA", "name": "Mathematics" },
   { "courseCode": "AM 5", "name": "Analytical methods in applied mechanics" },
-  {
-    "courseCode": "NEW COURSE",
-    "name": "Indexing and Searching in Large Datasets"
-  },
-  { "courseCode": "CYPCT0-I", "name": "Preparatory Course Theory" },
-  { "courseCode": "CYPCL0 -II", "name": "Preparatory Course Lab" },
-  { "courseCode": "CYPCL0-I", "name": "Preparatory Course Lab" },
-  { "courseCode": "CYPCT0-II", "name": "Preparatory Course Theory" },
-  { "courseCode": "BSCHS1001", "name": "BASIC ENGLISH - ENGLISH 1" },
-  { "courseCode": "BSCHS1002", "name": "ADVANCED ENGLISH - ENGLISH 2" },
-  { "courseCode": "AS5190&", "name": "" },
+
   { "courseCode": "AS5150&", "name": "" }
 ]
