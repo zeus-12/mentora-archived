@@ -1,40 +1,13 @@
-import { Button, Input, Loader, Menu } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { Input } from "@mantine/core";
+import { useState } from "react";
 import CourseCard from "../../components/CourseCard";
 import LoaderComponent from "../../components/LoaderComponent";
-import { buttonOutlineClasses } from "../../utils/tailwindClasses";
-import { getCourseNameFromId } from "../../utils/helper";
-import { useSession } from "next-auth/react";
-import { notSignedInNotification } from "../../utils/notification";
-import { IconCheck, IconNotebook } from "@tabler/icons";
+import { IconNotebook } from "@tabler/icons";
 import { availableBranches, filterOnSearch } from "../../utils/courseData";
 import MenuComponent from "../../components/MenuComponent";
 const name_id_map = require("../../../name-id-map.json");
 
 export default function Home() {
-  // const [courses, setCourses] = useState([]);
-  const { data: session } = useSession();
-
-  // useEffect(() => {
-  //   const fetchCourseNames = async () => {
-  //     const res = await fetch("/api/course");
-  //     const courseNames = await res.json();
-  //     console.log(courseNames.data);
-  //     const courseNameData = courseNames.data.map((item) => {
-  //       return {
-  //         _id: item._id,
-  //         course_id: item.course_id,
-  //         course_name: getCourseNameFromId(item.course_id),
-  //       };
-  //     });
-
-  //     setCourses(courseNameData);
-  //     console.log(courseNameData);
-  //   };
-  //   fetchCourseNames();
-  // }, []);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [branchFilter, setBranchFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -110,11 +83,6 @@ export default function Home() {
           </div>
         )}
       </div>
-
-      {/* <NewCourseModal
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-      /> */}
     </div>
   );
 }
