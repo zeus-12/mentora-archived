@@ -7,7 +7,9 @@ export default async function handler(req, res) {
     await dbConnect();
     try {
       //TODO const doubts = await Doubt.find({ status: "PENDING" }).lean()
-      const doubts = await Doubt.find().select("_id title course_id").lean();
+      const doubts = await Doubt.find()
+        .select("_id title course_id date")
+        .lean();
       return res.status(200).json({ message: "success", data: doubts });
     } catch (error) {
       res.status(400).json({ error: error.message });

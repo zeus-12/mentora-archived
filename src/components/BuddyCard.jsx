@@ -10,7 +10,7 @@ const BuddyCard = ({ buddy, onClick }) => {
     >
       {/* <Avatar userName={name} /> */}
       <p className="font-bold text-xl">{prettifyId(course_id)}</p>
-      <p className="text-gray-300">{getCourseNameFromId(course_id)}</p>
+      <p className="text-gray-400">{getCourseNameFromId(course_id)}</p>
 
       <div className="flex gap-2 text-lg">
         {buddyType === "tutor" && (
