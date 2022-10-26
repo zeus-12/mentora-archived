@@ -1,6 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
-import getStream from "into-stream";
-
 const {
   BlobServiceClient,
   StorageSharedKeyCredential,

@@ -22,8 +22,8 @@ export default async function handler(req, res) {
         { new: true }
       ).lean();
       return res.status(200).json({ message: "success", data: doubt });
-    } catch {
-      return res.status(400).json({ error: "error" });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
     }
   } else {
     return res.status(400).json({ error: "Invalid request" });

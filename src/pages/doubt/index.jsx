@@ -70,10 +70,8 @@ const Doubts = () => {
             Ask Question
           </Button>
         </Link>
-
-        {/* FILTER, SORT, AND OTHER STUFF */}
       </div>
-      {/* doubts */}
+
       {doubts?.length === 0 && <LoaderComponent />}
 
       <div className="space-y-4">

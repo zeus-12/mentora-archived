@@ -20,12 +20,11 @@ export default async function handler(req, res) {
         doubt_id: doubtId,
         answer,
         user,
-      });
+      }).lean();
 
       res.status(200).json({ success: "success", data: newAnswer });
-    } catch (err) {
-      console.log(err);
-      res.status(400).json({ error: "Error adding answer" });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
     }
   } else if (req.method === "GET") {
     const { doubtId } = req.query;
@@ -33,12 +32,13 @@ export default async function handler(req, res) {
       await dbConnect();
       const answers = await Answer.find({
         doubt_id: doubtId,
-      });
+      }).lean();
 
       res.status(200).json({ success: "success", data: answers });
-    } catch (err) {
-      console.log(err);
-      res.status(400).json({ error: "Error fetching answers" });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
     }
+  } else {
+    res.status(400).json({ error: "Invalid request" });
   }
 }

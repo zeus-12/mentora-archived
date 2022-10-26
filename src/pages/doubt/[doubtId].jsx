@@ -7,6 +7,7 @@ import CommentCard from "../../components/CommentCard";
 import LoaderComponent from "../../components/LoaderComponent";
 import SubCommentCard from "../../components/SubCommentCard";
 import { buttonOutlineClasses } from "../../utils/constants";
+import { notSignedInNotification } from "../../utils/notification";
 
 const DoubtDetailsPage = () => {
   const router = useRouter();
@@ -86,7 +87,6 @@ const DoubtDetailsPage = () => {
   };
 
   useEffect(() => {
-    console.log(doubtId);
     if (!doubtId) return;
 
     const fetchDoubtData = async () => {
@@ -102,8 +102,7 @@ const DoubtDetailsPage = () => {
   }, [doubtId]);
 
   const resolveDoubt = async () => {
-    if (!doubtId) return;
-    if (!session || doubt.user !== user) {
+    if (!doubtId || !session || doubt.user !== user) {
       // todo
       // show notifcation
       return;
@@ -126,57 +125,57 @@ const DoubtDetailsPage = () => {
       </div>
     );
   return (
-    <div>
-      <div>
-        <div className="flex justify-between">
+    <div className="min-h-[90vh] flex flex-col">
+      <div className="flex flex-1 justify-between">
+        <div className="">
           <p className="text-3xl font-semibold">{doubt.title}</p>
-          {console.log(user, doubt.user, doubt.status)}
-          {user === doubt.user && doubt.status === "PENDING" && (
-            <Button onClick={resolveDoubt} className={buttonOutlineClasses}>
-              Mark as Resolved
-              {/* {doubt.status === "RESOLVED" ? not : ""} */}
-            </Button>
-          )}
-
-          {doubt.status === "RESOLVED" && (
-            <p className="text-green-500 font-semibold">Resolved</p>
-          )}
+          <p className="text-xl text-gray-400">{doubt.doubt}</p>
         </div>
-        <p className="text-xl text-gray-400">{doubt.doubt}</p>
-
-        <div className="mb-6">
-          <p className="text-xl font-semibold ">Answers</p>
-          <Textarea
-            placeholder="Wanna answer the question?"
-            className="my-2"
-            {...form.getInputProps("answer")}
-          />
-          <Button onClick={addAnswer} className={buttonOutlineClasses}>
-            Add Answer
+        {console.log(user, doubt.user, doubt.status)}
+        {user === doubt.user && doubt.status === "PENDING" && (
+          <Button onClick={resolveDoubt} className={buttonOutlineClasses}>
+            Mark as Resolved
+            {/* {doubt.status === "RESOLVED" ? not : ""} */}
           </Button>
-          {console.log("answers:", answers)}
-          <div className="space-y-4 mt-4">
-            {answers?.length > 0 &&
-              answers.map((answer, index) => (
-                <div key={index}>
-                  <CommentCard
-                    user={answer.user}
-                    comment={answer.answer}
-                    type="answer"
-                    id={doubtId}
-                    parentId={answer._id}
-                  />
-                  {answer?.subAnswers?.length > 0 &&
-                    answer.subAnswers.map((subAnswer, index) => (
-                      <SubCommentCard
-                        key={index}
-                        user={subAnswer.user}
-                        comment={subAnswer.answer}
-                      />
-                    ))}
-                </div>
-              ))}
-          </div>
+        )}
+
+        {doubt.status === "RESOLVED" && (
+          <p className="text-green-500 font-semibold">Resolved</p>
+        )}
+      </div>
+
+      <div className="">
+        <p className="text-xl font-semibold ">Answers</p>
+        <Textarea
+          placeholder="Wanna answer the question?"
+          className="my-2"
+          {...form.getInputProps("answer")}
+        />
+        <Button onClick={addAnswer} className={buttonOutlineClasses}>
+          Add Answer
+        </Button>
+
+        <div className="space-y-4 mt-4">
+          {answers?.length > 0 &&
+            answers.map((answer, index) => (
+              <div key={index}>
+                <CommentCard
+                  user={answer.user}
+                  comment={answer.answer}
+                  type="answer"
+                  id={doubtId}
+                  parentId={answer._id}
+                />
+                {answer?.subAnswers?.length > 0 &&
+                  answer.subAnswers.map((subAnswer, index) => (
+                    <SubCommentCard
+                      key={index}
+                      user={subAnswer.user}
+                      comment={subAnswer.answer}
+                    />
+                  ))}
+              </div>
+            ))}
         </div>
       </div>
     </div>

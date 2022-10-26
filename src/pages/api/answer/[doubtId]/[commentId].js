@@ -21,12 +21,13 @@ export default async function handler(req, res) {
         answer,
         user,
         parent_id: commentId,
-      });
+      }).lean();
 
-      res.status(200).json({ message: newAnswer });
-    } catch (err) {
-      console.log(err);
-      res.status(400).json({ message: "Error adding answer" });
+      res.status(200).json({ success: "success", data: newAnswer });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
     }
+  } else {
+    res.status(400).json({ error: "Invalid request" });
   }
 }

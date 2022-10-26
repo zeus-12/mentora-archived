@@ -24,6 +24,7 @@ export default function Home() {
   };
 
   const courses = generateCoursesData(name_id_map);
+
   const branchFilteredCourses = () => {
     if (branchFilter === "all") {
       return courses;

@@ -30,7 +30,7 @@ const BuddyCard = ({ buddy }) => {
             {money}
           </div>
         )}
-        <p className="bg-pink-600 text-gray-200 text-md inline-flex px-2 py-[0.5px] rounded-2xl">
+        <p className="bg-pink-600 text-gray-300 text-base inline-flex px-2 py-[0.5px] rounded-2xl">
           {buddyType}
         </p>
       </div>

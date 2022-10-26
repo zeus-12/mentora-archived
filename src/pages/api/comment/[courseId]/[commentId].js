@@ -30,9 +30,7 @@ export default async function handler(req, res) {
         course_id: courseId,
         comment,
         parent_id: parentCommentId,
-      });
-
-      console.log(newSubCommentDetails);
+      }).lean();
 
       res.status(200).json({ success: true, data: newSubCommentDetails });
     } catch (error) {

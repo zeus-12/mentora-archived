@@ -24,22 +24,22 @@ export default async function handler(req, res) {
         user,
         buddyType,
         money,
-      });
+      }).lean();
 
-      return res.status(200).json({ message: "success", data: newBuddy });
-    } catch (err) {
-      console.log(err);
-      return res.status(400).json({ error: "error" });
+      return res.status(200).json({ success: "success", data: newBuddy });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
     }
   } else if (req.method === "GET") {
     try {
       await dbConnect();
-      const buddyDetails = await Buddy.find();
+      const buddyDetails = await Buddy.find().lean();
 
       return res.status(200).json({ message: "success", data: buddyDetails });
-    } catch (err) {
-      console.log(err);
-      return res.status(400).json({ error: "error" });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
     }
+  } else {
+    res.status(400).json({ error: "Invalid request" });
   }
 }

@@ -38,11 +38,13 @@ export default async function handler(req, res) {
         user,
         course_id: courseId,
         comment,
-      });
+      }).lean();
       res.status(200).json({ success: true, data: newComment });
     } catch (error) {
       console.log(error);
       res.status(400).json({ error: error.message });
     }
+  } else {
+    res.status(400).json({ message: "Invalid Method" });
   }
 }

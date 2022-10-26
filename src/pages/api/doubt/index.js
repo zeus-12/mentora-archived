@@ -6,11 +6,11 @@ export default async function handler(req, res) {
   if (req.method === "GET") {
     await dbConnect();
     try {
-      // const doubts = await Doubt.find({ status: "PENDING" })
+      //TODO const doubts = await Doubt.find({ status: "PENDING" }).lean()
       const doubts = await Doubt.find().select("_id title course_id").lean();
       return res.status(200).json({ message: "success", data: doubts });
-    } catch {
-      return res.status(400).json({ error: "error" });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
     }
   } else if (req.method === "POST") {
     const { course_id, doubt, title } = req.body;
@@ -33,12 +33,14 @@ export default async function handler(req, res) {
         doubt,
         user,
         title,
-      });
+      }).lean();
 
       return res.status(200).json({ message: "success", data: newDoubt });
     } catch (err) {
       console.log(err);
-      return res.status(400).json({ error: "error" });
+      res.status(400).json({ error: err.message });
     }
+  } else {
+    res.status(400).json({ error: "Invalid request" });
   }
 }
