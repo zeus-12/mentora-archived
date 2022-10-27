@@ -19,7 +19,7 @@ const BuddyCard = ({ buddy, onClick }) => {
             {money}
           </div>
         )}
-        <p className="bg-green-700 text-gray-300 text-base inline-flex px-2 py-[0.5px] rounded-2xl git capitalize">
+        <p className="bg-green-600 text-gray-300 text-base inline-flex px-2 py-[0.5px] rounded-2xl git capitalize">
           {buddyType}
         </p>
       </div>

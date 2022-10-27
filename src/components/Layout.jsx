@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
       <div className="pt-4 flex-1 md:px-8 px-4 lg:px-16 xl:px-32 bg-[#080d13]">
         {children}
       </div>
-      <div className="flex items-center justify-between py-2 px-8 bg-[#080d13] text-gray-400 ">
+      <div className="flex items-center justify-between py-2 px-8 bg-[#080d13] text-gray-400">
         <p className="mx-auto">Made with ❤️ as part of TechSoc IITM.</p>
         <Link passHref href="/feedback">
           <p className="text-green-300 hover:cursor-pointer hover:underline underline-offset-4 ">
