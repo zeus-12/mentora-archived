@@ -127,7 +127,7 @@ const DoubtDetailsPage = () => {
       </div>
     );
   return (
-    <div className="min-h-[90vh] flex flex-col">
+    <div className="flex flex-col min-h-[90vh]">
       <div className="flex flex-1 justify-between">
         <div className="">
           <p className="text-3xl mb-2 font-bold">
@@ -139,7 +139,7 @@ const DoubtDetailsPage = () => {
           <p className="text-2xl font-semibold">{doubt.title}</p>
           <p className="text-xl text-gray-400">{doubt.doubt}</p>
         </div>
-        {console.log(user, doubt.user, doubt.status)}
+
         {user === doubt.user && doubt.status === "PENDING" && (
           <Button onClick={resolveDoubt} className={buttonOutlineClasses}>
             Mark as Resolved

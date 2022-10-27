@@ -42,7 +42,7 @@ export default function Home() {
   );
 
   return (
-    <div className="flex min-h-[90vh] flex-col">
+    <div className="flex flex-col">
       <div className="flex gap-4 items-center justify-center">
         <div className="max-w-[40rem] flex-1 ">
           <TextInput
