@@ -3,3 +3,4 @@
 - make sure to use either lowercase or uppercase everywhere for courseId (prefered lowercase)
 - sort doubts by date
 - apply for buddy
+- add illustration to feedback page

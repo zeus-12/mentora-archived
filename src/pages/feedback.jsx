@@ -26,12 +26,6 @@ const Feedback = () => {
     },
   });
 
-  console.log(
-    form.values.anonymous,
-    typeof form.values.anonymous,
-    console.log(form.getInputProps("anonymous").onChange)
-  );
-
   const submitFeedbackHandler = async () => {
     if (!session && !form.values.anonymous) {
       notSignedInNotification("Please sign in or check Anonymous");

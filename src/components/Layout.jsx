@@ -3,13 +3,12 @@
 import Navbar from "./Navbar";
 const Layout = ({ children }) => {
   return (
-    <>
-      {/* px-1 sm:px-2 md:px-4 lg:px-6 xl:px-32 */}
+    <div className="flex flex-col min-h-screen">
       <Navbar />
       <div className="pt-4 md:px-8 px-4 lg:px-16 xl:px-32 bg-[#080d13] min-h-[92vh]">
         {children}
       </div>
-    </>
+    </div>
     // <NotificationContext.Provider
     //   value={{ message, type, setMessage, setType }}
     // >

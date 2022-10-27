@@ -38,7 +38,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="flex flex-col items-center md:flex-row-reverse justify-center gap-14">
+        <div className="flex md:mt-4 lg:mt-8 xl:mt-0 flex-col items-center md:flex-row-reverse justify-center gap-14">
           <div className="w-[70vw] sm:w-[50vw] md:w-[40vw] lg:w-[30vw]">
             <Image
               priority={true}
