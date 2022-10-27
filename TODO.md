@@ -7,3 +7,4 @@
 - make sure to use either lowercase or uppercase everywhere for courseId (prefered lowercase)
 - add suggestions page with gdocs backend or smthn
 - sort doubts by date
+- apply for buddy

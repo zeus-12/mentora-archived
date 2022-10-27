@@ -41,6 +41,7 @@ export default function Home() {
         <div className="flex flex-col items-center md:flex-row-reverse justify-center gap-14">
           <div className="w-[70vw] sm:w-[50vw] md:w-[40vw] lg:w-[30vw]">
             <Image
+              priority={true}
               width="100%"
               height="100%"
               layout="responsive"
@@ -51,7 +52,7 @@ export default function Home() {
           </div>
           <div className="flex flex-col gap-2 justify-center">
             {features.map((feature) => (
-              <Link passHref href={`/${feature.href}`} key={feature.title}>
+              <Link passHref href={`${feature.href}`} key={feature.title}>
                 <div className="hover:border-[1px] rounded-md hover:scale-[101%] transition transform duration-100 ease-out hover:border-green-500 p-3 hover:cursor-pointer">
                   <p className="sm:text-4xl text-3xl font-semibold text-green-400 font-mono">
                     {feature.title}
@@ -65,8 +66,13 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="bg-black text-center py-2 text-gray-400 ">
-        <p>Made with ❤️ as part of TechSoc IITM.</p>
+      <div className="flex items-center justify-between py-2 text-gray-400 ">
+        <p className="mx-auto">Made with ❤️ as part of TechSoc IITM.</p>
+        <Link passHref href="/feedback">
+          <p className="text-green-300 hover:cursor-pointer hover:underline underline-offset-4">
+            Feedback
+          </p>
+        </Link>
       </div>
     </div>
   );

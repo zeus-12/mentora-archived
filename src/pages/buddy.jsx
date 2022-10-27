@@ -85,7 +85,7 @@ const Buddy = () => {
 
   return (
     <div className="flex min-h-[90vh] flex-col">
-      <div className="flex sm:gap-4 gap-2 items-center mt-2 mb-4 justify-center">
+      <div className="flex sm:gap-4 gap-2 items-center mb-4 justify-center">
         <div className="max-w-[40rem] flex-1">
           <TextInput
             value={searchQuery}
