@@ -8,7 +8,7 @@ export default function SignIn() {
   const providers = { google: { id: "google", name: "Google" } };
 
   return (
-    <div className="login-background h-[92vh] flex justify-center items-center">
+    <div className="gap-2 h-[90vh] flex-col flex justify-center items-center">
       {Object.values(providers).map((provider) => (
         <div
           className="flex flex-col items-center gap-4 justify-center"
@@ -17,8 +17,11 @@ export default function SignIn() {
           <Logo textSize="text-6xl" />
 
           <div>
-            <p className="text-xl font-semibold">
+            <p className="text-xl -mt-2 font-semibold">
               The all-in-one place for Acads!
+            </p>
+            <p className="text-gray-400">
+              Use only your smail account to sign in.
             </p>
           </div>
 

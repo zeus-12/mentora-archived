@@ -1,9 +1,10 @@
 import Layout from "../components/Layout";
 import "../../styles/globals.css";
 import { MantineProvider } from "@mantine/core";
-// import '../../styles/Folder.css'
-
+import { NotificationsProvider } from "@mantine/notifications";
 import { SessionProvider } from "next-auth/react";
+import { SWRConfig } from "swr";
+import { options } from "../utils/swr";
 
 function MyApp({ Component, pageProps, session }) {
   return (
@@ -15,9 +16,13 @@ function MyApp({ Component, pageProps, session }) {
           colorScheme: "dark",
         }}
       >
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <NotificationsProvider>
+          <SWRConfig value={options}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </SWRConfig>
+        </NotificationsProvider>
       </MantineProvider>
     </SessionProvider>
   );

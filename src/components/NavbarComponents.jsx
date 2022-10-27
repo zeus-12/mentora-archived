@@ -13,10 +13,10 @@ import { generateAvatarText } from "../utils/helper";
 import { green_400 } from "../utils/constants";
 
 const MiddleSectionElements = [
-  { name: "Q&A", link: "/doubts" },
+  { name: "Q&A", link: "/doubt" },
   { name: "Resources", link: "/course" },
   { name: "Buddy", link: "/buddy" },
-  { name: "Quiz", link: "/quiz" },
+  // { name: "Quiz", link: "/quiz" },
 ];
 
 export const BurgerComponent = ({ opened, setOpened }) => {
@@ -39,7 +39,7 @@ export const LinkComponent = ({ link, name }) => {
     <Link href={link} passHref>
       <p
         className={`${
-          cur === link
+          cur.startsWith(link)
             ? "text-green-500"
             : "text-gray-400 opacity-60 hover:opacity-90"
         } px-2 py-1 text-xl font-semibold rounded-md cursor-pointer text-center hover:bg-gray-900`}
@@ -61,14 +61,13 @@ export const NavbarMiddleSection = ({ className }) => {
 };
 
 export const LoginUserComponent = ({ session }) => {
-  //   const { setMessage, setType } = useContext(NotificationContext);
   return (
     <div className="flex justify-center">
       {/* Logout & SignIn*/}
       {session && (
         <Link href="/user" passHref>
           <UnstyledButton>
-            <Group>
+            <div className="flex sm:gap-3 lg:gap-4 items-center">
               <Avatar size={40} color="blue">
                 {generateAvatarText(session.user.name)}
               </Avatar>
@@ -78,7 +77,7 @@ export const LoginUserComponent = ({ session }) => {
                   {session.user.email}
                 </Text>
               </div>
-            </Group>
+            </div>
           </UnstyledButton>
         </Link>
       )}
@@ -94,7 +93,7 @@ export const Logo = ({ setOpened = () => {}, textSize = "text-2xl" }) => (
       onClick={() => setOpened(false)}
       className="flex items-center hover:cursor-pointer"
     >
-      <p className={textSize + " font-bold"}>
+      <p className={textSize + " tracking-tighter font-bold"}>
         <span className="text-green-500">Mentor</span>a
       </p>
     </div>

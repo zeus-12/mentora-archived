@@ -4,6 +4,8 @@ import Course from "../../../models/course";
 import dbConnect from "../../../utils/dbConnect";
 
 export default async function handler(req, res) {
+  return;
+
   // const query = req.query.q;
 
   // if (!query) {
