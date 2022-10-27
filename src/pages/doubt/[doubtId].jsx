@@ -9,6 +9,9 @@ import SubCommentCard from "../../components/SubCommentCard";
 import { buttonOutlineClasses } from "../../utils/constants";
 import { prettifyId } from "../../utils/helper";
 import { notSignedInNotification } from "../../utils/notification";
+import useSWR from "swr";
+import { getFetcher } from "../../utils/swr";
+
 const idNameMapping = require("../../../name-id-map.json");
 
 const DoubtDetailsPage = () => {
@@ -17,22 +20,34 @@ const DoubtDetailsPage = () => {
   const user = session?.user?.email;
 
   const { doubtId } = router.query;
-  const [answers, setAnswers] = useState([]);
+
+  const pushSubAnswersToParent = (answersData) => {
+    if (!answersData) return;
+
+    answersData.forEach((answer) => {
+      if (answer.parent_id) {
+        const parent = answersData.find((i) => i._id === answer.parent_id);
+        if (parent) {
+          parent.subAnswers = parent.subAnswers || [];
+          parent.subAnswers.push(answer);
+        }
+
+        const i = answersData.indexOf(answer);
+        answersData.splice(i, 1);
+      }
+    });
+    return answersData;
+  };
 
   const [doubt, setDoubt] = useState(null);
 
-  useEffect(() => {
-    const fetchAnswers = async () => {
-      if (!doubtId) return;
-      const res = await fetch(`/api/answer/${doubtId}`);
-      const data = await res.json();
+  const {
+    data: answerData,
+    error,
+    mutate,
+  } = useSWR(`/api/answer/${doubtId}`, getFetcher);
 
-      console.log("data:", data);
-      pushSubAnswersToParent(data.data);
-    };
-
-    fetchAnswers();
-  }, [doubtId]);
+  const answers = pushSubAnswersToParent(answerData);
 
   const form = useForm({
     initialValues: {
@@ -42,23 +57,6 @@ const DoubtDetailsPage = () => {
       answer: (value) => (value.length > 10 ? null : "Too short"),
     },
   });
-  const pushSubAnswersToParent = (answersData) => {
-    if (!answersData) return;
-
-    answersData.forEach((answer) => {
-      if (answer.parent_id) {
-        const parentAnswer = answersData.find(
-          (c) => c._id === answer.parent_id
-        );
-        if (parentAnswer) {
-          if (!parentAnswer.subAnswers) parentAnswer.subAnswers = [];
-          parentAnswer.subAnswers.push(answer);
-          answersData = answersData.filter((c) => c._id !== answer._id);
-        }
-      }
-      setAnswers(answersData);
-    });
-  };
 
   const addAnswer = async () => {
     if (!session) {
@@ -82,6 +80,8 @@ const DoubtDetailsPage = () => {
     if (data.error) {
       // throw error notifcation
     } else {
+      // console.log(`api/answer/${doubtId}`);
+      mutate();
       //todo refetch the comments
       // show success notification
       form.reset();
@@ -173,6 +173,7 @@ const DoubtDetailsPage = () => {
                   type="answer"
                   id={doubtId}
                   parentId={answer._id}
+                  mutate={mutate}
                 />
                 {answer?.subAnswers?.length > 0 &&
                   answer.subAnswers.map((subAnswer, index) => (

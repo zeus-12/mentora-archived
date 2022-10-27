@@ -10,13 +10,14 @@ import { notSignedInNotification } from "../utils/notification";
 import { useSession } from "next-auth/react";
 import { filterOnSearch } from "../utils/helper";
 import BuddyDetailsModal from "../components/BuddyDetailsModal";
+import useSWR from "swr";
+import { getFetcher } from "../utils/swr";
 
 const Buddy = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [newBuddyModal, setNewBuddyModal] = useState(false);
-  const [buddies, setBuddies] = useState([]);
+  // const [buddies, setBuddies] = useState([]);
   const { data: session } = useSession();
-  const [loading, setLoading] = useState(false);
   const [buddyTypeFilter, setBuddyTypeFilter] = useState("all");
   const [branchFilter, setBranchFilter] = useState("all");
 
@@ -30,23 +31,25 @@ const Buddy = () => {
     setNewBuddyModal(false);
   };
 
-  useEffect(() => {
-    const fetchBuddies = async () => {
-      setLoading(true);
-      const res = await fetch("/api/buddy");
-      const data = await res.json();
+  const { data: buddies, error } = useSWR("/api/buddy", getFetcher);
+  // const buddies = buddiesData?.data;
+  // useEffect(() => {
+  //   const fetchBuddies = async () => {
+  //     setLoading(true);
+  //     const res = await fetch("/api/buddy");
+  //     const data = await res.json();
 
-      if (data.error) {
-        // todo show notification
+  //     if (data.error) {
+  //       // todo show notification
 
-        setLoading(false);
-        return;
-      }
-      setBuddies(data.data);
-      setLoading(false);
-    };
-    fetchBuddies();
-  }, []);
+  //       setLoading(false);
+  //       return;
+  //     }
+  //     setBuddies(data.data);
+  //     setLoading(false);
+  //   };
+  //   fetchBuddies();
+  // }, []);
 
   const applyBuddyBtnHandler = () => {
     if (!session) {
@@ -120,9 +123,9 @@ const Buddy = () => {
         </Button>
       </div>
 
-      {buddies.length === 0 && <LoaderComponent />}
+      {buddies?.length === 0 && <LoaderComponent />}
 
-      {filteredBuddies.length > 0 && (
+      {filteredBuddies?.length > 0 && (
         <div className="grid auto-rows-max justify-items-stretch grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 gap-3">
           {filteredBuddies.map((buddy) => (
             // <div  >
@@ -135,7 +138,7 @@ const Buddy = () => {
           ))}
         </div>
       )}
-      {buddies.length > 0 && filteredBuddies.length === 0 && (
+      {buddies?.length > 0 && filteredBuddies.length === 0 && (
         <p>No results found!</p>
       )}
 

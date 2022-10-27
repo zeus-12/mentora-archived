@@ -9,13 +9,14 @@ import CommentCard from "../../../components/CommentCard";
 import SubCommentCard from "../../../components/SubCommentCard";
 import { notSignedInNotification } from "../../../utils/notification";
 import { useSession } from "next-auth/react";
+import useSwr from "swr";
+import { getFetcher } from "../../../utils/swr";
 const name_id_map = require("../../../../name-id-map.json");
 
 const CourseDetails = () => {
   const router = useRouter();
   const courseId = router.query.courseId?.toUpperCase();
   const { data: session } = useSession();
-  const [comments, setComments] = useState([]);
 
   const pushSubCommentsToParent = (comments) => {
     if (!comments) return;
@@ -24,26 +25,26 @@ const CourseDetails = () => {
       if (comment.parent_id) {
         const parentComment = comments.find((c) => c._id === comment.parent_id);
         if (parentComment) {
-          if (!parentComment.subComments) parentComment.subComments = [];
+          parent.subComments = parent.subComments || [];
+
           parentComment.subComments.push(comment);
-          comments = comments.filter((c) => c._id !== comment._id);
         }
+        const i = comments.indexOf(comment);
+        comments.splice(i, 1);
       }
     });
 
-    setComments(comments);
+    return comments.sort(function (a, b) {
+      return a.date - b.date;
+    });
   };
 
-  useEffect(() => {
-    const fetchCourseComments = async () => {
-      if (!courseId) return;
-      const res = await fetch(`/api/comment/${courseId}`);
-      const data = await res.json();
-      pushSubCommentsToParent(data.data);
-    };
+  const { data: commentsData, mutate } = useSwr(
+    `/api/comment/${courseId}`,
+    getFetcher
+  );
 
-    fetchCourseComments();
-  }, [courseId]);
+  const comments = pushSubCommentsToParent(commentsData);
 
   const form = useForm({
     initialValues: {
@@ -76,6 +77,7 @@ const CourseDetails = () => {
     if (data.error) {
       // throw error notifcation
     } else {
+      mutate();
       //todo refetch the comments
       // show success notification
       form.reset();
@@ -87,8 +89,8 @@ const CourseDetails = () => {
   }
 
   return (
-    <div className="flex flex-col min-h-full">
-      <div className="flex justify-between flex-1 min-h-[90vh]">
+    <div className="flex flex-col ">
+      <div className="flex justify-between flex-1">
         <div>
           <p className="text-3xl font-bold">{name_id_map[courseId]}</p>
           <p className="text-2xl text-gray-400 font-semibold">
@@ -120,21 +122,6 @@ const CourseDetails = () => {
               Add Resources
             </Button>
           </a>
-
-          {/* change href to doubt/new?id={courseId} and get the course id values from req.params or smthn in new */}
-          {/* <a href={session ? `/doubt/new` : null}>
-            <Button
-              onClick={
-                !session
-                  ? () =>
-                      notSignedInNotification("Please sign in to Ask a dobut")
-                  : () => {}
-              }
-              className={buttonOutlineClasses}
-            >
-              Ask Doubt
-            </Button>
-          </a> */}
         </div>
         {/* {professors.length > 0 &<p>Course Name: {course_name}</p>} */}
       </div>
@@ -166,6 +153,7 @@ const CourseDetails = () => {
                   type="comment"
                   id={courseId}
                   parentId={comment._id}
+                  mutate={mutate}
                 />
                 {comment.subComments?.length > 0 &&
                   comment.subComments.map((subComment, index) => (
