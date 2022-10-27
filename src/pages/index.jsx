@@ -46,7 +46,7 @@ export default function Home() {
               height="100%"
               layout="responsive"
               objectFit="contain"
-              src="/Q&A.png"
+              src="/logo.png"
               alt="Quiz"
             />
           </div>
