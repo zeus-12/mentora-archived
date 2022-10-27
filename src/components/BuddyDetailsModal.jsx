@@ -30,7 +30,6 @@ const BuddyDetailsModal = ({ buddyData, closeDetailsModal }) => {
         size="lg"
         radius="md"
       >
-        {console.log(buddyData)}
         <div className="flex flex-col gap-2">
           <p className="text-2xl">
             {prettifyId(buddyData?.course_id)}:{" "}

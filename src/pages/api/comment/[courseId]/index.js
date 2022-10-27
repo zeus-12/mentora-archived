@@ -5,7 +5,7 @@ import dbConnect from "../../../../utils/dbConnect";
 
 export default async function handler(req, res) {
   const { courseId } = req.query;
-  console.log(courseId);
+
   if (!courseId) {
     return res.status(400).json({ message: "Missing course ID" });
   }
@@ -13,9 +13,24 @@ export default async function handler(req, res) {
   if (req.method === "GET") {
     await dbConnect();
     try {
-      const comments = await Comments.find({
+      let comments = await Comments.find({
         course_id: courseId,
       }).lean();
+
+      comments.forEach((comment, i) => {
+        if (comment.parent_id) {
+          const parentComment = comments.find(
+            (c) => c._id.toString() === comment.parent_id
+          );
+
+          if (parentComment) {
+            parentComment.subComments = parentComment.subComments || [];
+            parentComment.subComments.push(comment);
+          }
+        }
+      });
+
+      comments = comments.filter((item) => !item.parent_id);
 
       res.status(200).json({ success: true, data: comments });
     } catch (error) {

@@ -1,6 +1,5 @@
 import { Button, FileInput, Textarea, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import RichTextEditor from "../../components/RichTextEditor";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { buttonOutlineClasses } from "../../utils/constants";

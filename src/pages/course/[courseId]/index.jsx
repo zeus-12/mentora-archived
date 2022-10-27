@@ -18,33 +18,10 @@ const CourseDetails = () => {
   const courseId = router.query.courseId?.toUpperCase();
   const { data: session } = useSession();
 
-  const pushSubCommentsToParent = (comments) => {
-    if (!comments) return;
-
-    comments.forEach((comment) => {
-      if (comment.parent_id) {
-        const parentComment = comments.find((c) => c._id === comment.parent_id);
-        if (parentComment) {
-          parent.subComments = parent.subComments || [];
-
-          parentComment.subComments.push(comment);
-        }
-        const i = comments.indexOf(comment);
-        comments.splice(i, 1);
-      }
-    });
-
-    return comments.sort(function (a, b) {
-      return a.date - b.date;
-    });
-  };
-
-  const { data: commentsData, mutate } = useSwr(
+  const { data: comments, mutate } = useSwr(
     `/api/comment/${courseId}`,
     getFetcher
   );
-
-  const comments = pushSubCommentsToParent(commentsData);
 
   const form = useForm({
     initialValues: {

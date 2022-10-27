@@ -34,7 +34,6 @@ const NewSubmission = () => {
       const options = { blobHTTPHeaders: { blobContentType: file.type } };
 
       const data = await blobClient.uploadData(file, options);
-      console.log(data);
 
       await getBlobsInContainer(containerClient);
       const blobs = await getBlobsInContainer(containerClient);

@@ -21,33 +21,13 @@ const DoubtDetailsPage = () => {
 
   const { doubtId } = router.query;
 
-  const pushSubAnswersToParent = (answersData) => {
-    if (!answersData) return;
-
-    answersData.forEach((answer) => {
-      if (answer.parent_id) {
-        const parent = answersData.find((i) => i._id === answer.parent_id);
-        if (parent) {
-          parent.subAnswers = parent.subAnswers || [];
-          parent.subAnswers.push(answer);
-        }
-
-        const i = answersData.indexOf(answer);
-        answersData.splice(i, 1);
-      }
-    });
-    return answersData;
-  };
-
   const [doubt, setDoubt] = useState(null);
 
   const {
-    data: answerData,
+    data: answers,
     error,
     mutate,
   } = useSWR(`/api/answer/${doubtId}`, getFetcher);
-
-  const answers = pushSubAnswersToParent(answerData);
 
   const form = useForm({
     initialValues: {
@@ -80,7 +60,6 @@ const DoubtDetailsPage = () => {
     if (data.error) {
       // throw error notifcation
     } else {
-      // console.log(`api/answer/${doubtId}`);
       mutate();
       //todo refetch the comments
       // show success notification

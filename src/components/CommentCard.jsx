@@ -5,7 +5,6 @@ import { IconCornerUpLeft, IconHeart, IconSend } from "@tabler/icons";
 import { useForm } from "@mantine/form";
 import { useSession } from "next-auth/react";
 import { notSignedInNotification } from "../utils/notification";
-import { useSWRConfig } from "swr";
 
 const CommentCard = ({ user, comment, type, id, mutate, parentId }) => {
   // const { mutate } = useSWRConfig();
@@ -17,7 +16,7 @@ const CommentCard = ({ user, comment, type, id, mutate, parentId }) => {
       comment: "",
     },
     validate: {
-      comment: (value) => (value.length > 10 ? null : "Too short"),
+      // comment: (value) => (value.length > 10 ? null : "Too short"),
     },
   });
 
@@ -45,12 +44,9 @@ const CommentCard = ({ user, comment, type, id, mutate, parentId }) => {
     });
 
     const data = await res.json();
-    console.log(data);
     if (data.error) {
       // throw error notifcation
     } else {
-      console.log("jhey");
-      // mutate(`/api/${type}/${id}`);
       mutate();
       // show success notification
       form.reset();

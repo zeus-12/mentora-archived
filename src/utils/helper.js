@@ -35,7 +35,6 @@ export const getCourseNameFromId = (id) => {
 const courseNameIdMap = require("../../name-id-map.json");
 
 export const filterOnSearch = (searchQuery, data, initial) => {
-  console.log(data);
   if (searchQuery.trim().length === 0) {
     if (initial) return initial;
     return data;
