@@ -16,17 +16,6 @@ const CourseDetails = () => {
   const courseId = router.query.courseId?.toUpperCase();
   const { data: session } = useSession();
   const [comments, setComments] = useState([]);
-  // const [courseData, setCourseData] = useState({});
-
-  // useEffect(() => {
-  //   const fetchCourseData = async () => {
-  //     if (!courseId) return;
-  //     const res = await fetch(`/api/course/${courseId}`);
-  //     const data = await res.json();
-  //     setCourseData(data.data);
-  //   };
-  //   fetchCourseData();
-  // }, [courseId]);
 
   const pushSubCommentsToParent = (comments) => {
     if (!comments) return;
@@ -93,7 +82,6 @@ const CourseDetails = () => {
     }
   };
 
-  // add stylings here todo
   if (!courseId in name_id_map) {
     return <div>course doesnt exist</div>;
   }

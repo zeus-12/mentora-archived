@@ -1,4 +1,4 @@
-import { Input } from "@mantine/core";
+import { TextInput } from "@mantine/core";
 import { useState } from "react";
 import CourseCard from "../../components/CourseCard";
 import LoaderComponent from "../../components/LoaderComponent";
@@ -45,12 +45,15 @@ export default function Home() {
     <div className="flex min-h-[90vh] flex-col">
       <div className="flex gap-4 items-center justify-center">
         <div className="max-w-[40rem] flex-1 ">
-          <Input
+          <TextInput
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             variant="filled"
             placeholder="Enter course name/id"
             size="md"
+            // classNames={{
+            //   input: "border-1 focus:border-green-500 focus:outline-0",
+            // }}
           />
         </div>
 
@@ -70,7 +73,9 @@ export default function Home() {
         )}
 
         {searchQuery.trim().length === 0 && (
-          <p className="text-gray-400">Start typing the Course name/id ... </p>
+          <p className="text-gray-400 mt-2">
+            Start typing the Course name/id ...{" "}
+          </p>
         )}
 
         {filteredCourses.length > 0 && (

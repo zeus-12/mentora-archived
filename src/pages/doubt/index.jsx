@@ -1,4 +1,4 @@
-import { Button, Input } from "@mantine/core";
+import { Button, TextInput } from "@mantine/core";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -41,7 +41,7 @@ const Doubts = () => {
     <div className="flex min-h-[90vh] flex-col">
       <div className="flex justify-center gap-2 mb-4">
         <div className="max-w-[40rem] flex-1 ">
-          <Input
+          <TextInput
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             variant="filled"

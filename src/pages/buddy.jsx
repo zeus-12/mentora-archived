@@ -1,4 +1,4 @@
-import { Button, Input } from "@mantine/core";
+import { Button, Input, TextInput } from "@mantine/core";
 import MenuComponent from "../components/MenuComponent";
 import { useEffect, useState } from "react";
 import BuddyCard from "../components/BuddyCard";
@@ -87,7 +87,7 @@ const Buddy = () => {
     <div className="flex min-h-[90vh] flex-col">
       <div className="flex sm:gap-4 gap-2 items-center mt-2 mb-4 justify-center">
         <div className="max-w-[40rem] flex-1">
-          <Input
+          <TextInput
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             variant="filled"
