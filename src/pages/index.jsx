@@ -18,7 +18,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex min-h-[90vh] justify-between flex-col">
+    <div className="flex justify-between flex-col">
       <div className="md:p-4 p-2 lg:p-6 xl:p-8 h-full">
         <Head>
           <title>Mentora</title>
@@ -65,14 +65,6 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </div>
-      <div className="flex items-center justify-between py-2 text-gray-400 ">
-        <p className="mx-auto">Made with ❤️ as part of TechSoc IITM.</p>
-        <Link passHref href="/feedback">
-          <p className="text-green-300 hover:cursor-pointer hover:underline underline-offset-4">
-            Feedback
-          </p>
-        </Link>
       </div>
     </div>
   );

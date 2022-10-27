@@ -87,8 +87,8 @@ const CourseDetails = () => {
   }
 
   return (
-    <div className="flex flex-col min-h-[90vh]">
-      <div className="flex justify-between flex-1">
+    <div className="flex flex-col min-h-full">
+      <div className="flex justify-between flex-1 min-h-[90vh]">
         <div>
           <p className="text-3xl font-bold">{name_id_map[courseId]}</p>
           <p className="text-2xl text-gray-400 font-semibold">
@@ -121,7 +121,8 @@ const CourseDetails = () => {
             </Button>
           </a>
 
-          <a href={session ? `/doubt/new` : null}>
+          {/* change href to doubt/new?id={courseId} and get the course id values from req.params or smthn in new */}
+          {/* <a href={session ? `/doubt/new` : null}>
             <Button
               onClick={
                 !session
@@ -133,11 +134,10 @@ const CourseDetails = () => {
             >
               Ask Doubt
             </Button>
-          </a>
+          </a> */}
         </div>
         {/* {professors.length > 0 &<p>Course Name: {course_name}</p>} */}
       </div>
-
       {/* Comment section */}
       <div className="mb-6">
         <p className="text-xl font-semibold ">Comments</p>
