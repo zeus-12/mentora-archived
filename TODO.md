@@ -3,6 +3,5 @@
 - option to sort doubts by date- also make the date meaningful
 - apply for buddy : how to implement
 - fix the layout issue (using vh)
--
 - add illustration to feedback page
 - upvote ???? - comments?
