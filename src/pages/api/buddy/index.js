@@ -33,7 +33,9 @@ export default async function handler(req, res) {
   } else if (req.method === "GET") {
     try {
       await dbConnect();
-      const buddyDetails = await Buddy.find().lean();
+      const buddyDetails = await Buddy.find()
+        .select("buddyType course_id  message money")
+        .lean();
 
       return res.status(200).json({ message: "success", data: buddyDetails });
     } catch (error) {
