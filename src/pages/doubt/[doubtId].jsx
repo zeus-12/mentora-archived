@@ -117,7 +117,7 @@ const DoubtDetailsPage = () => {
       // todo show notification
       return;
     }
-    setDoubt(updatedDoubtData);
+    setDoubt(updatedDoubtData.data);
   };
 
   if (!doubt)
