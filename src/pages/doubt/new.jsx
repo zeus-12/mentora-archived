@@ -44,8 +44,7 @@ const NewDoubt = () => {
   console.log(form.values.doubt);
 
   return (
-    // <div className="flex flex-col justify-center items-center sm:h-[90vh]">
-    <div>
+    <div className="flex-1">
       <p className="text-3xl font-bold tracking-tighter mb-4">Ask a Doubt!</p>
 
       <TextInput

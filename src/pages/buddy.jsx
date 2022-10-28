@@ -16,7 +16,6 @@ import { getFetcher } from "../utils/swr";
 const Buddy = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [newBuddyModal, setNewBuddyModal] = useState(false);
-  // const [buddies, setBuddies] = useState([]);
   const { data: session } = useSession();
   const [buddyTypeFilter, setBuddyTypeFilter] = useState("all");
   const [branchFilter, setBranchFilter] = useState("all");
@@ -31,26 +30,8 @@ const Buddy = () => {
     setNewBuddyModal(false);
   };
 
-  const { data: buddies, error } = useSWR("/api/buddy", getFetcher);
-  // const buddies = buddiesData?.data;
-  // useEffect(() => {
-  //   const fetchBuddies = async () => {
-  //     setLoading(true);
-  //     const res = await fetch("/api/buddy");
-  //     const data = await res.json();
-
-  //     if (data.error) {
-  //       // todo show notification
-
-  //       setLoading(false);
-  //       return;
-  //     }
-  //     setBuddies(data.data);
-  //     setLoading(false);
-  //   };
-  //   fetchBuddies();
-  // }, []);
-
+  // const { data: buddies, error } = useSWR("/api/buddy", getFetcher);
+  const buddies = [];
   const applyBuddyBtnHandler = () => {
     if (!session) {
       notSignedInNotification("Please sign in to apply for buddy");
@@ -87,7 +68,7 @@ const Buddy = () => {
   );
 
   return (
-    <div className="flex min-h-[80vh] flex-col">
+    <div className="flex flex-1 flex-col">
       <div className="flex sm:gap-4 gap-2 items-center mb-4 justify-center">
         <div className="max-w-[40rem] flex-1">
           <TextInput
