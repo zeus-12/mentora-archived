@@ -38,7 +38,7 @@ const Doubts = () => {
   const filteredDoubts = filterOnSearch(searchQuery, filterOnBranch(doubts));
 
   return (
-    <div className="flex flex-1 min-h-[80vh] flex-col">
+    <div className="flex flex-1 flex-col">
       <div className="flex justify-center gap-2 mb-4">
         <div className="max-w-[40rem] flex-1 ">
           <TextInput

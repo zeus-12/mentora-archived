@@ -74,7 +74,7 @@ const NewSubmission = () => {
   });
 
   return (
-    <div className="px-1 sm:px-2 md:px-4 lg:px-6 xl:px-32">
+    <div className="px-1 flex-1 sm:px-2 md:px-4 lg:px-6 xl:px-32">
       <p>{prettifyId(courseId)}</p>
       <div className="flex justify-between">
         <p className="text-3xl font-semibold tracking-tighter mb-2">

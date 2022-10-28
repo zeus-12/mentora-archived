@@ -66,7 +66,7 @@ const CourseDetails = () => {
   }
 
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-1 flex-col ">
       <div className="flex justify-between flex-1">
         <div>
           <p className="text-3xl font-bold">{name_id_map[courseId]}</p>
