@@ -4,7 +4,10 @@ import { generateAvatarText } from "../utils/helper";
 import { IconCornerUpLeft, IconHeart, IconSend } from "@tabler/icons";
 import { useForm } from "@mantine/form";
 import { useSession } from "next-auth/react";
-import { notSignedInNotification } from "../utils/notification";
+import {
+  errorNotification,
+  notSignedInNotification,
+} from "../utils/notification";
 
 const CommentCard = ({ user, comment, type, id, mutate, parentId }) => {
   // const { mutate } = useSWRConfig();
@@ -45,7 +48,7 @@ const CommentCard = ({ user, comment, type, id, mutate, parentId }) => {
 
     const data = await res.json();
     if (data.error) {
-      // throw error notifcation
+      errorNotification("Something went wrong");
     } else {
       mutate();
       // show success notification
