@@ -32,7 +32,18 @@ export default async function handler(req, res) {
 
       comments = comments.filter((item) => !item.parent_id);
 
-      res.status(200).json({ success: true, data: comments });
+      // for the like part
+      const session = await getServerSession(req, res);
+      const user = session?.user?.email;
+      if (!user) {
+        res.status(200).json({ success: "success", data: comments });
+        return;
+      }
+      comments.forEach((comment) => {
+        comment.liked = comment.liked_users?.includes(user);
+      });
+
+      res.status(200).json({ success: "success", data: comments });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }

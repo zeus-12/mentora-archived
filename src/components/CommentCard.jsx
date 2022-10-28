@@ -9,19 +9,50 @@ import {
   notSignedInNotification,
 } from "../utils/notification";
 
-const CommentCard = ({ user, comment, type, id, mutate, parentId }) => {
-  const [liked, setLiked] = useState(false);
+const CommentCard = ({
+  _id,
+  liked,
+  user,
+  comment,
+  type,
+  id,
+  mutate,
+  parentId,
+}) => {
+  // const [liked, setLiked] = useState(false);
   const [showNewComment, setShowNewComment] = useState(false);
   const form = useForm({
     initialValues: {
       comment: "",
     },
     validate: {
-      // comment: (value) => (value.length > 10 ? null : "Too short"),
+      comment: (value) => (value.length > 10 ? null : "Too short"),
     },
   });
 
   const { data: session } = useSession();
+
+  const likeCommentHandler = async () => {
+    if (!session) {
+      notSignedInNotification("Please sign in to like");
+      return;
+    }
+    const res = await fetch(`/api/${type}/like/${_id}`, {
+      method: "POST",
+      // headers: {
+      //   "Content-Type": "application/json",
+      // },
+      // body: JSON.stringify({ id, type, parentId }),
+    });
+
+    const data = await res.json();
+    if (data.error) {
+      // show error notif
+      return;
+    } else {
+      mutate();
+    }
+  };
 
   const postSubComment = async () => {
     if (!session) {
@@ -64,7 +95,7 @@ const CommentCard = ({ user, comment, type, id, mutate, parentId }) => {
         </div>
         <div className="gap-1 flex">
           <IconHeart
-            onClick={() => setLiked((prev) => !prev)}
+            onClick={likeCommentHandler}
             className={
               liked
                 ? "fill-red-400 text-red-400"

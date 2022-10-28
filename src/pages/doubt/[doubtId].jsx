@@ -48,7 +48,7 @@ const DoubtDetailsPage = () => {
       return;
     }
     // setLoading(true);
-    const res = await fetch(`/api/answer/${doubtId}`, {
+    const res = await fetch(`/api/doubt/${doubtId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -147,6 +147,8 @@ const DoubtDetailsPage = () => {
             answers.map((answer, index) => (
               <div key={index}>
                 <CommentCard
+                  liked={answer.liked}
+                  _id={answer._id}
                   user={answer.user}
                   comment={answer.answer}
                   type="answer"

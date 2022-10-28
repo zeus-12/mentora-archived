@@ -6,6 +6,7 @@ const answerSchema = new Schema({
   doubt_id: { type: String, required: true },
   date: { type: Date, default: Date.now },
   parent_id: { type: String },
+  liked_users: { type: Array, default: [] },
 });
 
 const Answer = models.Answer || model("Answer", answerSchema);

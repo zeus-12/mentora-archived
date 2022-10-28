@@ -130,6 +130,8 @@ const CourseDetails = () => {
             comments.map((comment, index) => (
               <div key={index}>
                 <CommentCard
+                  liked={comment.liked}
+                  _id={comment._id}
                   user={comment.user}
                   comment={comment.comment}
                   type="comment"

@@ -6,6 +6,7 @@ const commentSchema = new Schema({
   comment: { type: String, required: true },
   date: { type: Date, default: Date.now },
   parent_id: { type: String },
+  liked_users: { type: Array, default: [] },
 });
 
 const Comment = models.Comment || model("Comment", commentSchema);
