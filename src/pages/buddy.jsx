@@ -40,7 +40,7 @@ const Buddy = () => {
     setNewBuddyModal(true);
   };
 
-  const availableBuddyTypeFilters = ["all", "tutor", "batchmate"];
+  const availableBuddyTypeFilters = ["all", "tutor", "peer"];
 
   const filterCourseBranches = (data) => {
     if (branchFilter === "all") return data;
@@ -55,8 +55,8 @@ const Buddy = () => {
         return data;
       case "tutor":
         return data.filter((buddy) => buddy.buddyType === "tutor");
-      case "batchmate":
-        return data.filter((buddy) => buddy.buddyType === "batchmate");
+      case "peer":
+        return data.filter((buddy) => buddy.buddyType === "peer");
       default:
         return data;
     }

@@ -18,7 +18,7 @@ const NewBuddyModal = ({ newBuddyModal, closeNewBuddyModal }) => {
     validate: {
       message: (value) => (value.length > 10 ? null : "Too short"),
       buddyType: (value) =>
-        ["batchmate", "tutor"].includes(value) ? null : "Choose a Buddy Type",
+        ["peer", "tutor"].includes(value) ? null : "Choose a Buddy Type",
       course_id: (value) => (value.length === 6 ? null : "Invalid Course ID"),
       money: (value) =>
         /^\d+$/.test(value) || value === "" ? null : "Invalid Money",
@@ -85,7 +85,7 @@ const NewBuddyModal = ({ newBuddyModal, closeNewBuddyModal }) => {
           {...form.getInputProps("buddyType")}
         >
           <Radio value="tutor" label="Tutor" />
-          <Radio value="batchmate" label="Batchmate" />
+          <Radio value="peer" label="Peer" />
         </Radio.Group>
         {/* <TextInput
           required={true}
