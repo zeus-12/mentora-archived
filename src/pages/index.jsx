@@ -18,7 +18,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="md:p-4 p-2 lg:p-6 xl:p-8 h-full">
+    <div className="md:p-4 p-2 flex-1 lg:p-6 xl:p-8">
       <Head>
         <title>Mentora</title>
         <meta name="description" content="All-In-One App for Acads!" />

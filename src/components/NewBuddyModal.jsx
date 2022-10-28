@@ -2,8 +2,11 @@ import { Button, Modal, Radio, Textarea, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { IconX } from "@tabler/icons";
 import { useState } from "react";
+import { useSWRConfig } from "swr";
 
 const NewBuddyModal = ({ newBuddyModal, closeNewBuddyModal }) => {
+  const { mutate } = useSWRConfig();
+
   const [loading, setLoading] = useState(false);
   const form = useForm({
     initialValues: {
@@ -44,6 +47,8 @@ const NewBuddyModal = ({ newBuddyModal, closeNewBuddyModal }) => {
       setLoading(false);
       return;
     }
+    mutate("/api/buddy");
+
     // show notification
     setLoading(false);
     form.reset();

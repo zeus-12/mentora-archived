@@ -3,6 +3,8 @@ import "../../styles/globals.css";
 import { MantineProvider } from "@mantine/core";
 import { NotificationsProvider } from "@mantine/notifications";
 import { SessionProvider } from "next-auth/react";
+import { SWRConfig } from "swr";
+import { options } from "../utils/swr";
 
 function MyApp({ Component, pageProps, session }) {
   return (
@@ -15,9 +17,11 @@ function MyApp({ Component, pageProps, session }) {
         }}
       >
         <NotificationsProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <SWRConfig value={options}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </SWRConfig>
         </NotificationsProvider>
       </MantineProvider>
     </SessionProvider>

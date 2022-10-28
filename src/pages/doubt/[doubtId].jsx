@@ -9,6 +9,9 @@ import SubCommentCard from "../../components/SubCommentCard";
 import { buttonOutlineClasses } from "../../utils/constants";
 import { prettifyId } from "../../utils/helper";
 import { notSignedInNotification } from "../../utils/notification";
+import useSWR from "swr";
+import { getFetcher } from "../../utils/swr";
+
 const idNameMapping = require("../../../name-id-map.json");
 
 const DoubtDetailsPage = () => {
@@ -17,22 +20,14 @@ const DoubtDetailsPage = () => {
   const user = session?.user?.email;
 
   const { doubtId } = router.query;
-  const [answers, setAnswers] = useState([]);
 
   const [doubt, setDoubt] = useState(null);
 
-  useEffect(() => {
-    const fetchAnswers = async () => {
-      if (!doubtId) return;
-      const res = await fetch(`/api/answer/${doubtId}`);
-      const data = await res.json();
-
-      console.log("data:", data);
-      pushSubAnswersToParent(data.data);
-    };
-
-    fetchAnswers();
-  }, [doubtId]);
+  const {
+    data: answers,
+    error,
+    mutate,
+  } = useSWR(`/api/answer/${doubtId}`, getFetcher);
 
   const form = useForm({
     initialValues: {
@@ -42,23 +37,6 @@ const DoubtDetailsPage = () => {
       answer: (value) => (value.length > 10 ? null : "Too short"),
     },
   });
-  const pushSubAnswersToParent = (answersData) => {
-    if (!answersData) return;
-
-    answersData.forEach((answer) => {
-      if (answer.parent_id) {
-        const parentAnswer = answersData.find(
-          (c) => c._id === answer.parent_id
-        );
-        if (parentAnswer) {
-          if (!parentAnswer.subAnswers) parentAnswer.subAnswers = [];
-          parentAnswer.subAnswers.push(answer);
-          answersData = answersData.filter((c) => c._id !== answer._id);
-        }
-      }
-      setAnswers(answersData);
-    });
-  };
 
   const addAnswer = async () => {
     if (!session) {
@@ -82,6 +60,7 @@ const DoubtDetailsPage = () => {
     if (data.error) {
       // throw error notifcation
     } else {
+      mutate();
       //todo refetch the comments
       // show success notification
       form.reset();
@@ -122,12 +101,12 @@ const DoubtDetailsPage = () => {
 
   if (!doubt)
     return (
-      <div className="flex h-[90vh]">
+      <div className="flex flex-1">
         <LoaderComponent />
       </div>
     );
   return (
-    <div className="flex flex-col min-h-[80vh]">
+    <div className="flex flex-col flex-1">
       <div className="flex flex-1 justify-between">
         <div className="">
           <p className="text-3xl mb-2 font-bold">
@@ -173,6 +152,7 @@ const DoubtDetailsPage = () => {
                   type="answer"
                   id={doubtId}
                   parentId={answer._id}
+                  mutate={mutate}
                 />
                 {answer?.subAnswers?.length > 0 &&
                   answer.subAnswers.map((subAnswer, index) => (

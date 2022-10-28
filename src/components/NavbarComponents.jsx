@@ -52,7 +52,7 @@ export const LinkComponent = ({ link, name }) => {
 
 export const NavbarMiddleSection = ({ className }) => {
   return (
-    <div className={`flex lg:gap-4 xl:gap-8 ${className}`}>
+    <div className={`flex gap-4 xl:gap-8 ${className}`}>
       {MiddleSectionElements.map((item) => (
         <LinkComponent key={item.name} link={item.link} name={item.name} />
       ))}

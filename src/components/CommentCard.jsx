@@ -4,10 +4,11 @@ import { generateAvatarText } from "../utils/helper";
 import { IconCornerUpLeft, IconHeart, IconSend } from "@tabler/icons";
 import { useForm } from "@mantine/form";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 import { notSignedInNotification } from "../utils/notification";
 
-const CommentCard = ({ user, comment, type, id, parentId }) => {
+const CommentCard = ({ user, comment, type, id, mutate, parentId }) => {
+  // const { mutate } = useSWRConfig();
+
   const [liked, setLiked] = useState(false);
   const [showNewComment, setShowNewComment] = useState(false);
   const form = useForm({
@@ -15,10 +16,10 @@ const CommentCard = ({ user, comment, type, id, parentId }) => {
       comment: "",
     },
     validate: {
-      comment: (value) => (value.length > 10 ? null : "Too short"),
+      // comment: (value) => (value.length > 10 ? null : "Too short"),
     },
   });
-  const router = useRouter();
+
   const { data: session } = useSession();
 
   const postSubComment = async () => {
@@ -46,7 +47,7 @@ const CommentCard = ({ user, comment, type, id, parentId }) => {
     if (data.error) {
       // throw error notifcation
     } else {
-      //todo refetch the comments
+      mutate();
       // show success notification
       form.reset();
     }

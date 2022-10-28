@@ -34,7 +34,6 @@ export default async function handler(req, res) {
           blob.name
         );
         res.push(tempBlockBlobClient.url);
-        //   console.log(tempBlockBlobClient.url);
       }
 
       return res;

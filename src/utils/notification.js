@@ -1,4 +1,4 @@
-import { IconX } from "@tabler/icons";
+import { IconCheck, IconX } from "@tabler/icons";
 import { showNotification } from "@mantine/notifications";
 
 export const errorNotificationProps = {
@@ -11,5 +11,22 @@ export const notSignedInNotification = (message) => {
     title: "Please Sign In",
     message,
     ...errorNotificationProps,
+  });
+};
+
+export const errorNotification = (message) => {
+  showNotification({
+    title: "Error",
+    message,
+    ...errorNotificationProps,
+  });
+};
+
+export const successNotification = (message) => {
+  showNotification({
+    title: "Success",
+    message,
+    color: "green",
+    icon: <IconCheck size={18} />,
   });
 };

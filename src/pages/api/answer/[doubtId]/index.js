@@ -1,4 +1,3 @@
-// main comment
 import Answer from "../../../../models/answer";
 import dbConnect from "../../../../utils/dbConnect";
 import getServerSession from "../../../../utils/getServerSession";
@@ -30,9 +29,24 @@ export default async function handler(req, res) {
     const { doubtId } = req.query;
     try {
       await dbConnect();
-      const answers = await Answer.find({
+      let answers = await Answer.find({
         doubt_id: doubtId,
       }).lean();
+
+      answers.forEach((answer, i) => {
+        if (answer.parent_id) {
+          const parentAnswer = answers.find(
+            (c) => c._id.toString() === answer.parent_id
+          );
+
+          if (parentAnswer) {
+            parentAnswer.subAnswers = parentAnswer.subAnswers || [];
+            parentAnswer.subAnswers.push(answer);
+          }
+        }
+      });
+
+      answers = answers.filter((item) => !item.parent_id);
 
       res.status(200).json({ success: "success", data: answers });
     } catch (error) {
