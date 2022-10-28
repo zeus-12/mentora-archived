@@ -1,8 +1,6 @@
 import { Button, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import { prettifyId } from "../../../utils/helper";
 import { buttonOutlineClasses } from "../../../utils/constants";
 import CommentCard from "../../../components/CommentCard";
@@ -10,7 +8,7 @@ import SubCommentCard from "../../../components/SubCommentCard";
 import { notSignedInNotification } from "../../../utils/notification";
 import { useSession } from "next-auth/react";
 import useSwr from "swr";
-import { getFetcher } from "../../../utils/swr";
+import { disableAutoRevalidate, getFetcher } from "../../../utils/swr";
 const name_id_map = require("../../../../name-id-map.json");
 
 const CourseDetails = () => {
@@ -22,6 +20,13 @@ const CourseDetails = () => {
     `/api/comment/${courseId}`,
     getFetcher
   );
+
+  const { data: courseData } = useSwr(
+    `/api/course/${courseId}`,
+    getFetcher,
+    disableAutoRevalidate
+  );
+  console.log(courseData);
 
   const form = useForm({
     initialValues: {

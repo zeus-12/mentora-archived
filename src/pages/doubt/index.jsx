@@ -9,21 +9,15 @@ import { notSignedInNotification } from "../../utils/notification";
 import { filterOnSearch } from "../../utils/helper";
 import MenuComponent from "../../components/MenuComponent";
 import { IconNotebook } from "@tabler/icons";
+import { getFetcher } from "../../utils/swr";
+import useSWR from "swr";
 
 const Doubts = () => {
   const { data: session } = useSession();
-  const [doubts, setDoubts] = useState([]);
   const [branchFilter, setBranchFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
 
-  useEffect(() => {
-    const fetchDoubts = async () => {
-      const res = await fetch(`/api/doubt`);
-      const data = await res.json();
-      setDoubts(data.data);
-    };
-    fetchDoubts();
-  }, []);
+  const { data: doubts, error } = useSWR("/api/doubt", getFetcher);
 
   const filterOnBranch = (doubts) => {
     if (branchFilter === "all") {
@@ -80,7 +74,7 @@ const Doubts = () => {
             <DoubtCard doubt={item} key={item._id} />
           ))}
 
-        {doubts.length > 0 && filteredDoubts?.length === 0 && (
+        {doubts?.length > 0 && filteredDoubts?.length === 0 && (
           <div className="text-center text-gray-500">
             No doubts found for the given search query
           </div>

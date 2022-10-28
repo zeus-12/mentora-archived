@@ -5,3 +5,4 @@
 - upvote ???? - comments?
 - add success notifications to wherever required
 - get the upload file working
+- change configs for azure account

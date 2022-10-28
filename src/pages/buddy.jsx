@@ -1,6 +1,6 @@
 import { Button, Input, TextInput } from "@mantine/core";
 import MenuComponent from "../components/MenuComponent";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BuddyCard from "../components/BuddyCard";
 import { availableBranches, buttonOutlineClasses } from "../utils/constants";
 import { IconAdjustmentsHorizontal, IconNotebook } from "@tabler/icons";
@@ -30,8 +30,8 @@ const Buddy = () => {
     setNewBuddyModal(false);
   };
 
-  // const { data: buddies, error } = useSWR("/api/buddy", getFetcher);
-  const buddies = [];
+  const { data: buddies, error } = useSWR("/api/buddy", getFetcher);
+
   const applyBuddyBtnHandler = () => {
     if (!session) {
       notSignedInNotification("Please sign in to apply for buddy");
@@ -109,13 +109,11 @@ const Buddy = () => {
       {filteredBuddies?.length > 0 && (
         <div className="grid auto-rows-max justify-items-stretch grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 gap-3">
           {filteredBuddies.map((buddy) => (
-            // <div  >
             <BuddyCard
               onClick={() => setCur(buddy)}
               buddy={buddy}
               key={buddy._id}
             />
-            // </div>
           ))}
         </div>
       )}

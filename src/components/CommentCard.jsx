@@ -10,8 +10,6 @@ import {
 } from "../utils/notification";
 
 const CommentCard = ({ user, comment, type, id, mutate, parentId }) => {
-  // const { mutate } = useSWRConfig();
-
   const [liked, setLiked] = useState(false);
   const [showNewComment, setShowNewComment] = useState(false);
   const form = useForm({
