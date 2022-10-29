@@ -30,7 +30,7 @@ const Buddy = () => {
     setNewBuddyModal(false);
   };
 
-  const { data: buddies, error } = useSWR("/api/buddy", getFetcher);
+  const { data: buddies } = useSWR("/api/buddy", getFetcher);
 
   const applyBuddyBtnHandler = () => {
     if (!session) {

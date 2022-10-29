@@ -20,7 +20,6 @@ const CommentCard = ({
   mutate,
   parentId,
 }) => {
-  // const [liked, setLiked] = useState(false);
   const [showNewComment, setShowNewComment] = useState(false);
   const form = useForm({
     initialValues: {

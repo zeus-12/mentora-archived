@@ -33,9 +33,30 @@ export default async function handler(req, res) {
   } else if (req.method === "GET") {
     try {
       await dbConnect();
-      const buddyDetails = await Buddy.find()
-        .select("buddyType course_id message money")
-        .lean();
+      const buddyDetails = await Buddy.find().lean();
+
+      const session = await getServerSession(req, res);
+      if (!session) {
+        return res.status(200).json({ message: "success", data: buddyDetails });
+      }
+
+      const user = session?.user?.email;
+
+      buddyDetails.map((buddy) => {
+        if (buddy.applied_users?.includes(user)) {
+          buddy.applied = true;
+        } else {
+          buddy.applied = false;
+        }
+
+        if (buddy.user === user) {
+          buddy.self = true;
+        } else {
+          buddy.self = false;
+        }
+      });
+
+      delete buddyDetails.user;
 
       return res.status(200).json({ message: "success", data: buddyDetails });
     } catch (error) {

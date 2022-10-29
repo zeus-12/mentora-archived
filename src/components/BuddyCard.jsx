@@ -1,6 +1,7 @@
 import { getCourseNameFromId, prettifyId } from "../utils/helper";
 import { Avatar } from "./UI";
 import { IconCurrencyRupee } from "@tabler/icons";
+
 const BuddyCard = ({ buddy, onClick }) => {
   const { course_id, user, message, buddyType, money } = buddy;
   return (

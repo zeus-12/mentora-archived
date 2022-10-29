@@ -9,6 +9,8 @@ const buddySchema = new Schema({
   message: { type: String, required: true },
   buddyType: { type: String, required: true },
   money: { type: String },
+
+  applied_users: { type: Array, default: [] },
 });
 
 const Buddy = models.Buddy || model("Buddy", buddySchema);
