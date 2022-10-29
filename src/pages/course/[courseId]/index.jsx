@@ -26,7 +26,6 @@ const CourseDetails = () => {
     getFetcher,
     disableAutoRevalidate
   );
-  console.log(courseData);
 
   const form = useForm({
     initialValues: {
@@ -130,6 +129,7 @@ const CourseDetails = () => {
             comments.map((comment, index) => (
               <div key={index}>
                 <CommentCard
+                  like_count={comment.like_count}
                   liked={comment.liked}
                   _id={comment._id}
                   user={comment.user}

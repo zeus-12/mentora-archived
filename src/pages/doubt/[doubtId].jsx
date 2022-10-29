@@ -147,6 +147,7 @@ const DoubtDetailsPage = () => {
             answers.map((answer, index) => (
               <div key={index}>
                 <CommentCard
+                  like_count={answer.like_count}
                   liked={answer.liked}
                   _id={answer._id}
                   user={answer.user}

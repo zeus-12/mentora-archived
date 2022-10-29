@@ -41,6 +41,7 @@ export default async function handler(req, res) {
       }
       comments.forEach((comment) => {
         comment.liked = comment.liked_users?.includes(user);
+        comment.like_count = comment.liked_users?.length || 0;
       });
 
       res.status(200).json({ success: "success", data: comments });

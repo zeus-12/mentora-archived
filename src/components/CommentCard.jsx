@@ -10,6 +10,7 @@ import {
 } from "../utils/notification";
 
 const CommentCard = ({
+  like_count,
   _id,
   liked,
   user,
@@ -93,15 +94,18 @@ const CommentCard = ({
           </Avatar>
           <p>{comment}</p>
         </div>
-        <div className="gap-1 flex">
-          <IconHeart
-            onClick={likeCommentHandler}
-            className={
-              liked
-                ? "fill-red-400 text-red-400"
-                : "" + " hover:cursor-pointer w-6 h-6"
-            }
-          />
+        <div className="gap-2 flex">
+          <div className="flex items-center gap-1">
+            <IconHeart
+              onClick={likeCommentHandler}
+              className={
+                liked
+                  ? "fill-red-400 text-red-400"
+                  : "" + " hover:cursor-pointer w-6 h-6"
+              }
+            />
+            <p className="text-gray-400">{like_count}</p>
+          </div>
           <IconCornerUpLeft
             className="hover:text-gray-100 hover:cursor-pointer w-6 h-6"
             onClick={() => setShowNewComment((prev) => !prev)}

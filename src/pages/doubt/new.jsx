@@ -41,7 +41,6 @@ const NewDoubt = () => {
       course_id: (value) => (value?.length === 6 ? null : "Invalid Course ID"),
     },
   });
-  console.log(form.values.doubt);
 
   return (
     <div className="flex-1">

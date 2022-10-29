@@ -57,6 +57,7 @@ export default async function handler(req, res) {
       }
       answers.forEach((answer) => {
         answer.liked = answer.liked_users?.includes(user);
+        answer.like_count = answer.liked_users?.length || 0;
       });
 
       res.status(200).json({ success: "success", data: answers });
