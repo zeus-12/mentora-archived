@@ -9,6 +9,8 @@ import { notSignedInNotification } from "../../../utils/notification";
 import { useSession } from "next-auth/react";
 import useSwr from "swr";
 import { disableAutoRevalidate, getFetcher } from "../../../utils/swr";
+import FilePreview from "../../../components/FilePreview";
+import Link from "next/link";
 const name_id_map = require("../../../../name-id-map.json");
 
 const CourseDetails = () => {
@@ -27,17 +29,10 @@ const CourseDetails = () => {
     disableAutoRevalidate
   );
 
-  // const courseData = {
-  //   _id: "635c22d04658c4cc263a8c88",
-  //   course_id: "ED2012",
-  //   credits: "6",
-  //   description:
-  //     "This course will be an introduction to the principles of various manufacturing processes.  It will present both primary and secondary operations with emphasis on casting, bulk deformation, sheet metal, cutting and additive processes. ",
-  //   course_type: "Theory",
-  //   course_name: "Manufacturing Processes",
-  //   course_content:
-  //     '["Manufacturing Process Overview – primary and secondary processes, basis for selecting manufacturing processes.", "Fundamentals of Metals Casting – solidification, structure and an overview of different metal casting processes and applications.", "Fundamentals of Bulk Deformation Process – forging, extrusion and rolling.", "Sheet Metal Forming – formability of sheet metals and processes such as shearing, deep drawing and stretch forming.", "Metal Cutting Operations for producing various shapes and surface integrity – turning, milling, drilling, reaming, tapping etc.", "Additive Manufacturing Processes – Introduction to 3D printing technologies such as Direct Metal Deposition (DMD) and Selective Laser Sintering (SLS).", "Engineering Metrology – measurement of roughness, profile, and other attributes of finished parts for achieving good integrity."]',
-  // };
+  const { data: courseResources } = useSwr(
+    `/api/resource/${courseId}`,
+    getFetcher
+  );
 
   const form = useForm({
     initialValues: {
@@ -71,7 +66,6 @@ const CourseDetails = () => {
       // throw error notifcation
     } else {
       mutate();
-      //todo refetch the comments
       // show success notification
       form.reset();
     }
@@ -120,12 +114,24 @@ const CourseDetails = () => {
             </div>
           </div>
         </div>
-        <Blockquote
-          color="green"
-          className="text-gray-400 w-screen sm:w-[70vw]"
-        >
-          {courseData.description}
-        </Blockquote>
+        {courseData && (
+          <Blockquote
+            color="green"
+            className="text-gray-400 w-screen sm:w-[70vw]"
+          >
+            {courseData?.description}
+          </Blockquote>
+        )}
+
+        {/* course resources */}
+        <div className="flex gap-2">
+          {courseResources &&
+            courseResources?.resources?.map((resource, index) => (
+              <a href={resource.file_url} key={index}>
+                <FilePreview file={resource} />
+              </a>
+            ))}
+        </div>
       </div>
 
       {/* Comment section */}

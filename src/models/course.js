@@ -14,14 +14,6 @@ const courseSchema = new Schema({
   course_type: { type: String },
   course_name: { type: String, required: true },
   course_content: { type: String },
-  // content: [
-  //   {
-  //     file_name: { type: String },
-  //     file_url: { type: String },
-  //     uploader: { type: String, required: true },
-  //     date: { type: Date, default: Date.now },
-  //   },
-  // ],
 });
 
 const Course = models.Course || model("Course", courseSchema);

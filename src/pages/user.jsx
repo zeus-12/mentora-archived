@@ -53,7 +53,6 @@ const User = () => {
       <div className="">
         <p className="text-2xl font-semibold">Your Buddy Requests</p>
         <div className="grid auto-rows-max justify-items-stretch grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 gap-3">
-          {console.log(buddyData)}
           {buddyData?.map((buddy) => (
             <div
               key={buddy._id}
