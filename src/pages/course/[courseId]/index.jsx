@@ -21,23 +21,23 @@ const CourseDetails = () => {
     getFetcher
   );
 
-  // const { data: courseData } = useSwr(
-  //   `/api/course/${courseId}`,
-  //   getFetcher,
-  //   disableAutoRevalidate
-  // );
+  const { data: courseData } = useSwr(
+    `/api/course/${courseId}`,
+    getFetcher,
+    disableAutoRevalidate
+  );
 
-  const courseData = {
-    _id: "635c22d04658c4cc263a8c88",
-    course_id: "ED2012",
-    credits: "6",
-    description:
-      "This course will be an introduction to the principles of various manufacturing processes.  It will present both primary and secondary operations with emphasis on casting, bulk deformation, sheet metal, cutting and additive processes. ",
-    course_type: "Theory",
-    course_name: "Manufacturing Processes",
-    course_content:
-      '["Manufacturing Process Overview – primary and secondary processes, basis for selecting manufacturing processes.", "Fundamentals of Metals Casting – solidification, structure and an overview of different metal casting processes and applications.", "Fundamentals of Bulk Deformation Process – forging, extrusion and rolling.", "Sheet Metal Forming – formability of sheet metals and processes such as shearing, deep drawing and stretch forming.", "Metal Cutting Operations for producing various shapes and surface integrity – turning, milling, drilling, reaming, tapping etc.", "Additive Manufacturing Processes – Introduction to 3D printing technologies such as Direct Metal Deposition (DMD) and Selective Laser Sintering (SLS).", "Engineering Metrology – measurement of roughness, profile, and other attributes of finished parts for achieving good integrity."]',
-  };
+  // const courseData = {
+  //   _id: "635c22d04658c4cc263a8c88",
+  //   course_id: "ED2012",
+  //   credits: "6",
+  //   description:
+  //     "This course will be an introduction to the principles of various manufacturing processes.  It will present both primary and secondary operations with emphasis on casting, bulk deformation, sheet metal, cutting and additive processes. ",
+  //   course_type: "Theory",
+  //   course_name: "Manufacturing Processes",
+  //   course_content:
+  //     '["Manufacturing Process Overview – primary and secondary processes, basis for selecting manufacturing processes.", "Fundamentals of Metals Casting – solidification, structure and an overview of different metal casting processes and applications.", "Fundamentals of Bulk Deformation Process – forging, extrusion and rolling.", "Sheet Metal Forming – formability of sheet metals and processes such as shearing, deep drawing and stretch forming.", "Metal Cutting Operations for producing various shapes and surface integrity – turning, milling, drilling, reaming, tapping etc.", "Additive Manufacturing Processes – Introduction to 3D printing technologies such as Direct Metal Deposition (DMD) and Selective Laser Sintering (SLS).", "Engineering Metrology – measurement of roughness, profile, and other attributes of finished parts for achieving good integrity."]',
+  // };
 
   const form = useForm({
     initialValues: {
