@@ -48,7 +48,7 @@ const DoubtDetailsPage = () => {
       return;
     }
     // setLoading(true);
-    const res = await fetch(`/api/doubt/${doubtId}`, {
+    const res = await fetch(`/api/answer/${doubtId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

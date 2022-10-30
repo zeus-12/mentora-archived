@@ -3,6 +3,8 @@ import dbConnect from "../../../utils/dbConnect";
 import getServerSession from "../../../utils/getServerSession";
 
 export default async function handler(req, res) {
+  console.log("hi");
+
   if (req.method !== "GET") {
     res.status(400).json({ error: "Invalid request" });
     return;

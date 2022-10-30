@@ -9,13 +9,15 @@ import getFetcher from "../utils/swr";
 const User = () => {
   const { data: session } = useSession();
   const router = useRouter();
+  const [buddyData, setBuddyData] = useState(null);
+  // const { data: buddyData } = useSWR("/api/buddy/user", getFetcher);
+  console.log(buddyData);
 
   const signoutHandler = () => {
     signOut();
     router.push("/");
   };
-  const [buddyData, setBuddyData] = useState(null);
-  // const { data: buddyData, error } = useSWR("/api/buddy/user", getFetcher);
+  // const [buddyData, setBuddyData] = useState(null);
 
   useEffect(() => {
     const fetchBuddyData = async () => {
@@ -28,6 +30,8 @@ const User = () => {
     };
     fetchBuddyData();
   }, [session]);
+
+  console.log(buddyData);
 
   // const { data: userData, user_error } = useSWR("/api/user", getFetcher);
   // if (userData && userData.status === "BANNED") {
@@ -63,7 +67,7 @@ const User = () => {
                 <p>Applied Users</p>
                 <p>Count:{buddy.applied?.length || 0}</p>
               </div>
-              {buddy.applied?.map((applied) => (
+              {buddy.applied_users?.map((applied) => (
                 <div key={applied} className="flex flex-col gap-1">
                   <p className="text-gray-400 text-sm">{applied}</p>
                 </div>
