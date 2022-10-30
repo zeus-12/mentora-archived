@@ -1,4 +1,4 @@
-import { Button, Textarea } from "@mantine/core";
+import { Button, Textarea, Blockquote } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useRouter } from "next/router";
 import { prettifyId } from "../../../utils/helper";
@@ -78,6 +78,7 @@ const CourseDetails = () => {
           <p className="text-2xl text-gray-400 font-semibold">
             {courseId && prettifyId(courseId)}
           </p>
+          <Blockquote color="green">Course description</Blockquote>
         </div>
 
         {/* courseContent": "[\"Figures of Speech and Communicative Act-Language of persuasion: Promise-Intimidation, Testimonial, Statistics, Half-truths & Lies-Speech Act: Theories of Bhartihari, Searle and Austin-Language as a Social Act-Communicative Competence-Systemic Functional Approach to Speech-Communication in Context-Communication and the Mass Media, Art of Public Speaking-Natural language and theory of communication\", \"The course will acquaint students with the theory and practice of using natural languages for persuasion and communication. Figures of Speech and Communicative Act \u2013 Language of persuasion: Promise \u2013 Intimidation Testimonial, Statistic, Half \u2013 truth& Lies \u2013 Speech Act: Theories of Bhartihari, Searle and Austin \u2013 Language as a Social Act \u2013 Communicative Competence \u2013 Systemic Functional Approach to speech \u2013 Communication in Context \u2013 Communication and the Mass Media, Art of Public Speaking \u2013 Natural language and theory of Communication\", null]",

@@ -31,12 +31,17 @@ const BuddyDetailsModal = ({ buddyData, closeDetailsModal }) => {
         radius="md"
       >
         <div className="flex flex-col gap-2">
-          <p className="text-2xl">
-            {prettifyId(buddyData?.course_id)}:{" "}
-            <span className="text-gray-500">
-              {idNameMapping[buddyData?.course_id?.toUpperCase()]}
-            </span>
-          </p>
+          <div className="flex justify-between">
+            <p className="text-2xl">
+              {prettifyId(buddyData?.course_id)}:{" "}
+              <span className="text-gray-500">
+                {idNameMapping[buddyData?.course_id?.toUpperCase()]}
+              </span>
+            </p>
+            <p className="bg-green-700 text-gray-300 text-base inline-flex px-2 py-[2px] rounded-2xl capitalize">
+              {buddyData?.buddyType}
+            </p>
+          </div>
 
           {/* <p className="text-xl text-gray-400">Message</p> */}
           <Blockquote>
@@ -50,9 +55,6 @@ const BuddyDetailsModal = ({ buddyData, closeDetailsModal }) => {
                 {buddyData?.money}
               </div>
             )}
-            <p className="bg-green-700 text-gray-300 text-base inline-flex px-2 py-[0.5px] rounded-2xl">
-              {buddyData?.buddyType}
-            </p>
           </div>
 
           <Button className={buttonOutlineClasses}>Apply!</Button>
