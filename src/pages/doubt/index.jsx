@@ -66,7 +66,7 @@ const Doubts = () => {
         </Link>
       </div>
 
-      {doubts?.length === 0 && <LoaderComponent />}
+      {!doubts && <LoaderComponent />}
 
       <div className="space-y-4">
         {filteredDoubts?.length > 0 &&
@@ -77,6 +77,18 @@ const Doubts = () => {
         {doubts?.length > 0 && filteredDoubts?.length === 0 && (
           <div className="text-center text-gray-500">
             No doubts found for the given search query
+          </div>
+        )}
+
+        {error && (
+          <div className="text-center text-gray-500">
+            Error fetching doubts. Please try again later.
+          </div>
+        )}
+
+        {!error && doubts?.length === 0 && (
+          <div className="text-center text-gray-500">
+            No doubts found. Be the first one to ask a doubt!
           </div>
         )}
       </div>

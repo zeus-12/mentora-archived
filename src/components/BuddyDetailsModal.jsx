@@ -41,12 +41,17 @@ const BuddyDetailsModal = ({ buddyData, closeDetailsModal }) => {
         radius="md"
       >
         <div className="flex flex-col gap-2">
-          <p className="text-2xl">
-            {prettifyId(buddyData?.course_id)}:{" "}
-            <span className="text-gray-500">
-              {idNameMapping[buddyData?.course_id?.toUpperCase()]}
-            </span>
-          </p>
+          <div className="flex justify-between">
+            <p className="text-2xl">
+              {prettifyId(buddyData?.course_id)}:{" "}
+              <span className="text-gray-500">
+                {idNameMapping[buddyData?.course_id?.toUpperCase()]}
+              </span>
+            </p>
+            <p className="bg-green-700 text-gray-300 text-base inline-flex px-2 py-[2px] rounded-2xl capitalize">
+              {buddyData?.buddyType}
+            </p>
+          </div>
 
           <Blockquote>
             <p>{buddyData?.message}</p>
@@ -59,9 +64,6 @@ const BuddyDetailsModal = ({ buddyData, closeDetailsModal }) => {
                 {buddyData?.money}
               </div>
             )}
-            <p className="bg-green-700 text-gray-300 text-base inline-flex px-2 py-[0.5px] rounded-2xl">
-              {buddyData?.buddyType}
-            </p>
           </div>
 
           {!buddyData?.self && !buddyData?.applied && (
@@ -76,7 +78,12 @@ const BuddyDetailsModal = ({ buddyData, closeDetailsModal }) => {
           {buddyData?.applied && (
             <p className="text-gray-400 text-center">
               Already Applied! <br />
-              You&apos;ll be notified at <Link href="/user">User Page </Link>
+              You&apos;ll be notified at{" "}
+              <Link href="/user">
+                <span className="hover:cursor-pointer text-green-200">
+                  User Page
+                </span>
+              </Link>{" "}
               once they approve!
             </p>
           )}

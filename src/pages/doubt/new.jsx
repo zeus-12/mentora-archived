@@ -43,50 +43,48 @@ const NewDoubt = () => {
   });
 
   return (
-    <div className="flex-1">
-      <p className="text-3xl font-bold tracking-tighter mb-4">Ask a Doubt!</p>
+    <div className="flex-1 flex justify-center sm:items-center ">
+      <div>
+        <p className="text-3xl font-bold tracking-tighter mb-4">Ask a Doubt!</p>
 
-      <TextInput
-        required={true}
-        className="w-[90vw] max-w-[30rem]"
-        label="Course ID"
-        placeholder="Course ID"
-        {...form.getInputProps("course_id")}
-      />
+        <TextInput
+          required={true}
+          className="w-[90vw] max-w-[30rem]"
+          label="Course ID"
+          placeholder="Course ID"
+          {...form.getInputProps("course_id")}
+        />
 
-      {/* <TextInput
-        required={true}
-        className="w-[90vw] max-w-[30rem]"
-        label="Course Name"
-        placeholder="Course Name"
-        {...form.getInputProps("course_name")}
-      /> */}
-      <TextInput
-        required={true}
-        className="w-[90vw] max-w-[30rem]"
-        label="Doubt Title"
-        placeholder="Doubt Title"
-        {...form.getInputProps("title")}
-      />
-      <Textarea
-        required={true}
-        className="w-[90vw] max-w-[30rem]"
-        label="Doubt"
-        placeholder="Enter your doubt"
-        {...form.getInputProps("doubt")}
-      />
-      {/* <div className="p-2" />
-      <RichTextEditor className="" {...form.getInputProps("question")} /> */}
-      <div className="flex justify-start">
-        <FileInput placeholder="Pick file" label="Attach Files" withAsterisk />
+        <TextInput
+          required={true}
+          className="w-[90vw] max-w-[30rem]"
+          label="Doubt Title"
+          placeholder="Doubt Title"
+          {...form.getInputProps("title")}
+        />
+        <Textarea
+          required={true}
+          className="w-[90vw] max-w-[30rem]"
+          label="Doubt"
+          placeholder="Enter your doubt"
+          {...form.getInputProps("doubt")}
+        />
+
+        {/* <div className="flex justify-start">
+          <FileInput
+            placeholder="Pick file"
+            label="Attach Files"
+            withAsterisk
+          /> 
+        </div>*/}
+        <Button
+          loading={loading}
+          onClick={registerHandler}
+          className={buttonOutlineClasses + " mt-4"}
+        >
+          Post your question
+        </Button>
       </div>
-      <Button
-        loading={loading}
-        onClick={registerHandler}
-        className={buttonOutlineClasses + " mt-4"}
-      >
-        Post your question
-      </Button>
     </div>
   );
 };

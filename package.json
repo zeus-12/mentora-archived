@@ -19,6 +19,7 @@
     "@mantine/next": "^5.6.1",
     "@mantine/notifications": "^5.6.1",
     "@tabler/icons": "^1.104.0",
+    "date-fns": "^2.29.3",
     "googleapis": "^108.0.1",
     "mongoose": "^6.6.3",
     "next": "12.3.1",
