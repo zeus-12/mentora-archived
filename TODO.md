@@ -1,8 +1,1 @@
-- componentize the forms, textinput, textarea, etc
-- make sure to use either lowercase or uppercase everywhere for courseId (prefered lowercase)
-- make the date meaningful in doubts page
-- apply for buddy : how to implement
-- fix the layout issue (using vh) !!!!!! emergency !!!!!
-- upvote ???? - comments?
 - add success notifications to wherever required
-- get the upload file working

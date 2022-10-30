@@ -8,7 +8,7 @@ export default function SignIn() {
   const providers = { google: { id: "google", name: "Google" } };
 
   return (
-    <div className="gap-2 h-[90vh] flex-col flex justify-center items-center">
+    <div className="gap-2 flex-col flex flex-1 justify-center items-center">
       {Object.values(providers).map((provider) => (
         <div
           className="flex flex-col items-center gap-4 justify-center"

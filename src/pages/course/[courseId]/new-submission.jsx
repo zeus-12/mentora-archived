@@ -1,11 +1,16 @@
 import { BlobServiceClient } from "@azure/storage-blob";
 import { Button, Group, Image, SimpleGrid, Text } from "@mantine/core";
 import { Dropzone, IMAGE_MIME_TYPE, PDF_MIME_TYPE } from "@mantine/dropzone";
-import { IconPhoto, IconTemperature, IconUpload, IconX } from "@tabler/icons";
+import { IconPhoto, IconUpload, IconX } from "@tabler/icons";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
 import { buttonOutlineClasses } from "../../../utils/constants";
 import { prettifyId } from "../../../utils/helper";
+import {
+  errorNotification,
+  successNotification,
+} from "../../../utils/notification";
+import FilePreview from "../../../components/FilePreview";
 
 const NewSubmission = () => {
   const router = useRouter();
@@ -20,76 +25,78 @@ const NewSubmission = () => {
   const uploadFileToBlob = useCallback(async (file, newFileName) => {
     const containerName = "course";
     const sasToken =
-      "?sv=2021-06-08&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2022-10-24T15:22:58Z&st=2022-10-24T07:22:58Z&spr=https,http&sig=dzR4kiPuO2UGNE3Wpjx4nptx%2B2kghqJt5Xg5Yt6Nvnk%3D";
+      "sp=racw&st=2022-10-30T09:49:18Z&se=2022-10-30T17:49:18Z&sv=2021-06-08&sr=c&sig=wuU72rUKXQDNvCrxU3pfhEvHPSHlww%2Bem2wccGd1SGs%3D";
     setLoading(true);
     if (!file) {
-      console.log("No FILE");
+      errorNotification("No file selected");
+      return;
     } else {
       const blobService = new BlobServiceClient(
         `https://mentora.blob.core.windows.net/?${sasToken}`
       );
 
-      const containerClient = blobService.getContainerClient(containerName);
-      const blobClient = containerClient.getBlockBlobClient(newFileName);
-      const options = { blobHTTPHeaders: { blobContentType: file.type } };
+      try {
+        const containerClient = blobService.getContainerClient(containerName);
+        const blobClient = containerClient.getBlockBlobClient(newFileName);
+        const options = { blobHTTPHeaders: { blobContentType: file.type } };
 
-      const data = await blobClient.uploadData(file, options);
-
-      await getBlobsInContainer(containerClient);
-      const blobs = await getBlobsInContainer(containerClient);
-      console.log(blobs);
-      // setBlobs(blobs);
-      console.log("uploaded");
+        const data = await blobClient.uploadData(file, options);
+      } catch (error) {
+        errorNotification("Error uploading file");
+      }
     }
     setLoading(false);
   }, []);
 
   const submitHandler = async () => {
-    files.map((file) => {
+    files.map(async (file) => {
       const newFileName = `${courseId}/${file.name}`;
       uploadFileToBlob(file, newFileName);
+      const addFileDetailsToDb = await fetch(`/api/resource/${courseId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          file_name: newFileName,
+          file_url: `https://mentora.blob.core.windows.net/course/${newFileName}`,
+          file_type: file.type,
+        }),
+      });
+      const data = await addFileDetailsToDb.json();
+      if (data.error) {
+        errorNotification(data.error);
+        return;
+      }
+      successNotification("File Uploaded Successfully");
+
+      router.push(`/course/${courseId}`);
     });
   };
 
-  const previews = files.map((file, index) => {
-    if (IMAGE_MIME_TYPE.includes(file.type)) {
-      const imageUrl = URL.createObjectURL(file);
-      return (
-        <Image
-          alt={file.name}
-          key={index}
-          src={imageUrl}
-          imageProps={{ onLoad: () => URL.revokeObjectURL(imageUrl) }}
-        />
-      );
-    } else if (PDF_MIME_TYPE.includes(file.type)) {
-      return (
-        <div key={file} className="flex flex-col items-center justify-center">
-          <IconPhoto size={40} />
-          <p>{file.name}</p>
-          <embed src={file} />
-        </div>
-      );
-    }
-  });
-
   return (
-    <div className="px-1 sm:px-2 md:px-4 lg:px-6 xl:px-32">
-      <p>{prettifyId(courseId)}</p>
+    <div className="px-1 flex-1 sm:px-2 md:px-4 lg:px-6 xl:px-32">
+      <p className="text-3xl font-bold text-green-300">
+        {prettifyId(courseId)}
+      </p>
       <div className="flex justify-between">
         <p className="text-3xl font-semibold tracking-tighter mb-2">
           Add Materials!
         </p>
-        <Button className={buttonOutlineClasses} onClick={submitHandler}>
+        <Button
+          loading={loading}
+          className={buttonOutlineClasses}
+          onClick={submitHandler}
+        >
           Submit
         </Button>
       </div>
 
       <Dropzone
         onDrop={(file) => handleUpload(file)}
-        // onDrop={(files) => console.log("accepted files", files, typeof files)}
-        // todo for reject show notification
-        // onReject={(files) => console.log("rejected files", files)}
+        onReject={(files) =>
+          errorNotification("File rejected, check file size and format!")
+        }
         maxSize={15 * 1024 ** 2}
         accept={[...PDF_MIME_TYPE, ...IMAGE_MIME_TYPE]}
       >
@@ -113,7 +120,7 @@ const NewSubmission = () => {
               Drag images here or click to select files
             </Text>
             <Text size="sm" color="dimmed" inline mt={7}>
-              Attach as many files as you like, each file should not exceed 5mb
+              Attach as many files as you like.
             </Text>
           </div>
         </Group>
@@ -123,9 +130,11 @@ const NewSubmission = () => {
         className="gap-8"
         cols={4}
         breakpoints={[{ maxWidth: "sm", cols: 1 }]}
-        mt={previews.length > 0 ? "xl" : 0}
+        mt={files.length > 0 ? "xl" : 0}
       >
-        {previews}
+        {files.map((file, index) => (
+          <FilePreview file={file} key={index} />
+        ))}
       </SimpleGrid>
     </div>
   );

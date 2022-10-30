@@ -48,6 +48,18 @@ export default async function handler(req, res) {
 
       answers = answers.filter((item) => !item.parent_id);
 
+      // for the like part
+      const session = await getServerSession(req, res);
+      const user = session?.user?.email;
+      if (!user) {
+        res.status(200).json({ success: "success", data: answers });
+        return;
+      }
+      answers.forEach((answer) => {
+        answer.liked = answer.liked_users?.includes(user);
+        answer.like_count = answer.liked_users?.length || 0;
+      });
+
       res.status(200).json({ success: "success", data: answers });
     } catch (error) {
       res.status(400).json({ error: error.message });

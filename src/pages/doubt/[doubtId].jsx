@@ -48,7 +48,7 @@ const DoubtDetailsPage = () => {
       return;
     }
     // setLoading(true);
-    const res = await fetch(`/api/answer/${doubtId}`, {
+    const res = await fetch(`/api/doubt/${doubtId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -101,12 +101,12 @@ const DoubtDetailsPage = () => {
 
   if (!doubt)
     return (
-      <div className="flex h-[90vh]">
+      <div className="flex flex-1">
         <LoaderComponent />
       </div>
     );
   return (
-    <div className="flex flex-col min-h-[80vh]">
+    <div className="flex flex-col flex-1">
       <div className="flex flex-1 justify-between">
         <div className="">
           <p className="text-3xl mb-2 font-bold">
@@ -147,6 +147,9 @@ const DoubtDetailsPage = () => {
             answers.map((answer, index) => (
               <div key={index}>
                 <CommentCard
+                  like_count={answer.like_count}
+                  liked={answer.liked}
+                  _id={answer._id}
                   user={answer.user}
                   comment={answer.answer}
                   type="answer"

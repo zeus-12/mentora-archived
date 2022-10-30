@@ -1,6 +1,6 @@
 import { Button, Input, TextInput } from "@mantine/core";
 import MenuComponent from "../components/MenuComponent";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BuddyCard from "../components/BuddyCard";
 import { availableBranches, buttonOutlineClasses } from "../utils/constants";
 import { IconAdjustmentsHorizontal, IconNotebook } from "@tabler/icons";
@@ -16,7 +16,6 @@ import { getFetcher } from "../utils/swr";
 const Buddy = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [newBuddyModal, setNewBuddyModal] = useState(false);
-  // const [buddies, setBuddies] = useState([]);
   const { data: session } = useSession();
   const [buddyTypeFilter, setBuddyTypeFilter] = useState("all");
   const [branchFilter, setBranchFilter] = useState("all");
@@ -31,25 +30,7 @@ const Buddy = () => {
     setNewBuddyModal(false);
   };
 
-  const { data: buddies, error } = useSWR("/api/buddy", getFetcher);
-  // const buddies = buddiesData?.data;
-  // useEffect(() => {
-  //   const fetchBuddies = async () => {
-  //     setLoading(true);
-  //     const res = await fetch("/api/buddy");
-  //     const data = await res.json();
-
-  //     if (data.error) {
-  //       // todo show notification
-
-  //       setLoading(false);
-  //       return;
-  //     }
-  //     setBuddies(data.data);
-  //     setLoading(false);
-  //   };
-  //   fetchBuddies();
-  // }, []);
+  const { data: buddies } = useSWR("/api/buddy", getFetcher);
 
   const applyBuddyBtnHandler = () => {
     if (!session) {
@@ -59,7 +40,7 @@ const Buddy = () => {
     setNewBuddyModal(true);
   };
 
-  const availableBuddyTypeFilters = ["all", "tutor", "batchmate"];
+  const availableBuddyTypeFilters = ["all", "tutor", "peer"];
 
   const filterCourseBranches = (data) => {
     if (branchFilter === "all") return data;
@@ -74,8 +55,8 @@ const Buddy = () => {
         return data;
       case "tutor":
         return data.filter((buddy) => buddy.buddyType === "tutor");
-      case "batchmate":
-        return data.filter((buddy) => buddy.buddyType === "batchmate");
+      case "peer":
+        return data.filter((buddy) => buddy.buddyType === "peer");
       default:
         return data;
     }
@@ -87,7 +68,7 @@ const Buddy = () => {
   );
 
   return (
-    <div className="flex min-h-[80vh] flex-col">
+    <div className="flex flex-1 flex-col">
       <div className="flex sm:gap-4 gap-2 items-center mb-4 justify-center">
         <div className="max-w-[40rem] flex-1">
           <TextInput
@@ -128,13 +109,11 @@ const Buddy = () => {
       {filteredBuddies?.length > 0 && (
         <div className="grid auto-rows-max justify-items-stretch grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 gap-3">
           {filteredBuddies.map((buddy) => (
-            // <div  >
             <BuddyCard
               onClick={() => setCur(buddy)}
               buddy={buddy}
               key={buddy._id}
             />
-            // </div>
           ))}
         </div>
       )}

@@ -9,21 +9,15 @@ import { notSignedInNotification } from "../../utils/notification";
 import { filterOnSearch } from "../../utils/helper";
 import MenuComponent from "../../components/MenuComponent";
 import { IconNotebook } from "@tabler/icons";
+import { getFetcher } from "../../utils/swr";
+import useSWR from "swr";
 
 const Doubts = () => {
   const { data: session } = useSession();
-  const [doubts, setDoubts] = useState([]);
   const [branchFilter, setBranchFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
 
-  useEffect(() => {
-    const fetchDoubts = async () => {
-      const res = await fetch(`/api/doubt`);
-      const data = await res.json();
-      setDoubts(data.data);
-    };
-    fetchDoubts();
-  }, []);
+  const { data: doubts, error } = useSWR("/api/doubt", getFetcher);
 
   const filterOnBranch = (doubts) => {
     if (branchFilter === "all") {
@@ -38,7 +32,7 @@ const Doubts = () => {
   const filteredDoubts = filterOnSearch(searchQuery, filterOnBranch(doubts));
 
   return (
-    <div className="flex flex-1 min-h-[80vh] flex-col">
+    <div className="flex flex-1 flex-col">
       <div className="flex justify-center gap-2 mb-4">
         <div className="max-w-[40rem] flex-1 ">
           <TextInput
@@ -72,7 +66,7 @@ const Doubts = () => {
         </Link>
       </div>
 
-      {doubts?.length === 0 && <LoaderComponent />}
+      {!doubts && <LoaderComponent />}
 
       <div className="space-y-4">
         {filteredDoubts?.length > 0 &&
@@ -80,9 +74,21 @@ const Doubts = () => {
             <DoubtCard doubt={item} key={item._id} />
           ))}
 
-        {doubts.length > 0 && filteredDoubts?.length === 0 && (
+        {doubts?.length > 0 && filteredDoubts?.length === 0 && (
           <div className="text-center text-gray-500">
             No doubts found for the given search query
+          </div>
+        )}
+
+        {error && (
+          <div className="text-center text-gray-500">
+            Error fetching doubts. Please try again later.
+          </div>
+        )}
+
+        {!error && doubts?.length === 0 && (
+          <div className="text-center text-gray-500">
+            No doubts found. Be the first one to ask a doubt!
           </div>
         )}
       </div>

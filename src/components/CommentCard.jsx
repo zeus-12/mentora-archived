@@ -4,23 +4,55 @@ import { generateAvatarText } from "../utils/helper";
 import { IconCornerUpLeft, IconHeart, IconSend } from "@tabler/icons";
 import { useForm } from "@mantine/form";
 import { useSession } from "next-auth/react";
-import { notSignedInNotification } from "../utils/notification";
+import {
+  errorNotification,
+  notSignedInNotification,
+} from "../utils/notification";
 
-const CommentCard = ({ user, comment, type, id, mutate, parentId }) => {
-  // const { mutate } = useSWRConfig();
-
-  const [liked, setLiked] = useState(false);
+const CommentCard = ({
+  like_count,
+  _id,
+  liked,
+  user,
+  comment,
+  type,
+  id,
+  mutate,
+  parentId,
+}) => {
   const [showNewComment, setShowNewComment] = useState(false);
   const form = useForm({
     initialValues: {
       comment: "",
     },
     validate: {
-      // comment: (value) => (value.length > 10 ? null : "Too short"),
+      comment: (value) => (value.length > 10 ? null : "Too short"),
     },
   });
 
   const { data: session } = useSession();
+
+  const likeCommentHandler = async () => {
+    if (!session) {
+      notSignedInNotification("Please sign in to like");
+      return;
+    }
+    const res = await fetch(`/api/${type}/like/${_id}`, {
+      method: "POST",
+      // headers: {
+      //   "Content-Type": "application/json",
+      // },
+      // body: JSON.stringify({ id, type, parentId }),
+    });
+
+    const data = await res.json();
+    if (data.error) {
+      // show error notif
+      return;
+    } else {
+      mutate();
+    }
+  };
 
   const postSubComment = async () => {
     if (!session) {
@@ -45,7 +77,7 @@ const CommentCard = ({ user, comment, type, id, mutate, parentId }) => {
 
     const data = await res.json();
     if (data.error) {
-      // throw error notifcation
+      errorNotification("Something went wrong");
     } else {
       mutate();
       // show success notification
@@ -61,15 +93,18 @@ const CommentCard = ({ user, comment, type, id, mutate, parentId }) => {
           </Avatar>
           <p>{comment}</p>
         </div>
-        <div className="gap-1 flex">
-          <IconHeart
-            onClick={() => setLiked((prev) => !prev)}
-            className={
-              liked
-                ? "fill-red-400 text-red-400"
-                : "" + " hover:cursor-pointer w-6 h-6"
-            }
-          />
+        <div className="gap-2 flex">
+          <div className="flex items-center gap-1">
+            <IconHeart
+              onClick={likeCommentHandler}
+              className={
+                liked
+                  ? "fill-red-400 text-red-400"
+                  : "" + " hover:cursor-pointer w-6 h-6"
+              }
+            />
+            <p className="text-gray-400">{like_count}</p>
+          </div>
           <IconCornerUpLeft
             className="hover:text-gray-100 hover:cursor-pointer w-6 h-6"
             onClick={() => setShowNewComment((prev) => !prev)}

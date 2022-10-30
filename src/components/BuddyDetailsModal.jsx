@@ -1,20 +1,30 @@
 import { Blockquote, Button, Modal } from "@mantine/core";
 import { IconCurrencyRupee } from "@tabler/icons";
+import Link from "next/link";
+import { mutate } from "swr";
 import { buttonOutlineClasses } from "../utils/constants";
 import { prettifyId } from "../utils/helper";
 const idNameMapping = require("../../name-id-map.json");
+import { useSWRConfig } from "swr";
 
 const BuddyDetailsModal = ({ buddyData, closeDetailsModal }) => {
-  // {
-  //   "_id": "6350d1eb159d8d17636207c3",
-  //   "course_id": "ed1012",
-  //   "course_name": "learn stuff",
-  //   "user": "elonmask2806@gmail.com",
-  //   "message": "adsfasfsdfasf",
-  //   "buddyType": "tutor",
-  //   "money": "12",
-  //   "date": "2022-10-20T04:43:23.737Z",
-  // }
+  const { mutate } = useSWRConfig();
+
+  const applyBuddyHandler = async () => {
+    const res = await fetch(`/api/buddy/${buddyData._id}/apply`, {
+      method: "POST",
+    });
+
+    const data = await res.json();
+    if (data.error) {
+      // throw error notifcation
+      return;
+    }
+    // show success notification
+    closeDetailsModal();
+    mutate("/api/buddy");
+  };
+
   return (
     <div>
       <Modal
@@ -31,14 +41,18 @@ const BuddyDetailsModal = ({ buddyData, closeDetailsModal }) => {
         radius="md"
       >
         <div className="flex flex-col gap-2">
-          <p className="text-2xl">
-            {prettifyId(buddyData?.course_id)}:{" "}
-            <span className="text-gray-500">
-              {idNameMapping[buddyData?.course_id?.toUpperCase()]}
-            </span>
-          </p>
+          <div className="flex justify-between">
+            <p className="text-2xl">
+              {prettifyId(buddyData?.course_id)}:{" "}
+              <span className="text-gray-500">
+                {idNameMapping[buddyData?.course_id?.toUpperCase()]}
+              </span>
+            </p>
+            <p className="bg-green-700 text-gray-300 text-base inline-flex px-2 py-[2px] rounded-2xl capitalize">
+              {buddyData?.buddyType}
+            </p>
+          </div>
 
-          {/* <p className="text-xl text-gray-400">Message</p> */}
           <Blockquote>
             <p>{buddyData?.message}</p>
           </Blockquote>
@@ -50,12 +64,35 @@ const BuddyDetailsModal = ({ buddyData, closeDetailsModal }) => {
                 {buddyData?.money}
               </div>
             )}
-            <p className="bg-green-700 text-gray-300 text-base inline-flex px-2 py-[0.5px] rounded-2xl">
-              {buddyData?.buddyType}
-            </p>
           </div>
 
-          <Button className={buttonOutlineClasses}>Apply!</Button>
+          {!buddyData?.self && !buddyData?.applied && (
+            <Button
+              onClick={applyBuddyHandler}
+              className={buttonOutlineClasses}
+            >
+              Apply!
+            </Button>
+          )}
+
+          {buddyData?.applied && (
+            <p className="text-gray-400 text-center">
+              Already Applied! <br />
+              You&apos;ll be notified at{" "}
+              <Link href="/user">
+                <span className="hover:cursor-pointer text-green-200">
+                  User Page
+                </span>
+              </Link>{" "}
+              once they approve!
+            </p>
+          )}
+
+          {buddyData?.self && (
+            <p className="text-gray-400 text-center">
+              You cant apply for your own request!
+            </p>
+          )}
         </div>
       </Modal>
     </div>
