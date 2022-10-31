@@ -68,7 +68,6 @@ export default async function handler(req, res) {
       });
       res.status(200).json({ success: true, data: newComment });
     } catch (error) {
-      console.log(error);
       res.status(400).json({ error: error.message });
     }
   } else {

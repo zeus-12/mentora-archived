@@ -3,7 +3,6 @@ import dbConnect from "../../../../utils/dbConnect";
 import getServerSession from "../../../../utils/getServerSession";
 
 export default async function handler(req, res) {
-  console.log(req.method);
   if (req.method === "POST") {
     const { doubtId } = req.query;
     const { answer } = req.body;

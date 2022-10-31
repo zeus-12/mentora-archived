@@ -22,7 +22,6 @@ const NewBuddyModal = ({ newBuddyModal, closeNewBuddyModal }) => {
       course_id: (value) => (value.length === 6 ? null : "Invalid Course ID"),
       money: (value) =>
         /^\d+$/.test(value) || value === "" ? null : "Invalid Money",
-      // todo money should be integer
     },
   });
 

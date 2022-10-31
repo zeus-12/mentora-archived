@@ -1,5 +1,4 @@
 import { getCourseNameFromId, prettifyId } from "../utils/helper";
-import { Avatar } from "./UI";
 import { IconCurrencyRupee } from "@tabler/icons";
 
 const BuddyCard = ({ buddy, onClick }) => {
@@ -9,9 +8,6 @@ const BuddyCard = ({ buddy, onClick }) => {
       onClick={onClick}
       className="bg-gray-900 p-4 hover:scale-[102%] transition transform duration-100 ease-out hover:cursor-pointer flex flex-col gap-1 justify-between space-y-1 rounded-lg"
     >
-      {/* <Avatar userName={name} /> */}
-      {/* <p className="font-bold text-xl">{prettifyId(course_id)}</p> */}
-
       <div className="flex justify-between">
         <p className="font-bold text-xl">{prettifyId(course_id)}</p>
         <p className="bg-green-600 text-gray-300 text-base inline-flex px-2 py-[0.5px] rounded-2xl git capitalize">
@@ -27,9 +23,6 @@ const BuddyCard = ({ buddy, onClick }) => {
             {money}
           </div>
         )}
-        {/* <p className="bg-green-600 text-gray-300 text-base inline-flex px-2 py-[0.5px] rounded-2xl git capitalize">
-          {buddyType}
-        </p> */}
       </div>
     </div>
   );

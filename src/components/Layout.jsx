@@ -1,7 +1,6 @@
 // to define a general layout
 
 import Link from "next/link";
-import Feedback from "../pages/feedback";
 import Navbar from "./Navbar";
 
 const Layout = ({ children }) => {

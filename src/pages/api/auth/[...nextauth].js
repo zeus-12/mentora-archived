@@ -12,7 +12,7 @@ export const authOptions = {
   secret: process.env.JWT_SECRET,
   pages: {
     signIn: "/auth/signin",
-    // newUser: '/auth/new-user',
+    // newUser: "/auth/new-user",
   },
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {

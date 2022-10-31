@@ -11,13 +11,11 @@ const User = () => {
   const router = useRouter();
   const [buddyData, setBuddyData] = useState(null);
   // const { data: buddyData } = useSWR("/api/buddy/user", getFetcher);
-  console.log(buddyData);
 
   const signoutHandler = () => {
     signOut();
     router.push("/");
   };
-  // const [buddyData, setBuddyData] = useState(null);
 
   useEffect(() => {
     const fetchBuddyData = async () => {
@@ -30,8 +28,6 @@ const User = () => {
     };
     fetchBuddyData();
   }, [session]);
-
-  console.log(buddyData);
 
   // const { data: userData, user_error } = useSWR("/api/user", getFetcher);
   // if (userData && userData.status === "BANNED") {
@@ -53,7 +49,7 @@ const User = () => {
           Sign Out
         </Button>
       </div>
-      {/* <div className="flex mt-4 gap-4 flex-col"> */}
+
       <div className="">
         <p className="text-2xl font-semibold">Your Buddy Requests</p>
         <div className="grid auto-rows-max justify-items-stretch grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 gap-3">

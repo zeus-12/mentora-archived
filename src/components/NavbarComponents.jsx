@@ -7,7 +7,6 @@ import {
   UnstyledButton,
 } from "@mantine/core";
 import Link from "next/link";
-// import { NotificationContext } from "../utils/context";
 import { useRouter } from "next/router";
 import { generateAvatarText } from "../utils/helper";
 import { green_400 } from "../utils/constants";
@@ -16,7 +15,6 @@ const MiddleSectionElements = [
   { name: "Q&A", link: "/doubt" },
   { name: "Resources", link: "/course" },
   { name: "Buddy", link: "/buddy" },
-  // { name: "Quiz", link: "/quiz" },
 ];
 
 export const BurgerComponent = ({ opened, setOpened }) => {

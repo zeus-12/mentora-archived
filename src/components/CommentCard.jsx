@@ -37,17 +37,14 @@ const CommentCard = ({
       notSignedInNotification("Please sign in to like");
       return;
     }
+
     const res = await fetch(`/api/${type}/like/${_id}`, {
       method: "POST",
-      // headers: {
-      //   "Content-Type": "application/json",
-      // },
-      // body: JSON.stringify({ id, type, parentId }),
     });
 
     const data = await res.json();
     if (data.error) {
-      // show error notif
+      errorNotification(data.error);
       return;
     } else {
       mutate();
