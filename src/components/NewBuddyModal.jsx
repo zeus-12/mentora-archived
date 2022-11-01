@@ -86,13 +86,7 @@ const NewBuddyModal = ({ newBuddyModal, closeNewBuddyModal }) => {
           <Radio value="tutor" label="Tutor" />
           <Radio value="peer" label="Peer" />
         </Radio.Group>
-        {/* <TextInput
-          required={true}
-          className="w-[90vw] max-w-[30rem]"
-          label="Course Name"
-          placeholder="Course Name"
-          {...form.getInputProps("course_name")}
-        /> */}
+
         <TextInput
           required={true}
           className="w-[90vw] max-w-[30rem]"
@@ -116,46 +110,7 @@ const NewBuddyModal = ({ newBuddyModal, closeNewBuddyModal }) => {
           placeholder="Explain why you would be a perfect buddy!"
           {...form.getInputProps("message")}
         />
-        {/* <div className="flex flex-1 mt-4 items-center justify-between max-w-[25rem] w-screen">
-            <p className="sm:text-2xl text-2xl font-semibold">Professors</p>
-            <Button
-              variant="outline"
-              className={
-                form.values.professors.length > 6
-                  ? "hidden"
-                  : "" +
-                    "hover:text-white text-green-300 border-green-300  hover:bg-green-300"
-              }
-              onClick={""}
-            >
-              +
-            </Button>
-          </div> */}
-        {/* 
-          {form.values.professors.map((item, index) => (
-            <div
-              key={index}
-              className="mt-4 flex items-center justify-between gap-4"
-            >
-              <TextInput
-                required={true}
-                className="w-[90vw] max-w-[30rem]"
-                placeholder="Name"
-                withAsterisk
-                {...form.getInputProps(`professors.${index}`)}
-              />
 
-              <ActionIcon
-                color="red"
-                className="text-red-500 border-red-500 hover:bg-red-500 hover:text-white"
-                variant="outline"
-                onClick={() => form.removeListItem("professors", index)}
-              >
-                {/* <IconTrash size={16} /> */}
-        {/* </ActionIcon>
-            </div>
-          ))} */}{" "}
-        {/* */}
         <Button
           onClick={registerHandler}
           loading={loading}
