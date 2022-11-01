@@ -141,11 +141,7 @@ const CourseDetails = () => {
           className="my-2"
           {...form.getInputProps("comment")}
         />
-        <Button
-          // disabled={form.values.comment?.trim().length === 0 ? true : false}
-          onClick={addComment}
-          className={buttonOutlineClasses}
-        >
+        <Button onClick={addComment} className={buttonOutlineClasses}>
           Add Comment
         </Button>
 
@@ -156,6 +152,7 @@ const CourseDetails = () => {
             comments.map((comment, index) => (
               <div key={index}>
                 <CommentCard
+                  session={session}
                   like_count={comment.like_count}
                   liked={comment.liked}
                   _id={comment._id}
@@ -169,6 +166,12 @@ const CourseDetails = () => {
                 {comment.subComments?.length > 0 &&
                   comment.subComments.map((subComment, index) => (
                     <SubCommentCard
+                      like_count={subComment.like_count}
+                      liked={subComment.liked}
+                      mutate={mutate}
+                      _id={subComment._id}
+                      type="comment"
+                      session={session}
                       key={index}
                       user={subComment.user}
                       comment={subComment.comment}
@@ -182,5 +185,3 @@ const CourseDetails = () => {
   );
 };
 export default CourseDetails;
-
-// impo

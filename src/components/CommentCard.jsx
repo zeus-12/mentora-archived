@@ -19,6 +19,7 @@ const CommentCard = ({
   id,
   mutate,
   parentId,
+  session,
 }) => {
   const [showNewComment, setShowNewComment] = useState(false);
   const form = useForm({
@@ -29,8 +30,6 @@ const CommentCard = ({
       comment: (value) => (value.length > 10 ? null : "Too short"),
     },
   });
-
-  const { data: session } = useSession();
 
   const likeCommentHandler = async () => {
     if (!session) {

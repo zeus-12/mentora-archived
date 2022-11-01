@@ -17,7 +17,18 @@ export default async function handler(req, res) {
         course_id: courseId,
       }).lean();
 
+      const session = await getServerSession(req, res);
+      const user = session?.user?.email;
+
+      if (user) {
+        comments.forEach((comment) => {
+          comment.liked = comment.liked_users?.includes(user);
+        });
+      }
+
       comments.forEach((comment, i) => {
+        comment.like_count = comment.liked_users?.length || 0;
+
         if (comment.parent_id) {
           const parentComment = comments.find(
             (c) => c._id.toString() === comment.parent_id
@@ -31,18 +42,6 @@ export default async function handler(req, res) {
       });
 
       comments = comments.filter((item) => !item.parent_id);
-
-      // for the like part
-      const session = await getServerSession(req, res);
-      const user = session?.user?.email;
-      if (!user) {
-        res.status(200).json({ success: "success", data: comments });
-        return;
-      }
-      comments.forEach((comment) => {
-        comment.liked = comment.liked_users?.includes(user);
-        comment.like_count = comment.liked_users?.length || 0;
-      });
 
       res.status(200).json({ success: "success", data: comments });
     } catch (error) {

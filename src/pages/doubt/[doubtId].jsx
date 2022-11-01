@@ -147,6 +147,7 @@ const DoubtDetailsPage = () => {
             answers.map((answer, index) => (
               <div key={index}>
                 <CommentCard
+                  session={session}
                   like_count={answer.like_count}
                   liked={answer.liked}
                   _id={answer._id}
@@ -160,6 +161,12 @@ const DoubtDetailsPage = () => {
                 {answer?.subAnswers?.length > 0 &&
                   answer.subAnswers.map((subAnswer, index) => (
                     <SubCommentCard
+                      like_count={subAnswer.like_count}
+                      liked={subAnswer.liked}
+                      mutate={mutate}
+                      type="answer"
+                      _id={subAnswer._id}
+                      session={session}
                       key={index}
                       user={subAnswer.user}
                       comment={subAnswer.answer}

@@ -27,13 +27,24 @@ export default async function handler(req, res) {
     }
   } else if (req.method === "GET") {
     const { doubtId } = req.query;
+
     try {
       await dbConnect();
       let answers = await Answer.find({
         doubt_id: doubtId,
       }).lean();
 
+      const session = await getServerSession(req, res);
+      const user = session?.user?.email;
+      if (user) {
+        answers.forEach((answer) => {
+          answer.liked = answer.liked_users?.includes(user);
+        });
+      }
+
       answers.forEach((answer, i) => {
+        answer.like_count = answer.liked_users?.length || 0;
+
         if (answer.parent_id) {
           const parentAnswer = answers.find(
             (c) => c._id.toString() === answer.parent_id
@@ -47,18 +58,6 @@ export default async function handler(req, res) {
       });
 
       answers = answers.filter((item) => !item.parent_id);
-
-      // for the like part
-      const session = await getServerSession(req, res);
-      const user = session?.user?.email;
-      if (!user) {
-        res.status(200).json({ success: "success", data: answers });
-        return;
-      }
-      answers.forEach((answer) => {
-        answer.liked = answer.liked_users?.includes(user);
-        answer.like_count = answer.liked_users?.length || 0;
-      });
 
       res.status(200).json({ success: "success", data: answers });
     } catch (error) {
