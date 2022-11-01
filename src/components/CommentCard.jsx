@@ -3,7 +3,7 @@ import { useState } from "react";
 import { generateAvatarText } from "../utils/helper";
 import { IconCornerUpLeft, IconHeart, IconSend } from "@tabler/icons";
 import { useForm } from "@mantine/form";
-import { useSession } from "next-auth/react";
+
 import {
   errorNotification,
   notSignedInNotification,

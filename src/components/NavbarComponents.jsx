@@ -1,11 +1,4 @@
-import {
-  Avatar,
-  Burger,
-  Drawer,
-  Group,
-  Text,
-  UnstyledButton,
-} from "@mantine/core";
+import { Avatar, Burger, Drawer, Text, UnstyledButton } from "@mantine/core";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { generateAvatarText } from "../utils/helper";
