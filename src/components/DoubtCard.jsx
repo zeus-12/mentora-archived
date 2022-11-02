@@ -22,7 +22,6 @@ const DoubtCard = ({ doubt }) => {
           </p>
           <p className="text-gray-400 text-lg truncate">{title}</p>
         </div>
-
         <p>{formatedDate}</p>
       </div>
     </Link>

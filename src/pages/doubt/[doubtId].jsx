@@ -2,13 +2,16 @@ import { Button, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import CommentCard from "../../components/CommentCard";
 import LoaderComponent from "../../components/LoaderComponent";
 import SubCommentCard from "../../components/SubCommentCard";
 import { buttonOutlineClasses } from "../../utils/constants";
-import { prettifyId } from "../../utils/helper";
-import { notSignedInNotification } from "../../utils/notification";
+import { postRequestConfig, prettifyId } from "../../utils/helper";
+import {
+  errorNotification,
+  notSignedInNotification,
+  successNotification,
+} from "../../utils/notification";
 import useSWR from "swr";
 import { getFetcher } from "../../utils/swr";
 
@@ -21,13 +24,10 @@ const DoubtDetailsPage = () => {
 
   const { doubtId } = router.query;
 
-  const [doubt, setDoubt] = useState(null);
-
-  const {
-    data: answers,
-    error,
-    mutate,
-  } = useSWR(`/api/answer/${doubtId}`, getFetcher);
+  const { data: answers, mutate } = useSWR(
+    `/api/answer/${doubtId}`,
+    getFetcher
+  );
 
   const form = useForm({
     initialValues: {
@@ -47,45 +47,26 @@ const DoubtDetailsPage = () => {
     if (Object.keys(validationResult.errors).length > 0) {
       return;
     }
-    // setLoading(true);
+
     const res = await fetch(`/api/answer/${doubtId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      ...postRequestConfig,
       body: JSON.stringify(form.values),
     });
 
     const data = await res.json();
     if (data.error) {
-      // throw error notifcation
+      errorNotification("Something went wrong!");
     } else {
       mutate();
-      //todo refetch the comments
-      // show success notification
+      successNotification("Successfully added!");
       form.reset();
     }
   };
 
-  useEffect(() => {
-    if (!doubtId) return;
-
-    const fetchDoubtData = async () => {
-      const res = await fetch(`/api/doubt/${doubtId}`);
-      const data = await res.json();
-      if (data.error) {
-        // throw error notif
-        return;
-      }
-      setDoubt(data.data);
-    };
-    fetchDoubtData();
-  }, [doubtId]);
+  const { data: doubt } = useSWR(`/api/doubt/${doubtId}`, getFetcher);
 
   const resolveDoubt = async () => {
     if (!doubtId || !session || doubt.user !== user) {
-      // todo
-      // show notifcation
       return;
     }
 
@@ -93,10 +74,11 @@ const DoubtDetailsPage = () => {
     const updatedDoubtData = await res.json();
 
     if (updatedDoubtData.error) {
-      // todo show notification
+      errorNotification("Something went wrong!");
       return;
     }
     setDoubt(updatedDoubtData.data);
+    successNotification("Doubt resolved!");
   };
 
   if (!doubt)
@@ -122,7 +104,6 @@ const DoubtDetailsPage = () => {
         {user === doubt.user && doubt.status === "PENDING" && (
           <Button onClick={resolveDoubt} className={buttonOutlineClasses}>
             Mark as Resolved
-            {/* {doubt.status === "RESOLVED" ? not : ""} */}
           </Button>
         )}
 
@@ -144,7 +125,7 @@ const DoubtDetailsPage = () => {
 
         <div className="space-y-4 mt-4">
           {answers?.length > 0 &&
-            answers.map((answer, index) => (
+            answers?.map((answer, index) => (
               <div key={index}>
                 <CommentCard
                   session={session}

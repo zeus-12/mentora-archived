@@ -1,7 +1,7 @@
 import { Button, TextInput } from "@mantine/core";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { availableBranches, buttonOutlineClasses } from "../../utils/constants";
 import DoubtCard from "../../components/DoubtCard";
 import LoaderComponent from "../../components/LoaderComponent";

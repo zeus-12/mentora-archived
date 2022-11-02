@@ -52,3 +52,10 @@ export const filterOnSearch = (searchQuery, data, initial) => {
     );
   }
 };
+
+export const postRequestConfig = {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+};

@@ -1,6 +1,6 @@
 import { Avatar, TextInput } from "@mantine/core";
 import { useState } from "react";
-import { generateAvatarText } from "../utils/helper";
+import { generateAvatarText, postRequestConfig } from "../utils/helper";
 import { IconCornerUpLeft, IconHeart, IconSend } from "@tabler/icons";
 import { useForm } from "@mantine/form";
 
@@ -64,10 +64,7 @@ const CommentCard = ({
     requestBody[type] = form.values.comment;
     // setLoading(true);
     const res = await fetch(`/api/${type}/${id}/${parentId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      ...postRequestConfig,
       body: JSON.stringify(requestBody),
     });
 
@@ -76,7 +73,6 @@ const CommentCard = ({
       errorNotification("Something went wrong");
     } else {
       mutate();
-      // show success notification
       form.reset();
     }
   };

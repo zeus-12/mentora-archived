@@ -1,11 +1,11 @@
 import { Blockquote, Button, Modal } from "@mantine/core";
 import { IconCurrencyRupee } from "@tabler/icons";
 import Link from "next/link";
-import { mutate } from "swr";
 import { buttonOutlineClasses } from "../utils/constants";
 import { prettifyId } from "../utils/helper";
 const idNameMapping = require("../../name-id-map.json");
 import { useSWRConfig } from "swr";
+import { errorNotification, successNotification } from "../utils/notification";
 
 const BuddyDetailsModal = ({ buddyData, closeDetailsModal }) => {
   const { mutate } = useSWRConfig();
@@ -17,10 +17,10 @@ const BuddyDetailsModal = ({ buddyData, closeDetailsModal }) => {
 
     const data = await res.json();
     if (data.error) {
-      // throw error notifcation
+      errorNotification("Error applying buddy");
       return;
     }
-    // show success notification
+    successNotification("Applied Successfully!");
     closeDetailsModal();
     mutate("/api/buddy");
   };

@@ -5,7 +5,7 @@ import { IconPhoto, IconUpload, IconX } from "@tabler/icons";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
 import { buttonOutlineClasses } from "../../../utils/constants";
-import { prettifyId } from "../../../utils/helper";
+import { postRequestConfig, prettifyId } from "../../../utils/helper";
 import {
   errorNotification,
   successNotification,
@@ -25,7 +25,7 @@ const NewSubmission = () => {
   const uploadFileToBlob = useCallback(async (file, newFileName) => {
     const containerName = "course";
     const sasToken =
-      "sp=racw&st=2022-10-30T09:49:18Z&se=2022-10-30T17:49:18Z&sv=2021-06-08&sr=c&sig=wuU72rUKXQDNvCrxU3pfhEvHPSHlww%2Bem2wccGd1SGs%3D";
+      "?sv=2021-06-08&ss=bfqt&srt=sco&sp=rwlacupitfx&se=2022-11-04T16:17:40Z&st=2022-11-02T08:17:40Z&spr=https&sig=Rzgmm0GQdg7XIzXeWOthuHQCt%2FH8GfdaogaFR3zoklo%3D";
     setLoading(true);
     if (!file) {
       errorNotification("No file selected");
@@ -53,10 +53,7 @@ const NewSubmission = () => {
       const newFileName = `${courseId}/${file.name}`;
       uploadFileToBlob(file, newFileName);
       const addFileDetailsToDb = await fetch(`/api/resource/${courseId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        ...postRequestConfig,
         body: JSON.stringify({
           file_name: newFileName,
           file_url: `https://mentora.blob.core.windows.net/course/${newFileName}`,

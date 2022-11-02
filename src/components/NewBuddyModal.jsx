@@ -3,6 +3,8 @@ import { useForm } from "@mantine/form";
 import { IconX } from "@tabler/icons";
 import { useState } from "react";
 import { useSWRConfig } from "swr";
+import { postRequestConfig } from "../utils/helper";
+import { errorNotification, successNotification } from "../utils/notification";
 
 const NewBuddyModal = ({ newBuddyModal, closeNewBuddyModal }) => {
   const { mutate } = useSWRConfig();
@@ -32,23 +34,20 @@ const NewBuddyModal = ({ newBuddyModal, closeNewBuddyModal }) => {
     }
     setLoading(true);
     const res = await fetch(`/api/buddy`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      ...postRequestConfig,
       body: JSON.stringify(form.values),
     });
 
     const data = await res.json();
 
     if (data.error) {
-      // todo check if error, show notification based on it
+      errorNotification("Something went wrong");
       setLoading(false);
       return;
     }
     mutate("/api/buddy");
 
-    // show notification
+    successNotification("Buddy request sent");
     setLoading(false);
     form.reset();
 

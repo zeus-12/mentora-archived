@@ -1,3 +1,5 @@
+// only use when needed
+
 // const data = require("../../../small-4.json");
 // import Course from "../../models/course";
 // import dbConnect from "../../utils/dbConnect";

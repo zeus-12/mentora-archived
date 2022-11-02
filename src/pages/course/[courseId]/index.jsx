@@ -1,7 +1,7 @@
 import { Badge, Blockquote, Button, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useRouter } from "next/router";
-import { prettifyId } from "../../../utils/helper";
+import { postRequestConfig, prettifyId } from "../../../utils/helper";
 import { buttonOutlineClasses } from "../../../utils/constants";
 import CommentCard from "../../../components/CommentCard";
 import SubCommentCard from "../../../components/SubCommentCard";
@@ -51,21 +51,17 @@ const CourseDetails = () => {
     if (Object.keys(validationResult.errors).length > 0) {
       return;
     }
-    // setLoading(true);
+
     const res = await fetch(`/api/comment/${courseId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      ...postRequestConfig,
       body: JSON.stringify(form.values),
     });
 
     const data = await res.json();
     if (data.error) {
-      // throw error notifcation
+      errorNotification("Something went wrong!");
     } else {
       mutate();
-      // show success notification
       form.reset();
     }
   };
@@ -145,8 +141,6 @@ const CourseDetails = () => {
           Add Comment
         </Button>
 
-        {/* comments */}
-        {/* loading banner? */}
         <div className="space-y-4 mt-4">
           {comments?.length > 0 &&
             comments.map((comment, index) => (

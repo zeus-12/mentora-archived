@@ -3,6 +3,8 @@ import { useForm } from "@mantine/form";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { buttonOutlineClasses } from "../../utils/constants";
+import { postRequestConfig } from "../../utils/helper";
+import { errorNotification } from "../../utils/notification";
 
 const NewDoubt = () => {
   const [loading, setLoading] = useState(false);
@@ -15,16 +17,16 @@ const NewDoubt = () => {
     }
     setLoading(true);
     const res = await fetch(`/api/doubt`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      ...postRequestConfig,
       body: JSON.stringify(form.values),
     });
 
     const data = await res.json();
-    // todo check if error, show notification based on it
     setLoading(false);
+    if (data.error) {
+      errorNotification("Something went wrong!");
+      return;
+    }
     router.push("/doubt");
   };
 
@@ -36,7 +38,6 @@ const NewDoubt = () => {
     },
     validate: {
       doubt: (value) => (value.length > 10 ? null : "Too short"),
-      // course_name: (value) => (value.length > 5 ? null : "Too short"),
       title: (value) => (value.length > 4 ? null : "Too short"),
       course_id: (value) => (value?.length === 6 ? null : "Invalid Course ID"),
     },

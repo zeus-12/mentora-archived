@@ -7,7 +7,6 @@ const MenuComponent = ({ title, availableFilters, setState, state, Icon }) => {
       <Menu.Target>
         <Button className="text-gray-400 p-0 hover:text-white bg-inherit hover:bg-inherit">
           <Icon className="w-7 h-7" />
-          {/* <icon className="w-7 h-7" /> */}
         </Button>
       </Menu.Target>
       <Menu.Dropdown className="overflow-scroll max-h-64">

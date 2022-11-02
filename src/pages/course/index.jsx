@@ -51,9 +51,6 @@ export default function Home() {
             variant="filled"
             placeholder="Enter course name/id"
             size="md"
-            // classNames={{
-            //   input: "border-1 focus:border-green-500 focus:outline-0",
-            // }}
           />
         </div>
 

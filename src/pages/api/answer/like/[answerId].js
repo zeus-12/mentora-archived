@@ -18,7 +18,7 @@ export default async function handler(req, res) {
 
     const { answerId } = req.query;
     if (!answerId) {
-      res.status(400).json({ error: "Please provide a answer id" });
+      res.status(400).json({ error: "Please provide an answer id" });
       return;
     }
 

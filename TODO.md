@@ -1,3 +1,7 @@
-- add success notifications to wherever required
+- add success/error notifications to wherever required
 - add image upload for doubts
-- add likes for subcomment
+- edit comments?
+- delete user uploaded files course/[courseId]
+- delete comment & sub-comment
+- change input forms bg colour on focus
+- check if mongoDb.js can be replaced with dbConnect.js file

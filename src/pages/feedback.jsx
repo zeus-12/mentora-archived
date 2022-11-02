@@ -3,7 +3,11 @@ import { useForm } from "@mantine/form";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { buttonOutlineClasses } from "../utils/constants";
-import { notSignedInNotification } from "../utils/notification";
+import { postRequestConfig } from "../utils/helper";
+import {
+  errorNotification,
+  notSignedInNotification,
+} from "../utils/notification";
 
 const Feedback = () => {
   const { data: session } = useSession();
@@ -38,17 +42,14 @@ const Feedback = () => {
     }
     setLoading(true);
     const res = await fetch("/api/feedback", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      ...postRequestConfig,
       body: JSON.stringify(form.values),
     });
 
     const data = await res.json();
     setLoading(false);
     if (data.error) {
-      // show error notif
+      errorNotification("Something went wrong!");
       return;
     } else {
       form.reset();
@@ -87,7 +88,6 @@ const Feedback = () => {
       <Switch
         label="Prefer anonymous?"
         {...form.getInputProps("anonymous", { type: "checkbox" })}
-        // value={form.values.anonymous}
       />
 
       <Button
