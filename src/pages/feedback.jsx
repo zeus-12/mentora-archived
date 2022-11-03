@@ -7,6 +7,7 @@ import { postRequestConfig } from "../utils/helper";
 import {
   errorNotification,
   notSignedInNotification,
+  successNotification,
 } from "../utils/notification";
 
 const Feedback = () => {
@@ -51,10 +52,9 @@ const Feedback = () => {
     if (data.error) {
       errorNotification("Something went wrong!");
       return;
-    } else {
-      form.reset();
-      form.values.anonymous = false;
     }
+    successNotification("Feedback submitted successfully!");
+    form.reset();
   };
 
   return (

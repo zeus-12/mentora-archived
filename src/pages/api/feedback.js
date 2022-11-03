@@ -9,7 +9,7 @@ export default async function handler(req, res) {
       !["bug", "suggestion", "other", "appreciate"].includes(feedbackType) ||
       !message
     ) {
-      res.status(422).json({ message: "Invalid input." });
+      res.status(422).json({ error: "Invalid input." });
       return;
     }
 
@@ -17,7 +17,9 @@ export default async function handler(req, res) {
     if (!anonymous) {
       const session = await getServerSession(req, res);
       if (!session) {
-        res.status(403).json({ message: "" });
+        res.status(403).json({
+          error: "Either pick anonymous or sign in to send a feedback",
+        });
         return;
       }
 
@@ -59,6 +61,6 @@ export default async function handler(req, res) {
     res.status(200).json({ success: "success" });
     return;
   } else {
-    res.status(400).json({ message: "Invalid method!" });
+    res.status(400).json({ error: "Invalid method!" });
   }
 }

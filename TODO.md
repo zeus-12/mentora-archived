@@ -1,7 +1,9 @@
-- add success/error notifications to wherever required
-- add image upload for doubts
-- edit comments?
-- delete user uploaded files course/[courseId]
-- delete comment & sub-comment
-- change input forms bg colour on focus
-- check if mongoDb.js can be replaced with dbConnect.js file
+- add image upload for doubts -- possible, should be easy
+
+- edit comments? -- should be easy!
+
+- delete user uploaded files course/[courseId] -- figure out how to do that on client side. (would require client to have delete access)
+- delete comment & sub-comment -- should be fine, direct delete if it has parentId, else delete all children
+- change input forms bg colour on focus -- should be easy
+
+- check if mongoDb.js can be replaced with dbConnect.js file -- idc, not priority - lets not break anything
