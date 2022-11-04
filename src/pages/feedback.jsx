@@ -58,7 +58,7 @@ const Feedback = () => {
   };
 
   return (
-    <div className="gap-2 flex-1 flex items-center justify-center h-full flex-col">
+    <div className="gap-2 flex-1 flex items-center sm:justify-center h-full flex-col">
       <p className="text-3xl font-bold pt-4">
         Submit <span className="text-green-400 ">Feedback</span>!
       </p>
