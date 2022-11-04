@@ -1,8 +1,8 @@
-import { Button } from "@mantine/core";
+import { Badge, Button } from "@mantine/core";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import useSWR from "swr";
+import useSwr from "swr";
 import BuddyCard from "../components/BuddyCard";
 import getFetcher from "../utils/swr";
 
@@ -29,10 +29,17 @@ const User = () => {
     fetchBuddyData();
   }, [session]);
 
-  // const { data: userData, user_error } = useSWR("/api/user", getFetcher);
-  // if (userData && userData.status === "BANNED") {
-  //   signOut();
-  // }
+  // useEffect(() => {
+  //   const getUserData = async () => {
+  //     const res = await fetch("/api/user");
+  //     const userData = await res.json();
+  //     console.log(userData);
+  //   };
+  //   // const { data: userData, user_error } = useSwr("/api/user", getFetcher);
+  //   // if (userData && userData.status === "BANNED") {
+  //   //   signOut();
+  //   // }
+  // }, [session]);
 
   return (
     <div className="flex-1">
@@ -52,6 +59,9 @@ const User = () => {
 
       <div className="">
         <p className="text-2xl font-semibold">Your Buddy Requests</p>
+        <p className="text-sm text-gray-500">
+          You may contact them through their smail
+        </p>
         <div className="grid auto-rows-max justify-items-stretch grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 gap-3">
           {buddyData?.map((buddy) => (
             <div
@@ -61,7 +71,9 @@ const User = () => {
               <BuddyCard buddy={buddy} />
               <div className="flex justify-between">
                 <p>Applied Users</p>
-                <p>Count:{buddy.applied?.length || 0}</p>
+                <Badge color="green" size="md">
+                  {buddy.applied_users?.length || 0}
+                </Badge>
               </div>
               {buddy.applied_users?.map((applied) => (
                 <div key={applied} className="flex flex-col gap-1">

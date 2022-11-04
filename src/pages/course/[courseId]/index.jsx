@@ -122,7 +122,12 @@ const CourseDetails = () => {
         <div className="flex flex-wrap gap-2">
           {courseResources &&
             courseResources?.resources?.map((resource, index) => (
-              <a href={resource.file_url} key={index}>
+              <a
+                href={resource.file_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                key={index}
+              >
                 <FilePreview file={resource} />
               </a>
             ))}

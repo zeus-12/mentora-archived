@@ -1,6 +1,5 @@
 import { Blockquote, Button, Modal } from "@mantine/core";
 import { IconCurrencyRupee } from "@tabler/icons";
-import Link from "next/link";
 import { buttonOutlineClasses } from "../utils/constants";
 import { prettifyId } from "../utils/helper";
 const idNameMapping = require("../../name-id-map.json");
@@ -77,14 +76,9 @@ const BuddyDetailsModal = ({ buddyData, closeDetailsModal }) => {
 
           {buddyData?.applied && (
             <p className="text-gray-400 text-center">
-              Already Applied! <br />
-              You&apos;ll be notified at{" "}
-              <Link href="/user">
-                <span className="hover:cursor-pointer text-green-200">
-                  User Page
-                </span>
-              </Link>{" "}
-              once they approve!
+              <span className="font-semibold">Already Applied!</span>
+              <br />
+              Your email has been shared. Kindly wait for the response.
             </p>
           )}
 
