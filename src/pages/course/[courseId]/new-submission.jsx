@@ -25,7 +25,7 @@ const NewSubmission = () => {
   const uploadFileToBlob = useCallback(async (file, newFileName) => {
     const containerName = "course";
     const sasToken =
-      "?sv=2021-06-08&ss=bfqt&srt=sco&sp=rwlacupitfx&se=2022-11-04T16:17:40Z&st=2022-11-02T08:17:40Z&spr=https&sig=Rzgmm0GQdg7XIzXeWOthuHQCt%2FH8GfdaogaFR3zoklo%3D";
+      "sp=r&st=2022-11-04T08:35:36Z&se=2022-11-07T16:35:36Z&spr=https&sv=2021-06-08&sr=c&sig=za88w82bIi8ny6uOzU4WMaElZgDr1NMYVDIGmNdDKRg%3D";
     setLoading(true);
     if (!file) {
       errorNotification("No file selected");

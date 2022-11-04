@@ -7,3 +7,13 @@
 - change input forms bg colour on focus -- should be easy
 
 - check if mongoDb.js can be replaced with dbConnect.js file -- idc, not priority - lets not break anything
+
+<!-- for changing form onFocus :
+styles={{
+          input: {
+            "&:focus-within": {
+              borderColor: "red",
+              backgroundColor: "pink"
+            }
+          }
+        }} -->
