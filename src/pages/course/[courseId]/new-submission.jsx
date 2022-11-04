@@ -26,7 +26,7 @@ const NewSubmission = () => {
     async (file, newFileName) => {
       const containerName = "course";
       const sasToken =
-        "sp=r&st=2022-11-04T08:35:36Z&se=2022-11-07T16:35:36Z&sv=2021-06-08&sr=c&sig=JsB0q4kHm6HzkYI7rGHkP7u0rxmt2hfZtTwBYvOdd%2BI%3D";
+        "?sv=2021-06-08&ss=bfqt&srt=sco&sp=rwlacupiytfx&se=2022-11-04T21:47:08Z&st=2022-11-04T13:47:08Z&spr=https&sig=1GtN7Xrqde2i8bZUCwKTN4jAquepT2gzX%2BIlsddW2pQ%3D";
       setLoading(true);
       if (!file) {
         errorNotification("No file selected");
