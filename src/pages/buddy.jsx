@@ -104,8 +104,8 @@ const Buddy = () => {
         </Button>
       </div>
 
-      {buddies?.length === 0 && <LoaderComponent />}
-
+      {!buddies && <LoaderComponent />}
+      {buddies && buddies?.length === 0 && <p>No results found!</p>}
       {filteredBuddies?.length > 0 && (
         <div className="grid auto-rows-max justify-items-stretch grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 gap-3">
           {filteredBuddies.map((buddy) => (
