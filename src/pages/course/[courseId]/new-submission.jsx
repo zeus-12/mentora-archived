@@ -22,52 +22,56 @@ const NewSubmission = () => {
     setFiles((prevState) => [...prevState, ...file]);
   };
 
-  const uploadFileToBlob = useCallback(async (file, newFileName) => {
-    const containerName = "course";
-    const sasToken =
-      "sp=r&st=2022-11-04T08:35:36Z&se=2022-11-07T16:35:36Z&spr=https&sv=2021-06-08&sr=c&sig=za88w82bIi8ny6uOzU4WMaElZgDr1NMYVDIGmNdDKRg%3D";
-    setLoading(true);
-    if (!file) {
-      errorNotification("No file selected");
-      return;
-    } else {
-      const blobService = new BlobServiceClient(
-        `https://mentora.blob.core.windows.net/?${sasToken}`
-      );
+  const uploadFileToBlob = useCallback(
+    async (file, newFileName) => {
+      const containerName = "course";
+      const sasToken =
+        "sp=r&st=2022-11-04T08:35:36Z&se=2022-11-07T16:35:36Z&sv=2021-06-08&sr=c&sig=JsB0q4kHm6HzkYI7rGHkP7u0rxmt2hfZtTwBYvOdd%2BI%3D";
+      setLoading(true);
+      if (!file) {
+        errorNotification("No file selected");
+        return;
+      } else {
+        const blobService = new BlobServiceClient(
+          `https://mentora.blob.core.windows.net/?${sasToken}`
+        );
 
-      try {
-        const containerClient = blobService.getContainerClient(containerName);
-        const blobClient = containerClient.getBlockBlobClient(newFileName);
-        const options = { blobHTTPHeaders: { blobContentType: file.type } };
+        try {
+          const containerClient = blobService.getContainerClient(containerName);
+          const blobClient = containerClient.getBlockBlobClient(newFileName);
+          const options = { blobHTTPHeaders: { blobContentType: file.type } };
 
-        const data = await blobClient.uploadData(file, options);
-      } catch (error) {
-        errorNotification("Error uploading file");
+          const data = await blobClient.uploadData(file, options);
+
+          await addFileToDb(newFileName, file);
+          successNotification("File Uploaded Successfully");
+          router.push(`/course/${courseId}`);
+        } catch (error) {
+          errorNotification("Error uploading file");
+        }
       }
-    }
-    setLoading(false);
-  }, []);
+      setLoading(false);
+    },
+    [courseId]
+  );
+
+  const addFileToDb = async (newFileName, file) => {
+    const res = await fetch(`/api/resource/${courseId}`, {
+      ...postRequestConfig,
+      body: JSON.stringify({
+        file_name: newFileName,
+        file_url: `https://mentora.blob.core.windows.net/course/${newFileName}`,
+        file_type: file.type,
+      }),
+    });
+    const data = await res.json();
+    return data;
+  };
 
   const submitHandler = async () => {
     files.map(async (file) => {
       const newFileName = `${courseId}/${file.name}`;
       uploadFileToBlob(file, newFileName);
-      const addFileDetailsToDb = await fetch(`/api/resource/${courseId}`, {
-        ...postRequestConfig,
-        body: JSON.stringify({
-          file_name: newFileName,
-          file_url: `https://mentora.blob.core.windows.net/course/${newFileName}`,
-          file_type: file.type,
-        }),
-      });
-      const data = await addFileDetailsToDb.json();
-      if (data.error) {
-        errorNotification(data.error);
-        return;
-      }
-      successNotification("File Uploaded Successfully");
-
-      router.push(`/course/${courseId}`);
     });
   };
 
