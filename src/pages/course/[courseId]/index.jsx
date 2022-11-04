@@ -110,10 +110,7 @@ const CourseDetails = () => {
           </div>
         </div>
         {courseData && (
-          <Blockquote
-            color="green"
-            className="text-gray-400 w-screen sm:w-[70vw]"
-          >
+          <Blockquote color="green" className="text-gray-400 sm:w-[70vw]">
             {courseData?.description}
           </Blockquote>
         )}

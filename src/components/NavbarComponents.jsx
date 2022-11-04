@@ -58,7 +58,7 @@ export const LoginUserComponent = ({ session }) => {
       {session && (
         <Link href="/user" passHref>
           <UnstyledButton>
-            <div className="flex sm:gap-3 lg:gap-4 items-center">
+            <div className="flex gap-2 sm:gap-3 lg:gap-4 items-center">
               <Avatar size={40} color="blue">
                 {generateAvatarText(session.user.name)}
               </Avatar>
