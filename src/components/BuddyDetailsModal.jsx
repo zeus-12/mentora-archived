@@ -34,25 +34,25 @@ const BuddyDetailsModal = ({ buddyData, closeDetailsModal }) => {
         onClose={closeDetailsModal}
         centered={true}
         classNames={{
-          modal: "bg-black p-16",
+          modal: "bg-black md:p-4 lg:p-16",
         }}
         size="lg"
         radius="md"
       >
         <div className="flex flex-col gap-2">
-          <div className="flex justify-between">
-            <p className="text-2xl">
+          <div className="flex justify-between items-start">
+            <p className="text-xl sm:text-2xl">
               {prettifyId(buddyData?.course_id)}:{" "}
-              <span className="text-gray-500">
+              <span className="text-gray-500 flex">
                 {idNameMapping[buddyData?.course_id?.toUpperCase()]}
               </span>
             </p>
-            <p className="bg-green-700 text-gray-300 text-base inline-flex px-2 py-[2px] rounded-2xl capitalize">
+            <p className="bg-green-700 text-gray-300 text-base sm:text-base inline-flex px-1 sm:px-2 py-[2px] rounded-2xl capitalize">
               {buddyData?.buddyType}
             </p>
           </div>
 
-          <Blockquote>
+          <Blockquote color="green">
             <p>{buddyData?.message}</p>
           </Blockquote>
 
