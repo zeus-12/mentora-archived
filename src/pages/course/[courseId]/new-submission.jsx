@@ -1,5 +1,5 @@
 import { BlobServiceClient } from "@azure/storage-blob";
-import { Button, Group, Image, SimpleGrid, Text } from "@mantine/core";
+import { Button, Group, SimpleGrid, Text } from "@mantine/core";
 import { Dropzone, IMAGE_MIME_TYPE, PDF_MIME_TYPE } from "@mantine/dropzone";
 import { IconPhoto, IconUpload, IconX } from "@tabler/icons";
 import { useRouter } from "next/router";
