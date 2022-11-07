@@ -1,4 +1,4 @@
-import { TextInput } from "@mantine/core";
+import { Pagination, TextInput } from "@mantine/core";
 import { useState } from "react";
 import CourseCard from "../../components/CourseCard";
 import LoaderComponent from "../../components/LoaderComponent";
@@ -41,51 +41,68 @@ export default function Home() {
     []
   );
 
+  const [curPage, setCurPage] = useState(1);
+
+  const maxCoursesPerPage = 80;
+  const totalPages = filteredCourses.length / maxCoursesPerPage;
+  const slicedFilteredCourse = filteredCourses.slice(
+    (curPage - 1) * maxCoursesPerPage,
+    curPage * maxCoursesPerPage
+  );
+
   return (
     <div className="flex flex-1 flex-col">
-      <div className="flex gap-4 items-center justify-center">
-        <div className="max-w-[40rem] flex-1 ">
-          <TextInput
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            variant="filled"
-            placeholder="Enter course name/id"
-            size="md"
+      <div className="flex-1">
+        <div className="flex gap-4 items-center justify-center">
+          <div className="max-w-[40rem] flex-1 ">
+            <TextInput
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              variant="filled"
+              placeholder="Enter course name/id"
+              size="md"
+            />
+          </div>
+
+          <MenuComponent
+            state={branchFilter}
+            setState={setBranchFilter}
+            Icon={IconNotebook}
+            availableFilters={availableBranches}
+            title={"Course Branch"}
           />
         </div>
+        {courses.length === 0 && <LoaderComponent />}
+        <div className="flex justify-center">
+          {searchQuery.trim().length !== 0 && filteredCourses?.length === 0 && (
+            <p>No course found!</p>
+          )}
 
-        <MenuComponent
-          state={branchFilter}
-          setState={setBranchFilter}
-          Icon={IconNotebook}
-          availableFilters={availableBranches}
-          title={"Course Branch"}
-        />
+          {searchQuery.trim().length === 0 && (
+            <p className="text-gray-400 mt-2">
+              Start typing the Course name/id ...{" "}
+            </p>
+          )}
+
+          {slicedFilteredCourse.length > 0 && (
+            <div className="mt-3 grid auto-rows-max justify-items-stretch grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+              {slicedFilteredCourse?.map((course) => (
+                <CourseCard
+                  key={course.course_id}
+                  name={course.course_name}
+                  id={course.course_id}
+                />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
-      {courses.length === 0 && <LoaderComponent />}
-
-      <div className="flex justify-center">
-        {searchQuery.trim().length !== 0 && filteredCourses?.length === 0 && (
-          <p>No course found!</p>
-        )}
-
-        {searchQuery.trim().length === 0 && (
-          <p className="text-gray-400 mt-2">
-            Start typing the Course name/id ...{" "}
-          </p>
-        )}
-
-        {filteredCourses.length > 0 && (
-          <div className="mt-3 grid auto-rows-max justify-items-stretch grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-            {filteredCourses?.map((course) => (
-              <CourseCard
-                key={course.course_id}
-                name={course.course_name}
-                id={course.course_id}
-              />
-            ))}
-          </div>
-        )}
+      <div className="mx-auto mt-4">
+        <Pagination
+          onChange={(page) => setCurPage(page)}
+          withControls={false}
+          total={Math.ceil(totalPages)}
+        />
       </div>
     </div>
   );
