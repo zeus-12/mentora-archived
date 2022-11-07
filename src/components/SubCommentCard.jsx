@@ -28,7 +28,7 @@ const SubCommentCard = ({
 
     const data = await res.json();
     if (data.error) {
-      errorNotification(data.error);
+      errorNotification("Something went wrong!");
       return;
     } else {
       mutate();

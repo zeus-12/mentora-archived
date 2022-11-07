@@ -43,7 +43,7 @@ export default function Home() {
 
   const [curPage, setCurPage] = useState(1);
 
-  const maxCoursesPerPage = 80;
+  const maxCoursesPerPage = 50;
   const totalPages = filteredCourses.length / maxCoursesPerPage;
   const slicedFilteredCourse = filteredCourses.slice(
     (curPage - 1) * maxCoursesPerPage,

@@ -63,7 +63,10 @@ const DoubtDetailsPage = () => {
     }
   };
 
-  const { data: doubt } = useSWR(`/api/doubt/${doubtId}`, getFetcher);
+  const { data: doubt, mutate: mutateDoubtData } = useSWR(
+    `/api/doubt/${doubtId}`,
+    getFetcher
+  );
 
   const resolveDoubt = async () => {
     if (!doubtId || !session || doubt.user !== user) {
@@ -77,8 +80,8 @@ const DoubtDetailsPage = () => {
       errorNotification("Something went wrong!");
       return;
     }
-    setDoubt(updatedDoubtData.data);
-    successNotification("Doubt resolved!");
+    successNotification("Doubt marked as resolved!");
+    mutateDoubtData();
   };
 
   if (!doubt)

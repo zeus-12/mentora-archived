@@ -49,11 +49,7 @@ export default async function handler(req, res) {
           buddy.applied = false;
         }
 
-        if (buddy.user === user) {
-          buddy.self = true;
-        } else {
-          buddy.self = false;
-        }
+        buddy.self = buddy.user === user;
       });
 
       delete buddyDetails.user;

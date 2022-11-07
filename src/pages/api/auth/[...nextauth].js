@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import clientPromise from "../../../utils/mongoDb";
+import dbConnect from "../../../utils/dbConnect";
+import User from "../../../models/user";
 
 export const authOptions = {
   providers: [
@@ -17,10 +18,9 @@ export const authOptions = {
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
       if (user.email.endsWith("@smail.iitm.ac.in")) {
-        const client = await clientPromise;
-        const db = client.db();
-        const users = db.collection("users");
-        const userExists = await users.findOne({ email: user.email });
+        await dbConnect();
+
+        const userExists = await User.findOne({ email: user.email });
 
         if (userExists) {
           if (userExists.status === "BANNED") {
@@ -29,7 +29,7 @@ export const authOptions = {
           return true;
         } else {
           try {
-            const result = await users.insertOne({
+            await User.create({
               email: user.email,
               name: user.name,
               image: user.image,
@@ -46,10 +46,6 @@ export const authOptions = {
       }
     },
   },
-
-  // A database is optional, but required to persist accounts in a database
-  // database: process.env.MONGODB_URI,
-  // adapter: MongoDBAdapter(clientPromise),
 };
 
 export default NextAuth(authOptions);
