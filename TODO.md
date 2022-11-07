@@ -2,6 +2,7 @@
 
 - have a custom component for input fields -- pretty much every ui element from mantine which is used frequently
 - change input forms bg colour on focus -- should be easy
+- create custom error page for user signing w.o smail -- should be easy
 
 <!-- for changing form onFocus :
 styles={{
