@@ -2,7 +2,7 @@ import { Avatar, Burger, Drawer, Text, UnstyledButton } from "@mantine/core";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { generateAvatarText } from "../../utils/helper";
-import { green_400 } from "../../utils/constants";
+import { GREEN_400 } from "../../utils/constants";
 
 const MiddleSectionElements = [
   { name: "Q&A", link: "/doubt" },
@@ -14,7 +14,7 @@ export const BurgerComponent = ({ opened, setOpened }) => {
   const title = opened ? "Close navigation" : "Open navigation";
   return (
     <Burger
-      color={green_400}
+      color={GREEN_400}
       opened={opened}
       onClick={() => setOpened((o) => !o)}
       title={title}
