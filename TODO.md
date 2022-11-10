@@ -1,7 +1,6 @@
 --- EASY, BUT NOT NECESSARY ---
 
 - have a custom component for input fields -- pretty much every ui element from mantine which is used frequently
-- check auth in frontend for applying for buddy
 - change input forms bg colour on focus -- should be easy
 - create custom error page for user signing w.o smail -- should be easy
 

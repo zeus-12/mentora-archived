@@ -6,13 +6,21 @@ const idNameMapping = require("../../../name-id-map.json");
 import { useSWRConfig } from "swr";
 import {
   errorNotification,
+  notSignedInNotification,
   successNotification,
 } from "../../utils/notification";
+import { useSession } from "next-auth/react";
 
 const BuddyDetailsModal = ({ buddyData, closeDetailsModal }) => {
+  const { data: session } = useSession();
   const { mutate } = useSWRConfig();
 
   const applyBuddyHandler = async () => {
+    if (!session) {
+      notSignedInNotification("Please sign in to apply for buddy");
+      return;
+    }
+
     const res = await fetch(`/api/buddy/${buddyData._id}/apply`, {
       method: "POST",
     });
