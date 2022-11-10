@@ -28,3 +28,4 @@ styles={{
 --- HARD ---
 
 - delete user uploaded files course/[courseId] -- figure out how to do that on client side. (would require client to have delete access)
+- get sas token from backend, once it expires
