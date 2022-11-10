@@ -2,29 +2,18 @@ import { Badge, Button } from "@mantine/core";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import useSWR from "swr";
 import BuddyCard from "../components/Buddy/BuddyCard";
-
+import { getFetcher } from "../utils/swr";
 const User = () => {
   const { data: session } = useSession();
   const router = useRouter();
-  const [buddyData, setBuddyData] = useState(null);
+  const { data: buddyData, error } = useSWR("/api/buddy/user", getFetcher);
 
   const signoutHandler = () => {
     signOut();
     router.push("/");
   };
-
-  useEffect(() => {
-    const fetchBuddyData = async () => {
-      const res = await fetch("/api/buddy/user", {
-        method: "GET",
-      });
-
-      const data = await res.json();
-      setBuddyData(data.data);
-    };
-    fetchBuddyData();
-  }, [session]);
 
   // useEffect(() => {
   //   const getUserData = async () => {
