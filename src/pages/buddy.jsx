@@ -1,15 +1,15 @@
 import { Button, Input, TextInput } from "@mantine/core";
-import MenuComponent from "../components/MenuComponent";
+import MenuComponent from "../components/UI/MenuComponent";
 import { useState } from "react";
-import BuddyCard from "../components/BuddyCard";
+import BuddyCard from "../components/Buddy/BuddyCard";
 import { availableBranches, buttonOutlineClasses } from "../utils/constants";
 import { IconAdjustmentsHorizontal, IconNotebook } from "@tabler/icons";
-import LoaderComponent from "../components/LoaderComponent";
-import NewBuddyModal from "../components/NewBuddyModal";
+import LoaderComponent from "../components/UI/LoaderComponent";
+import NewBuddyModal from "../components/Buddy/NewBuddyModal";
 import { notSignedInNotification } from "../utils/notification";
 import { useSession } from "next-auth/react";
 import { filterOnSearch } from "../utils/helper";
-import BuddyDetailsModal from "../components/BuddyDetailsModal";
+import BuddyDetailsModal from "../components/Buddy/BuddyDetailsModal";
 import useSWR from "swr";
 import { getFetcher } from "../utils/swr";
 

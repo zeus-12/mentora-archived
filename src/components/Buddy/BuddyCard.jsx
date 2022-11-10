@@ -1,4 +1,4 @@
-import { getCourseNameFromId, prettifyId } from "../utils/helper";
+import { getCourseNameFromId, prettifyId } from "../../utils/helper";
 import { IconCurrencyRupee } from "@tabler/icons";
 
 const BuddyCard = ({ buddy, onClick }) => {

@@ -1,6 +1,6 @@
 import { Button, Image } from "@mantine/core";
 import { signIn } from "next-auth/react";
-import { Logo } from "../../components/NavbarComponents";
+import { Logo } from "../../components/UI/NavbarComponents";
 import getServerSession from "../../utils/getServerSession";
 
 export default function SignIn() {

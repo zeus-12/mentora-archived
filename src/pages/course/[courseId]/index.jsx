@@ -3,13 +3,13 @@ import { useForm } from "@mantine/form";
 import { useRouter } from "next/router";
 import { postRequestConfig, prettifyId } from "../../../utils/helper";
 import { buttonOutlineClasses } from "../../../utils/constants";
-import CommentCard from "../../../components/CommentCard";
-import SubCommentCard from "../../../components/SubCommentCard";
+import CommentCard from "../../../components/Common/CommentCard";
+import SubCommentCard from "../../../components/Common/SubCommentCard";
 import { notSignedInNotification } from "../../../utils/notification";
 import { useSession } from "next-auth/react";
 import useSwr from "swr";
 import { disableAutoRevalidate, getFetcher } from "../../../utils/swr";
-import FilePreview from "../../../components/FilePreview";
+import FilePreview from "../../../components/Common/FilePreview";
 const name_id_map = require("../../../../name-id-map.json");
 
 const CourseDetails = () => {
@@ -109,7 +109,7 @@ const CourseDetails = () => {
             </div>
           </div>
         </div>
-        {courseData && (
+        {courseData?.description && (
           <Blockquote color="green" className="text-gray-400 sm:w-[70vw]">
             {courseData?.description}
           </Blockquote>

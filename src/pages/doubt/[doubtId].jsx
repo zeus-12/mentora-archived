@@ -2,9 +2,9 @@ import { Button, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import CommentCard from "../../components/CommentCard";
-import LoaderComponent from "../../components/LoaderComponent";
-import SubCommentCard from "../../components/SubCommentCard";
+import CommentCard from "../../components/Common/CommentCard";
+import LoaderComponent from "../../components/UI/LoaderComponent";
+import SubCommentCard from "../../components/Common/SubCommentCard";
 import { buttonOutlineClasses } from "../../utils/constants";
 import { postRequestConfig, prettifyId } from "../../utils/helper";
 import {

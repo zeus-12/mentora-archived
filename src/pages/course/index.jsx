@@ -1,10 +1,10 @@
 import { Pagination, TextInput } from "@mantine/core";
 import { useState } from "react";
-import CourseCard from "../../components/CourseCard";
-import LoaderComponent from "../../components/LoaderComponent";
+import CourseCard from "../../components/Course/CourseCard";
+import LoaderComponent from "../../components/UI/LoaderComponent";
 import { IconNotebook } from "@tabler/icons";
 import { filterOnSearch } from "../../utils/helper";
-import MenuComponent from "../../components/MenuComponent";
+import MenuComponent from "../../components/UI/MenuComponent";
 import { availableBranches } from "../../utils/constants";
 const name_id_map = require("../../../name-id-map.json");
 

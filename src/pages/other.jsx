@@ -22,7 +22,7 @@ const Other = () => {
         {sites.map((site) => (
           <div
             key={site.link}
-            className="p-4 hover:scale-105 transition transform duration-100 ease-out  bg-gray-900 flex flex-col justify-center space-y-4"
+            className="p-4 hover:scale-[102%] transition transform duration-100 ease-out  bg-gray-900 flex flex-col justify-center space-y-4"
           >
             <a href={site.link}>
               <div className="flex items-center gap-2 justify-between ">

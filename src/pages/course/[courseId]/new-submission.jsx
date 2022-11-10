@@ -10,7 +10,7 @@ import {
   errorNotification,
   successNotification,
 } from "../../../utils/notification";
-import FilePreview from "../../../components/FilePreview";
+import FilePreview from "../../../components/Common/FilePreview";
 
 const NewSubmission = () => {
   const router = useRouter();

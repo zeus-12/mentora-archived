@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getCourseNameFromId, prettifyId } from "../utils/helper";
+import { getCourseNameFromId, prettifyId } from "../../utils/helper";
 import { addHours, formatRelative } from "date-fns";
 
 const DoubtCard = ({ doubt }) => {

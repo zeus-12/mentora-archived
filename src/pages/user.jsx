@@ -2,15 +2,12 @@ import { Badge, Button } from "@mantine/core";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import useSwr from "swr";
-import BuddyCard from "../components/BuddyCard";
-import getFetcher from "../utils/swr";
+import BuddyCard from "../components/Buddy/BuddyCard";
 
 const User = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [buddyData, setBuddyData] = useState(null);
-  // const { data: buddyData } = useSWR("/api/buddy/user", getFetcher);
 
   const signoutHandler = () => {
     signOut();
@@ -32,13 +29,12 @@ const User = () => {
   // useEffect(() => {
   //   const getUserData = async () => {
   //     const res = await fetch("/api/user");
-  //     const userData = await res.json();
-  //     console.log(userData);
+  //     return await res.json();
   //   };
-  //   // const { data: userData, user_error } = useSwr("/api/user", getFetcher);
-  //   // if (userData && userData.status === "BANNED") {
-  //   //   signOut();
-  //   // }
+  //   const userData =await getUserData()
+  //   if (userData && userData.status === "BANNED") {
+  //     signOut();
+  //   }
   // }, [session]);
 
   return (

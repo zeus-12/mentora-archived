@@ -1,5 +1,5 @@
 import { Loader } from "@mantine/core";
-import { GREEN_400 } from "../utils/constants";
+import { GREEN_400 } from "../../utils/constants";
 
 const LoaderComponent = () => {
   return (

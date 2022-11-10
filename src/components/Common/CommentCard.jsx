@@ -1,13 +1,13 @@
 import { Avatar, TextInput } from "@mantine/core";
 import { useState } from "react";
-import { generateAvatarText, postRequestConfig } from "../utils/helper";
+import { generateAvatarText, postRequestConfig } from "../../utils/helper";
 import { IconCornerUpLeft, IconHeart, IconSend } from "@tabler/icons";
 import { useForm } from "@mantine/form";
 
 import {
   errorNotification,
   notSignedInNotification,
-} from "../utils/notification";
+} from "../../utils/notification";
 
 const CommentCard = ({
   like_count,
