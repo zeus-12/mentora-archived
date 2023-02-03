@@ -78,7 +78,7 @@ const CommentCard = ({
   };
   return (
     <div>
-      <div className="flex justify-between items-center text-md border-[1px] px-1 py-2 border-[#3441457c] rounded-md">
+      <div className="flex justify-between items-center text-md px-1 py-2 rounded-md">
         <div className="flex items-center gap-4">
           <Avatar size={40} color="blue">
             {generateAvatarText(user)}

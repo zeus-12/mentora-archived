@@ -36,7 +36,7 @@ const SubCommentCard = ({
   };
 
   return (
-    <div className="ml-12 border-[1px] justify-between p-1 border-[#3441457c] flex items-center mt-1 gap-2">
+    <div className="ml-12 justify-between p-1 flex items-center mt-1 gap-2">
       <div className="flex gap-4 items-center">
         <Avatar size={40} color="blue">
           {generateAvatarText(user)}
