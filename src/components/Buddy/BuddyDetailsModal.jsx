@@ -69,8 +69,8 @@ const BuddyDetailsModal = ({ buddyData, closeDetailsModal }) => {
 
           <div className="flex gap-2 text-lg">
             {buddyData?.buddyType === "tutor" && (
-              <div className="flex">
-                <IconCurrencyRupee />
+              <div className="flex items-center">
+                <IconCurrencyRupee className="w-5 h-5" />
                 {buddyData?.money}
               </div>
             )}
