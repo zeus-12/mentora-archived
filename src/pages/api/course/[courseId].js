@@ -1,5 +1,5 @@
 // for the COURSE SECTION
-import dbConnect from "../../../utils/dbConnect";
+import dbConnect from "../../../lib/dbConnect";
 import Course from "../../../models/course";
 
 export default async function handler(req, res) {

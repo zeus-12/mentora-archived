@@ -1,6 +1,6 @@
 import { Blockquote, Button, Modal } from "@mantine/core";
 import { IconCurrencyRupee } from "@tabler/icons";
-import { buttonOutlineClasses } from "../../utils/constants";
+import { buttonOutlineClasses } from "../../lib/constants";
 import { prettifyId } from "../../utils/helper";
 const idNameMapping = require("../../../name-id-map.json");
 import { useSWRConfig } from "swr";

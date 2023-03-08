@@ -2,14 +2,14 @@ import { Button, TextInput } from "@mantine/core";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
-import { availableBranches, buttonOutlineClasses } from "../../utils/constants";
+import { availableBranches, buttonOutlineClasses } from "../../lib/constants";
 import DoubtCard from "../../components/Doubt/DoubtCard";
 import LoaderComponent from "../../components/UI/LoaderComponent";
 import { notSignedInNotification } from "../../utils/notification";
 import { filterOnSearch } from "../../utils/helper";
 import MenuComponent from "../../components/UI/MenuComponent";
 import { IconNotebook } from "@tabler/icons";
-import { getFetcher } from "../../utils/swr";
+import { getFetcher } from "../../configs/swrConfig";
 import useSWR from "swr";
 
 const Doubts = () => {

@@ -1,10 +1,10 @@
 import Layout from "../components//Layout";
-import "../../styles/globals.css";
+import "../styles/globals.css";
 import { MantineProvider } from "@mantine/core";
 import { NotificationsProvider } from "@mantine/notifications";
 import { SessionProvider } from "next-auth/react";
 import { SWRConfig } from "swr";
-import { options } from "../utils/swr";
+import { options } from "../configs/swrConfig";
 
 function MyApp({ Component, pageProps, session }) {
   return (

@@ -5,7 +5,7 @@ import LoaderComponent from "../../components/UI/LoaderComponent";
 import { IconNotebook } from "@tabler/icons";
 import { filterOnSearch } from "../../utils/helper";
 import MenuComponent from "../../components/UI/MenuComponent";
-import { availableBranches } from "../../utils/constants";
+import { availableBranches } from "../../lib/constants";
 const name_id_map = require("../../../name-id-map.json");
 
 export default function Home() {

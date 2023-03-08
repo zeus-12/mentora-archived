@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 import BuddyCard from "../components/Buddy/BuddyCard";
-import { getFetcher } from "../utils/swr";
+import { getFetcher } from "../configs/swrConfig";
 const User = () => {
   const { data: session } = useSession();
   const router = useRouter();

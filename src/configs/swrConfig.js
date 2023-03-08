@@ -1,4 +1,4 @@
-import { errorNotification } from "./notification";
+import { errorNotification } from "../utils/notification";
 
 export const getFetcher = (...args) =>
   fetch(...args)

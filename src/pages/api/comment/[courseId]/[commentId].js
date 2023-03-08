@@ -1,5 +1,5 @@
 // to reply to a comment
-import dbConnect from "../../../../utils/dbConnect";
+import dbConnect from "../../../../lib/dbConnect";
 import getServerSession from "../../../../utils/getServerSession";
 import Comment from "../../../../models/comment";
 

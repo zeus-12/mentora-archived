@@ -1,5 +1,5 @@
 import Comment from "../../../../models/comment";
-import dbConnect from "../../../../utils/dbConnect";
+import dbConnect from "../../../../lib/dbConnect";
 import getServerSession from "../../../../utils/getServerSession";
 
 export default async function handler(req, res) {

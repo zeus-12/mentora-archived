@@ -4,7 +4,7 @@ import { Dropzone, IMAGE_MIME_TYPE, PDF_MIME_TYPE } from "@mantine/dropzone";
 import { IconPhoto, IconUpload, IconX } from "@tabler/icons";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
-import { buttonOutlineClasses } from "../../../utils/constants";
+import { buttonOutlineClasses } from "../../../lib/constants";
 import { postRequestConfig, prettifyId } from "../../../utils/helper";
 import {
   errorNotification,

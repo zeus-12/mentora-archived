@@ -1,7 +1,7 @@
 // fetch all comments for a particular course
 import getServerSession from "../../../../utils/getServerSession";
 import Comments from "../../../../models/comment";
-import dbConnect from "../../../../utils/dbConnect";
+import dbConnect from "../../../../lib/dbConnect";
 
 export default async function handler(req, res) {
   const { courseId } = req.query;

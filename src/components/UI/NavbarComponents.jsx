@@ -2,7 +2,7 @@ import { Avatar, Burger, Drawer, Text, UnstyledButton } from "@mantine/core";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { generateAvatarText } from "../../utils/helper";
-import { GREEN_400 } from "../../utils/constants";
+import { GREEN_400 } from "../../lib/constants";
 
 const MiddleSectionElements = [
   { name: "Q&A", link: "/doubt" },

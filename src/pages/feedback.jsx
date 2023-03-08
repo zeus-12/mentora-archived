@@ -2,7 +2,7 @@ import { Button, Select, Switch, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import { buttonOutlineClasses } from "../utils/constants";
+import { buttonOutlineClasses } from "../lib/constants";
 import { postRequestConfig } from "../utils/helper";
 import {
   errorNotification,

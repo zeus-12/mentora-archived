@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
 import Doubt from "../../../../models/doubt";
-import dbConnect from "../../../../utils/dbConnect";
+import dbConnect from "../../../../lib/dbConnect";
 import getServerSession from "../../../../utils/getServerSession";
 
 export default async function handler(req, res) {

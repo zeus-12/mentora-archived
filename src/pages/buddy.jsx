@@ -2,7 +2,7 @@ import { Button, Input, TextInput } from "@mantine/core";
 import MenuComponent from "../components/UI/MenuComponent";
 import { useState } from "react";
 import BuddyCard from "../components/Buddy/BuddyCard";
-import { availableBranches, buttonOutlineClasses } from "../utils/constants";
+import { availableBranches, buttonOutlineClasses } from "../lib/constants";
 import { IconAdjustmentsHorizontal, IconNotebook } from "@tabler/icons";
 import LoaderComponent from "../components/UI/LoaderComponent";
 import NewBuddyModal from "../components/Buddy/NewBuddyModal";
@@ -11,7 +11,7 @@ import { useSession } from "next-auth/react";
 import { filterOnSearch } from "../utils/helper";
 import BuddyDetailsModal from "../components/Buddy/BuddyDetailsModal";
 import useSWR from "swr";
-import { getFetcher } from "../utils/swr";
+import { getFetcher } from "../configs/swrConfig";
 
 const Buddy = () => {
   const [searchQuery, setSearchQuery] = useState("");

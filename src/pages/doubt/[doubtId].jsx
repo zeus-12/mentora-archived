@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import CommentCard from "../../components/Common/CommentCard";
 import LoaderComponent from "../../components/UI/LoaderComponent";
 import SubCommentCard from "../../components/Common/SubCommentCard";
-import { buttonOutlineClasses } from "../../utils/constants";
+import { buttonOutlineClasses } from "../../lib/constants";
 import { postRequestConfig, prettifyId } from "../../utils/helper";
 import {
   errorNotification,
@@ -13,7 +13,7 @@ import {
   successNotification,
 } from "../../utils/notification";
 import useSWR from "swr";
-import { getFetcher } from "../../utils/swr";
+import { getFetcher } from "../../configs/swrConfig";
 
 const idNameMapping = require("../../../name-id-map.json");
 

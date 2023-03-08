@@ -2,7 +2,7 @@ import { Button, FileInput, Textarea, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { buttonOutlineClasses } from "../../utils/constants";
+import { buttonOutlineClasses } from "../../lib/constants";
 import { postRequestConfig } from "../../utils/helper";
 import { errorNotification } from "../../utils/notification";
 

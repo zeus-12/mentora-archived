@@ -2,13 +2,13 @@ import { Badge, Blockquote, Button, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useRouter } from "next/router";
 import { postRequestConfig, prettifyId } from "../../../utils/helper";
-import { buttonOutlineClasses } from "../../../utils/constants";
+import { buttonOutlineClasses } from "../../../lib/constants";
 import CommentCard from "../../../components/Common/CommentCard";
 import SubCommentCard from "../../../components/Common/SubCommentCard";
 import { notSignedInNotification } from "../../../utils/notification";
 import { useSession } from "next-auth/react";
 import useSwr from "swr";
-import { disableAutoRevalidate, getFetcher } from "../../../utils/swr";
+import { disableAutoRevalidate, getFetcher } from "../../../configs/swrConfig";
 import FilePreview from "../../../components/Common/FilePreview";
 const name_id_map = require("../../../../name-id-map.json");
 
